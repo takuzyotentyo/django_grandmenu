@@ -1,0 +1,65 @@
+html {
+    font-size: 62.5%;
+}
+
+body{
+    font-family: "Avenir", "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1{
+    font-size: 2.4rem;
+    color: var(--text-primary);
+}
+
+h3{
+    font-size: 1.6rem;
+    padding: 0.5em;
+    border-left: solid 5px var(--bg-primary);
+    color: var(--text-primary);
+}
+
+h4{
+    font-size: 1.6rem;
+    padding: 0.5em;
+    border-left: solid 5px var(--bg-primary);
+    color: var(--text-secondary);
+}    
+
+a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+li{
+    list-style-type: none;
+}
+
+
+
+input {
+    font-size: 16px;
+}
+select {
+    font-size: 16px;
+}
+button {
+    font-size: 16px;
+} 
+
+/* 
+h2{
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--main-text-color);
+}
+
+h4{
+    font-size: 14px;
+    text-align: center;
+    color: var(--main-text-color);
+}
+
+
+*/

@@ -1,0 +1,32 @@
+// saas-lorderに初めに読み込ませるための設定ファイル
+// 元の文字の色などの変数はApp.vueに記載
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+
+$bg-primary: var(--bg-primary);
+$bg-secondary: var(--bg-secondary);
+$bg-focus: var(--bg-focus);
+$bg-success: var(--bg-success);
+$bg-danger: var(--bg-danger);
+$bg-warning: var(--bg-warning);
+$bg-info: var(--bg-info);
+$bg-light: var(--bg-light);
+$bg-transparent: var(--bg-transparent);
+
+$bg-primary-opacity: rgba(240, 165, 0, .6);
+$bg-secondary-opacity: rgba(248, 249, 250, .6);
+$bg-focus-opacity: rgba(52, 58, 64, .6);
+$bg-success-opacity: rgba(122, 179, 0, .6);
+$bg-danger-opacity: rgba(220, 53, 69, .6);
+$bg-warning-opacity: rgba(255, 193, 7, .6);
+$bg-info-opacity: rgba(23, 162, 184, .6);
+
+$animation-time: .25s;
+
+$drop-shadow: drop-shadow(0 0 3px $bg-focus);
+
+$breakpoints:(
+    'pc' : "screen and (min-width: 960px)",
+	'tb' : "screen and (max-width: 959px)",
+    'sp' : "screen and (max-width: 559px)",
+);
