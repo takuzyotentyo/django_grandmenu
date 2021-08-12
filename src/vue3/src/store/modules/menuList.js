@@ -79,9 +79,12 @@ const actions = {
     selectClass2Update({ commit }, newClass2){
         commit("selectClass2Update", newClass2)
     },
-    async createMenu({ state, commit, dispatch }, newMenu){
-        const newClass1 = newMenu['class1'],
-            newClass2 = newMenu['class2']
+    async menu_List_Create({ state, commit, dispatch }, newMenu){
+        const newClass1 = newMenu['class1']
+        const newClass2 = newMenu['class2']
+        console.log(newMenu)
+        const menu = JSON.stringify({'action':'create'})
+        this.$menu_list.send( menu );
         if (state.class2Menus[newClass1].includes(newClass2)==false) {
             await commit("createClass2Menu", newMenu)
         }

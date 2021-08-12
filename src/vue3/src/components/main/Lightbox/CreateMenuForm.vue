@@ -103,7 +103,7 @@ export default {
         
     },
     methods: {
-        ...mapActions([ 'createMenu' ]),
+        ...mapActions([ 'menu_List_Create' ]),
         submit(){
             let addNewMenu
             if (this.HasClass4.has == true) {
@@ -114,7 +114,7 @@ export default {
                 this.NewMenu['class4'] = []
             }
             addNewMenu = JSON.parse(JSON.stringify(this.NewMenu))
-            this.createMenu(addNewMenu);
+            this.menu_List_Create(addNewMenu);
             this.formReset();
         },
         createClass4(){

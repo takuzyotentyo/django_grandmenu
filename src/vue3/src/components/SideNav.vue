@@ -9,9 +9,9 @@
     </li>
     <transition name="slideDown">
       <ul class="side_nav_2" v-if="sideNav1Menu1" mode="out-in">
-        <router-link class="side_nav_2__content" to='/menulist'>メニュー表</router-link>
-        <router-link class="side_nav_2__content" to='/ordermanagement'>注文管理</router-link>
-        <router-link class="side_nav_2__content" to='/viewcontrol'>見た目を変える</router-link>
+        <router-link class="side_nav_2__content" to='/menulist' @click="mobileSideNavShow">メニュー表</router-link>
+        <router-link class="side_nav_2__content" to='/ordermanagement' @click="mobileSideNavShow">注文管理</router-link>
+        <router-link class="side_nav_2__content" to='/viewcontrol' @click="mobileSideNavShow">見た目を変える</router-link>
       </ul>
     </transition>
     <li class="side_nav_1" @click="toggleMenu2" :class="{'active': sideNav1Menu2}">
@@ -23,9 +23,9 @@
     </li>
     <transition name="slideDown">
       <ul class="side_nav_2" v-if="sideNav1Menu2" mode="out-in">
-        <router-link class="side_nav_2__content" to='/storeinformation'>店舗情報</router-link>
-        <router-link class="side_nav_2__content" to='/staffinformation'>従業員情報</router-link>
-        <router-link class="side_nav_2__content" to='/storeanalytics'>売り上げ管理</router-link>
+        <router-link class="side_nav_2__content" to='/storeinformation' @click="mobileSideNavShow">店舗情報</router-link>
+        <router-link class="side_nav_2__content" to='/staffinformation' @click="mobileSideNavShow">従業員情報</router-link>
+        <router-link class="side_nav_2__content" to='/storeanalytics' @click="mobileSideNavShow">売り上げ管理</router-link>
       </ul>
     </transition>
     <a class="side_nav__logout">ログアウト</a>
