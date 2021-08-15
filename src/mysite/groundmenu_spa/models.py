@@ -63,7 +63,7 @@ class Class_5_Menu(models.Model): #コーラ・スプライトなどのセット
     class_5_name = models.CharField(max_length=16)
     class_5_price = models.IntegerField(default=0)
 
-class Class_3_to_Class4(models.Model):
+class Class_3_to_Class_4(models.Model):
     class_3_menu = models.ForeignKey(Class_3_Menu, on_delete=models.CASCADE)
     class_4_menu = models.ForeignKey(Class_4_Menu, on_delete=models.CASCADE)
     class_3_class_4_id_primary_id = models.AutoField(primary_key=True)
