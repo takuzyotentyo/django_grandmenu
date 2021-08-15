@@ -1,6 +1,6 @@
 <template>
     <transition-group name="ListUpdate"  tag="p">
-            <slot/>
+            <slot></slot>
     </transition-group>
 </template>
 

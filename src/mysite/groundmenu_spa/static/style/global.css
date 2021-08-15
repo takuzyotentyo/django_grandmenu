@@ -16,6 +16,7 @@ h1{
 h3{
     font-size: 1.6rem;
     padding: 0.5em;
+    margin-bottom: 0.5em;
     border-left: solid 5px var(--bg-primary);
     color: var(--text-primary);
 }
@@ -23,6 +24,7 @@ h3{
 h4{
     font-size: 1.6rem;
     padding: 0.5em;
+    margin-bottom: 0.5em;
     border-left: solid 5px var(--bg-primary);
     color: var(--text-secondary);
 }    

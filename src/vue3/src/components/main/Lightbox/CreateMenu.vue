@@ -10,6 +10,8 @@
             <keep-alive>
                     <component :is="MenuOrDetail"></component>
             </keep-alive>
+            <!-- <CreateMenuForm v-if="MenuOrDetail == 'CreateMenuForm'"></CreateMenuForm>
+            <CreateDetailForm v-else></CreateDetailForm> -->
         </UpFade>
     </div>
 </template>
@@ -17,7 +19,7 @@
 <script>
 import UpFade from "../../transition/UpFade"
 import CreateMenuForm from "./CreateMenuForm"
-// import CreateDetailForm from "./CreateDetailForm"
+import CreateDetailForm from "./CreateDetailForm"
 
 export default {
     data: () => {
@@ -28,7 +30,7 @@ export default {
     components: {
         UpFade,
         CreateMenuForm,
-        // CreateDetailForm
+        CreateDetailForm
     },
 }
 </script>

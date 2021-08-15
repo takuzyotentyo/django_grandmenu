@@ -1,6 +1,6 @@
 <template>
   <transition name="UpFade" mode="out-in">
-    <slot/>
+    <slot></slot>
   </transition>
 </template>
 

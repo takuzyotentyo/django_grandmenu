@@ -74,15 +74,7 @@ export default {
     align-content: flex-start;
 }
 .class2{
-    height: 50px;
-    line-height: 50px;
-    width: 49.5%;
-    background-color: $bg-primary;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    color: $text-primary;
-    font-size: 1.6rem;
-    text-align: center;
+    @include list_object($width:49.5%);
     @include mq('tb'){// タブレットで、sidenavを表示したときのために必要
         min-width: calc(98vw - 100%);
     }

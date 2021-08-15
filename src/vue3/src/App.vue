@@ -1,18 +1,18 @@
 <template>
-  <Header/>
-  <SideNav/>
-  <Main/>
+  <TheHeader/>
+  <TheSideNav/>
+  <TheMain/>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import SideNav from './components/SideNav.vue'
-import Main from './components/Main.vue'
+import TheHeader from './components/TheHeader.vue'
+import TheSideNav from './components/TheSideNav.vue'
+import TheMain from './components/TheMain.vue'
 
 export default {
   name: 'App',
   components: {
-    Header, SideNav, Main
+    TheHeader, TheSideNav, TheMain
   },
   mounted: function() {
     const store_information = this.$store_information
@@ -58,6 +58,7 @@ export default {
   --bg-danger: rgb(220, 53, 69);
   --bg-warning: rgb(255, 193, 7);
   --bg-info: rgb(23, 162, 184);
+  --bg-disabled: rgb(200, 200, 200);
   --bg-transparent: transparent;
 }
 .icon{
@@ -92,6 +93,14 @@ export default {
   &--add{
       background: url('/static/img/add.svg');
       background-size: cover;
+  }
+  &--search{
+    background: url('/static/img/search.svg');
+    background-size: cover;
+  }
+  &--handle{
+    background: url('/static/img/handle.svg');
+    background-size: cover;
   }
 }
 

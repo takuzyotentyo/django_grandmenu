@@ -1,3 +1,15 @@
+@mixin list_object($width: 100%, $height: 50px, $background-color: $bg-primary){
+    height: $height;
+    line-height: 50px;
+    width: $width;
+    background-color: $background-color;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: $text-primary;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
 @mixin mq($breakpoint: pc) {
     @media #{map-get($breakpoints, $breakpoint)} {
         @content;
@@ -29,7 +41,7 @@
     background-color: $bg-primary;
 }
 
-@mixin submit_button($width: 100%, $height: 50px){
+@mixin submit_button($width: 100%, $height: 50px, $margin: 20px calc((100% - #{$width}) / 2) 0){
     width: $width;
     height: $height;
     position: relative;
@@ -39,25 +51,34 @@
     color: $text-primary;
     background: $bg-primary;
     transition: all $animation-time;
-    margin: 20px calc((100% - #{$width}) / 2) 0;
+    margin: $margin;
     border-radius: 5px;
     border: none;
     &:hover {
         background: $bg-focus;
     }
 }
+@mixin icon_button($width: 40px, $height: 40px, $margin: 10px auto 15px auto, $background-color: $bg-primary, $border-radius: 5px, $border: solid 10px $bg-primary){
+    box-sizing: border-box;
+    width: $width;
+    height: $height;
+    margin: $margin;
+    border-radius: $border-radius;
+    border: $border;
+    background-color: $background-color;
+}
 
-@mixin textbox($width: 100%, $height: 50px){
+@mixin textbox($width: 100%, $height: 50px, $margin: 5px auto 10px){
     box-sizing: border-box;
     width: $width;
     height: $height;
     position: relative;
     display: block;
-    margin: 5px auto 10px;
+    margin: $margin;
     border:solid 2px $bg-primary;
     padding-left: 16px;
     border-radius: 5px;
-    background-image: linear-gradient(to right, $text-primary 50%, $bg-focus 50%);
+    background-image: linear-gradient(to right, $bg-secondary 50%, $bg-focus 50%);
     background-position: 0 0;
     background-size: 200% auto;
     transition: all $animation-time;
@@ -67,19 +88,22 @@
         background-position: -100% 0;
         color: $text-primary;
     }
+    &[disabled]{
+        background-image: linear-gradient(to right, $bg-disabled 50%, $bg-disabled 50%);
+    }
 }
 
-@mixin selectbox($width: 100%, $height: 50px){
+@mixin selectbox($width: 100%, $height: 50px, $margin: 5px auto 10px){
     box-sizing: border-box;
     width: $width;
     height: $height;
     position: relative;
     display: block;
-    margin: 5px auto 10px;
+    margin: $margin;
     border:solid 2px $bg-primary;
     padding-left: 16px;
     border-radius: 5px;
-    background-image: linear-gradient(to right, $text-primary 50%, $bg-focus 50%);
+    background-image: linear-gradient(to right, $bg-secondary 50%, $bg-focus 50%);
     background-position: 0 0;
     background-size: 200% auto;
     transition: all $animation-time;

@@ -55,6 +55,7 @@ export default {
         mobileSideNavShow(){
             const windowsize = window.innerWidth;
             if(windowsize < 767){
+            
                 this.sideNavShow();
             }
         }
