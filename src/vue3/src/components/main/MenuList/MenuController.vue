@@ -38,7 +38,7 @@ import LeftFade from "../../transition/LeftFade.vue"
 export default {
     data: () => {
         return {
-            MenuController: false,
+            MenuController: true,
         }
     },
     components: {
