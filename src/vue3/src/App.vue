@@ -60,6 +60,18 @@ export default {
   --bg-info: rgb(23, 162, 184);
   --bg-disabled: rgb(200, 200, 200);
   --bg-transparent: transparent;
+
+  --bg-primary-opacity: rgba(240, 165, 0, .6);
+  --bg-secondary-opacity: rgba(248, 249, 250, .6);
+  --bg-focus-opacity: rgba(52, 58, 64, .6);
+  --bg-success-opacity: rgba(122, 179, 0, .6);
+  --bg-danger-opacity: rgba(220, 53, 69, .6);
+  --bg-warning-opacity: rgba(255, 193, 7, .6);
+  --bg-disabled-opacity: rgba(225, 225, 225, .6);
+  --bg-info-opacity: rgba(23, 162, 184, .6);
+
+  --animation-time: .2s;
+  --drop-shadow: (0 0 3px $bg-focus);
 }
 .icon{
   &--cart{
@@ -103,15 +115,5 @@ export default {
     background-size: cover;
   }
 }
-
-// textbox type=numberでスピンボタンを非表示にする
-input[type="number"]::-webkit-outer-spin-button, 
-input[type="number"]::-webkit-inner-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-} 
-input[type="number"] { 
-  -moz-appearance:textfield; 
-} 
 
 </style>

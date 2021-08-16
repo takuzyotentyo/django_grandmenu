@@ -2,7 +2,9 @@
   <div class="main" v-bind:class="{ active: sideNav }">
     <router-view v-slot="{ Component }">
       <LeftFade>
+        <keep-alive>
         <component :is="Component" />
+        </keep-alive>
       </LeftFade>
     </router-view>
   </div>
@@ -37,6 +39,7 @@ export default {
   width: 100vw;
   transition: all $animation-time;
   overflow: hidden;
+  overflow-y: scroll;
   &.active{
     left: 25vw;
     width: 75vw;

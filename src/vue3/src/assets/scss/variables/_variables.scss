@@ -13,18 +13,18 @@ $bg-info: var(--bg-info);
 $bg-disabled: var(--bg-disabled);
 $bg-transparent: var(--bg-transparent);
 
-$bg-primary-opacity: rgba(240, 165, 0, .6);
-$bg-secondary-opacity: rgba(248, 249, 250, .6);
-$bg-focus-opacity: rgba(52, 58, 64, .6);
-$bg-success-opacity: rgba(122, 179, 0, .6);
-$bg-danger-opacity: rgba(220, 53, 69, .6);
-$bg-warning-opacity: rgba(255, 193, 7, .6);
-$bg-disabled-opacity: rgba(225, 225, 225, .6);
-$bg-info-opacity: rgba(23, 162, 184, .6);
+$bg-primary-opacity: var(--bg-primary-opacity);
+$bg-secondary-opacity: var(--bg-secondary-opacity);
+$bg-focus-opacity: var(--bg-focus-opacity);
+$bg-success-opacity: var(--bg-success-opacity);
+$bg-danger-opacity: var(--bg-danger-opacity);
+$bg-warning-opacity: var(--bg-warning-opacity);
+$bg-disabled-opacity: var(--bg-disabled-opacity);
+$bg-info-opacity: var(--bg-info-opacity);
 
-$animation-time: .25s;
+$animation-time: var(--animation-time);
 
-$drop-shadow: drop-shadow(0 0 3px $bg-focus);
+$drop-shadow: var(--drop-shadow);
 
 $breakpoints:(
     'pc' : "screen and (min-width: 960px)",

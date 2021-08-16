@@ -83,6 +83,7 @@ export default {
   display: flex;
   width: 280px;
   flex-flow: wrap;
+  margin: 50px auto 50px;
 }
 
 .textbox{
