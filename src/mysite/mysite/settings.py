@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'channels',
-    'groundmenu_spa',
+    'grandmenu_spa',
     'accounts.apps.AccountsConfig', #accounts追加
     'django.contrib.admin',
     'django.contrib.auth',

@@ -20,9 +20,9 @@ from channels.routing import ProtocolTypeRouter
 
 from channels.routing import URLRouter
 from channels.auth import AuthMiddlewareStack
-import groundmenu_spa.routing
+import grandmenu_spa.routing
 
 application = ProtocolTypeRouter( {
     'http': get_asgi_application(),
-    'websocket': AuthMiddlewareStack( URLRouter( groundmenu_spa.routing.websocket_urlpatterns ) ),
+    'websocket': AuthMiddlewareStack( URLRouter( grandmenu_spa.routing.websocket_urlpatterns ) ),
 } )

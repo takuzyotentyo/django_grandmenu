@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class GroundmenuSpaConfig(AppConfig):
+class GrandmenuSpaConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'groundmenu_spa'
+    name = 'grandmenu_spa'

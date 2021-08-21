@@ -108,8 +108,6 @@ export default {
             let Newmenu
             if (this.Class4Detail.isClass4 == true) {
                 this.NewMenu['class4Menus'] = this.Class4Detail.class4Menus
-                console.log('class4Menus')
-                console.log(this.NewMenu['class4Menus'])
             }else{
                 this.NewMenu['class4Menus'] = []
             }
