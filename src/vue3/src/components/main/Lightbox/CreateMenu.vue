@@ -10,8 +10,6 @@
             <keep-alive>
                     <component :is="MenuOrDetail"></component>
             </keep-alive>
-            <!-- <CreateMenuForm v-if="MenuOrDetail == 'CreateMenuForm'"></CreateMenuForm>
-            <CreateDetailForm v-else></CreateDetailForm> -->
         </UpFade>
     </div>
 </template>
@@ -24,7 +22,7 @@ import CreateDetailForm from "./CreateDetailForm"
 export default {
     data: () => {
         return {
-            MenuOrDetail: 'CreateMenuForm',
+            MenuOrDetail: 'CreateDetailForm',
         }
     },
     components: {

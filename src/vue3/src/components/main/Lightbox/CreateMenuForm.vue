@@ -3,9 +3,9 @@
 
         <h3>大分類</h3>
         <div class="radio_button__unit">
-            <input type="radio" id="food_create" class="radio_button" name="create_category" value="food" v-model="NewMenu['class1']"  required>
+            <input type="radio" id="food_create" class="radio_button" name="create_category" value=0 v-model="NewMenu['class1']"  required>
             <label for="food_create" class="radio_button__label">food</label>
-            <input type="radio" id="drink_create" class="radio_button" name="create_category" value="drink" v-model="NewMenu['class1']" required>
+            <input type="radio" id="drink_create" class="radio_button" name="create_category" value=1 v-model="NewMenu['class1']" required>
             <label for="drink_create" class="radio_button__label">drink</label>
         </div>
 
@@ -18,14 +18,14 @@
         </div>
         <LeftFade>
             <keep-alive>
-                <input v-if="CreateOrExist == 'create'" type="text" class="textbox" name="subcategory" placeholder="分類名" v-model="NewMenu['class2']" key="createClass2" required>
-                <select v-else-if="NewMenu.class1 == 'food' && CreateOrExist == 'exist'" class="selectbox" v-model="NewMenu['class2']" required key="existFoodClass2">
+                <input v-if="CreateOrExist == 'create'" type="text" class="textbox" placeholder="分類名" v-model="NewMenu['class2']" required>
+                <select v-else-if="CreateOrExist == 'exist' && NewMenu.class1 == 0" class="selectbox" v-model="NewMenu['class2']" required>
                     <option value="" disabled selected style='display:none;'>選択してください</option>
-                    <option v-for="(class2Menu, index) in class2Menus.food" :key="index" :value="class2Menu">{{ class2Menu }}</option>
+                    <option v-for="(class2, class2_index) in menuLists[0].class2s" :key="class2_index" :value="class2.name">{{ class2.name }}</option>
                 </select>
-                <select v-else-if="NewMenu.class1 == 'drink' && CreateOrExist == 'exist'" class="selectbox" v-model="NewMenu['class2']" required key="existDrinkClass2">
+                <select v-else-if="CreateOrExist == 'exist' && NewMenu.class1 == 1" class="selectbox" v-model="NewMenu['class2']" required>
                     <option value="" disabled selected style='display:none;'>選択してください</option>
-                    <option v-for="(class2Menu, index) in class2Menus.drink" :key="index" :value="class2Menu">{{ class2Menu }}</option>
+                    <option v-for="(class2, class2_index) in menuLists[1].class2s" :key="class2_index" :value="class2.name">{{ class2.name }}</option>
                 </select>
             </keep-alive>
         </LeftFade>
@@ -50,7 +50,7 @@
                     <li v-for="(class4_index, index) in Class4Detail.class4_indexs" :key="class4_index" class="flex_box">
                         <select class="selectbox--class4" required v-model='Class4Detail.class4Menus[index]'>
                             <option value="" disabled selected style='display:none;'>選択してください</option>
-                            <option v-for="(class4Menu, index) in class4Menus" :key="index" :value="class4Menu">{{ class4Menu }}</option>
+                            <option v-for="(class4, class4_index) in setMenuLists" :key="class4_index" :value="class4_index">{{ class4.name }}</option>
                         </select>
                         <div v-if="class4_index == 0" class="icon_button icon--add" @click="createClass4"></div>
                         <div v-else class="icon_button icon--delete" @click="deleteClass4(index)"></div>
@@ -80,7 +80,7 @@ export default {
         return {
             CreateOrExist: "exist",
             NewMenu: {
-                class1: "food",
+                class1: 0,
                 class2: "",
                 class3: "",
                 class4Menus: [],
@@ -99,7 +99,7 @@ export default {
         ListUpdate,
     },
     computed: {
-        ...mapGetters([ 'class1Menus', 'class2Menus', 'class3Menus', 'class4Menus' ]),
+        ...mapGetters([ 'class1Menus', 'class2Menus', 'class3Menus', 'class4Menus', 'menuLists','setMenuLists' ]),
         
     },
     methods: {
@@ -128,7 +128,7 @@ export default {
         },
         formReset(){
             this.['CreateOrExist'] = "exist"
-            this.NewMenu['class1'] = "food"
+            this.NewMenu['class1'] = 0
             this.NewMenu['class2'] = ""
             this.NewMenu['class3'] = ""
             this.NewMenu['class4Menus'] = []
@@ -136,7 +136,7 @@ export default {
             this.NewMenu['takeout'] = false
             this.Class4Detail['isClass4'] = false
             this.Class4Detail['class4_indexs'] = [0]
-            this.Class4Detail['class4Menus'] = ['']
+            this.Class4Detail['class4Menus'] = [""]
         },
     },
 }
@@ -193,4 +193,13 @@ form{
     flex-flow: wrap;
     width: 280px;
 }
+
+.ListUpdate-leave-active {
+  transition: all $animation-time ease;
+  position:absolute;
+}
+.ListUpdate-move {
+  transition: transform $animation-time ease;
+}
 </style>
+

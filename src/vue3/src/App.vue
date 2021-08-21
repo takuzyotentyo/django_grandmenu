@@ -114,6 +114,10 @@ export default {
     background: url('/static/img/handle.svg');
     background-size: cover;
   }
+  &--check{
+    background: url('/static/img/check.svg');
+    background-size: cover;
+  }
 }
 
 </style>

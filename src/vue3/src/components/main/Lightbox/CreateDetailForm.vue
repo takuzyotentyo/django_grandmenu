@@ -31,18 +31,38 @@
             <label for="class4_Updatable" class="radio_button__label">並べ替え</label>
         </div>
 
-        <ul v-for="(newClass4Menu, index) in newClass4Menus" :key="index" @dragover.prevent @dragenter.prevent @drop="class4Drop($event, {height:60})">
-            <li class="class4Menu" :draggable="newClass4Menu['isDraggable']? true : false" @dragstart="class4Drag($event, index)">
-                <span class="class4Menu__content" @click="class5Show(index)">{{ newClass4Menu.name }}</span>
-                <span class="class4Menu__icon" :class="ActionTyoe=='updatable'? 'icon--create' : 'icon--handle'" @mousedown="class4Draggable()" @touchstart="class4Draggable()"></span>
+
+
+
+        <ul v-for="(class4, class4_index) in setMenusListsOrder" :key="class4_index" @dragover.prevent @dragenter.prevent @drop="class4Drop($event, {height:60})">
+            <li :class="ActionTyoe=='edittable_class4_' + class4_index ? 'class4Menu--transparent' : 'class4Menu'" :draggable="class4['isDraggable']? true : false" @dragstart="class4Drag($event, class4_index)">
+                <input type='textbox' v-if="ActionTyoe=='edittable_class4_' + class4_index" class="textbox--class5" :value=class4.name>
+                <span v-else class="class4Menu__content" @click="class5Show(class4_index)">{{ class4.name }}</span>
+                <span class="class4Menu__icon icon--handle" v-if="ActionTyoe=='draggable'" @mousedown="class4Draggable()" @touchstart="class4Draggable()"></span>
+                <span class="class4Menu__icon icon--check" v-else-if="ActionTyoe=='edittable_class4_' + class4_index" @click="class4_edit_finish(class4_index, )"></span>
+                <span class="class4Menu__icon icon--create" v-else @click="class4_edit_start(class4_index)"></span>
+                <span class="class4Menu__icon--danger icon--delete" v-if="ActionTyoe=='edittable_class4_' + class4_index" @click="class4_edit_finish(class4_index)"></span>
             </li>
+
+
             <LeftFade>
-            <ul class="class5Menu__wrapper" v-if="newClass4Menu['isShow'] == true" @dragover.prevent @dragenter.prevent @drop="class5Drop($event, {class4_menu: newClass4Menu['name'], height:60})">
-                <li class="class5Menu" v-for="(newClass5Menu, index) in newClass5Menus[newClass4Menu['name']]" :key="index" :draggable="newClass5Menu['isDraggable']? true : false" @dragstart="class5Drag($event, index)">
-                    <span class="class5Menu__content">{{ newClass5Menu['name'] }}</span>
-                    <span class="class5Menu__price">＋{{ newClass5Menu['price'] }}円</span>
-                    <span class="class5Menu__icon icon--create" v-if="ActionTyoe=='updatable'"></span>
-                    <span class="class5Menu__icon icon--handle" v-if="ActionTyoe=='draggable'" @mousedown="class5Draggable(newClass4Menu['name'])" @touchstart="class5Draggable(newClass4Menu['name'])"></span>
+            <ul class="class5Menu__wrapper" v-if="class4['isShow'] == true" @dragover.prevent @dragenter.prevent @drop="class5Drop($event, {class4_menu: class4['name'], height:60})">
+                <li class="class5Menu" v-for="(class5, class5_index) in class4.class5s" :key="class5_index" :draggable="class5['isDraggable']? true : false" @dragstart="class5Drag($event, class5_index)">
+                    <span class="class5Menu__content">{{ class5.name }}</span>
+                    <span class="class5Menu__price">＋{{ class5.price }}円</span>
+
+
+
+
+                    <span class="class5Menu__icon icon--handle" v-if="ActionTyoe=='draggable'" @mousedown="class5Draggable()" @touchstart="class5Draggable()"></span>
+                    <span class="class5Menu__icon icon--check" v-else-if="ActionTyoe=='edittable_class4_' + class4_index + '_class5_' + class5_index" @click="class5_edit_finish(class4_index, class5_index)"></span>
+                    <span class="class5Menu__icon icon--create" v-else @click="class5_edit_start(class4_index, class4_index, class5_index)"></span>
+                    <span class="class5Menu__icon--danger icon--delete" v-if="ActionTyoe=='edittable_class4_' + class4_index + '_class5_' + class5_index" @click="class5_edit_finish(class4_index, class5_index)"></span>
+
+
+
+                    <!-- <span class="class5Menu__icon icon--create" v-if="ActionTyoe=='updatable'"></span> -->
+                    <!-- <span class="class5Menu__icon icon--handle" v-if="ActionTyoe=='draggable'" @mousedown="class5Draggable(newClass4Menu['name'])" @touchstart="class5Draggable(newClass4Menu['name'])"></span> -->
                 </li>
             </ul>
             </LeftFade>
@@ -77,8 +97,7 @@ export default {
                     price: 0,
                 }]
             },
-            newClass4Menus: [],
-            newClass5Menus: {},
+            setMenusListsOrder: [],
         }
     },
     created() {
@@ -111,7 +130,7 @@ export default {
     methods: {
         ...mapActions([ 'setMenuCreate', 'setMenuOrderUpdate' ]),
         class5Show(index){
-            this.newClass4Menus[index]['isShow'] =! this.newClass4Menus[index]['isShow']
+            this.setMenusListsOrder[index]['isShow'] =! this.setMenusListsOrder[index]['isShow']
         },
         class4Draggable(){
             console.log('class4Draggable')
@@ -283,49 +302,46 @@ export default {
         setMenuOrderCreateAction(){
             this.newClass4Menus = []
             this.newClass5Menus = {}
-            this.$store.getters.class4Menus.forEach( (class4_name, class4_index) => {
-                this.newClass4Menus[class4_index] = {
-                    name: class4_name,
+            this.$store.getters.setMenuLists.forEach( (class4, class4_index) => {
+                this.setMenusListsOrder[class4_index] = {
+                    name: class4.name,
                     isShow: false,
                     isEdit: false,
                     isDraggable: false,
+                    class5s:[]
                 }
-                console.log('this.newClass4Menus')
-                console.log(this.newClass4Menus)
-                this.newClass5Menus[class4_name] = []
-                this.$store.getters.class5Menus[class4_name].forEach( (class5_name, class5_index) => {
-                    this.newClass5Menus[class4_name][class5_index]={
-                        name: class5_name['name'],
-                        price: class5_name['price'],
+                class4.class5s.forEach((class5) => {
+                this.setMenusListsOrder[class4_index].class5s.push({
+                        name: class5.name,
+                        price: class5.price,
                         isEdit: false,
                         isDraggable: false,
-                    }
+                    })
                 })
             })
         },
-        // ...mapActions([ 'menuListCreate' ]),
-        // submit(){
-        //     let Newmenu
-        //     if (this.Class4Detail.isClass4 == true) {
-        //         this.NewMenu['class4Menus'] = this.Class4Detail.class4Menus
-        //         console.log('class4Menus')
-        //         console.log(this.NewMenu['class4Menus'])
-        //     }else{
-        //         this.NewMenu['class4Menus'] = []
-        //     }
-        //     Newmenu = JSON.parse(JSON.stringify(this.NewMenu))
-        //     this.menuListCreate(Newmenu);
-        //     this.formReset();
-        // },
-        // createClass4(){
-        //     const next_index = Math.max(...this.Class4Detail.class4_indexs) + 1
-        //     this.Class4Detail.class4_indexs.push(next_index)
-        //     this.Class4Detail.class4Menus.push('')
-        // },
-        // deleteClass4(index){
-        //     this.Class4Detail.class4_indexs.splice(index, 1)
-        //     this.Class4Detail.class4Menus.splice(index, 1)
-        // },
+        class4_edit_start(class4_index){
+            console.log('class4_edit_start')
+            console.log(class4_index)
+            this.ActionTyoe = 'edittable_class4_' + class4_index
+            // this.ActionTyoe = 'edittable_class4_'
+        },
+        class4_edit_finish(class4_index){
+            console.log('class4_edit_finish')
+            console.log(class4_index)
+            this.ActionTyoe = 'updatable'
+        },
+        class5_edit_start(class4_index, class5_index){
+            console.log('class5_edit_start')
+            console.log(class4_index+","+class5_index)
+            this.ActionTyoe = 'edittable_class4_' + class4_index + '_class5_' + class5_index
+            // this.ActionTyoe = 'edittable_class4_'
+        },
+        class5_edit_finish(class4_index, class5_index){
+            console.log('class5_edit_finish')
+            console.log(class4_index+","+class5_index)
+            this.ActionTyoe = 'updatable'
+        },
     },
 }
 </script>
@@ -339,8 +355,19 @@ form{
     @include list_object;
     display: flex;
     align-items: center;
+    &--transparent{
+        @include list_object;
+        display: flex;
+        align-items: center;
+        flex-flow: row wrap;
+        height:auto;
+        background-color: $bg-transparent;
+    }
     &__icon{
         @include icon_button;
+        &--danger{
+             @include icon_button($background-color: $bg-danger, $border: solid 10px $bg-danger);
+        }
     }
     &__content{
         width: calc(100% - 50px);
@@ -405,11 +432,6 @@ form{
 
 .icon_button{
     @include icon_button;
-    &--unit{
-        height: 50px;
-        width: 50px;
-        font-size: 2.4rem;
-    }
 }
 
 .flex_box{
@@ -419,7 +441,13 @@ form{
     align-items: center;
     justify-content: space-between;
     flex-flow: wrap;
-    // width: 100%;
     width: 280px;
+}
+.ListUpdate-leave-active {
+  transition: all $animation-time ease;
+  position:absolute;
+}
+.ListUpdate-move {
+  transition: transform $animation-time ease;
 }
 </style>

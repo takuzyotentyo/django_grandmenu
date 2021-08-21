@@ -1,6 +1,6 @@
 const state = {
     selectClass: {
-        class1: 'food',
+        class1: '0',
         class2: '',
     },
     class1Menus: ['food','drink'],
@@ -47,46 +47,131 @@ const state = {
         ],
     },
 
-    // menuLists : [
-    //     {class1: 'food',
-    //     class2s: [
-    //         {class2: 'ハンバーガー',
-    //         class3s: [
-    //             {class3: 'ハンバーガー', price: 100, takeout: true, class4Menus: []},
-    //             {class3: 'チーズバーガー', price: 120, takeout: true, class4Menus: []},
-    //             {class3: 'ビッグマック', price: 200,takeout: true, class4Menus:[]},
-    //         ]},
-    //         {class2: 'サイドメニュー',
-    //         class3s: [
-    //             {class3: 'ポテトS', price: 100, takeout: false, class4Menus:[]},
-    //             {class3: 'ポテトM', price: 150, takeout: false, class4Menus:[]},
-    //             {class3: 'ポテトL', price: 200, takeout: false, class4Menus:[]},
-    //         ]},
-    //     ]},
-    //     {class1: 'drink',
-    //     class2s: [
-    //         {class2: 'ソフトドリンク',
-    //         class3s: [
-    //             {class3: 'コーラ', price: 100, takeout: true, class4Menus:['ドリンクセット','ポテトセット']},
-    //             {class3: 'スプライト', price: 120, takeout: true, class4Menus:[]},
-    //         ]},
-    //     ]}
-    // // ],
-
-    // setMenuLists : [
-    //     {class4:'ドリンクセット',
-    //     class5s: [
-    //         {class5: 'コーラ', price: 0},
-    //         {class5: 'スプライト', price: 0},
-    //         {class5: '黒烏龍茶', price: 100},
-    //     ]},
-    //     {class4:'ポテトセット',
-    //     class5s: [
-    //         {class5: 'ポテトS', price: 0},
-    //         {class5: 'ポテトM', price: 50},
-    //         {class5: 'ポテトL', price: 100}
-    //     ]}
-    // ]
+    menuLists : [
+        {
+            id: 1,
+            name: 'food',
+            class2s: [
+                {
+                    id: 1,
+                    name: 'ハンバーガー',
+                    class3s: [
+                        {
+                            id: 1,
+                            name: 'ハンバーガー',
+                            price: 100,
+                            takeout: true,
+                            class4s: ['1','2']
+                        },
+                        {
+                            id: 2,
+                            name: 'チーズバーガー',
+                            price: 120,
+                            takeout: true,
+                            class4s: ['1','2']
+                        },
+                        {
+                            id: 3,
+                            name: 'ビッグマック',
+                            price: 200,
+                            takeout: true,
+                            class4s:['1','2']
+                        },
+                    ]
+                },
+                {
+                    id: 2,
+                    name: 'サイドメニュー',
+                    class3s: [
+                        {
+                            id: 1,
+                            name: 'ポテトS',
+                            price: 100,
+                            takeout: false,
+                            class4s:[]
+                        },
+                        {
+                            id:2,
+                            name: 'ポテトM', price: 150,
+                            takeout: false,
+                            class4s:[]
+                        },
+                        {
+                            id:3,
+                            name: 'ポテトL', price: 200,
+                            takeout: false,
+                            class4s:[]
+                        },
+                    ]
+                },
+            ]
+        },
+        {
+            id:2,
+            name: 'drink',
+            class2s: [
+                {
+                    id: 1,
+                    name: 'ソフトドリンク',
+                    class3s: [
+                        {
+                            id: 1,
+                            name: 'コーラ',
+                            price: 100,
+                            takeout: true,
+                            class4s:[]
+                        },
+                        {
+                            id: 2,
+                            name: 'スプライト',
+                            price: 120,
+                            takeout: true,
+                            class4s:[]
+                        },
+                    ]
+                },
+            ]
+        }
+    ],
+    setMenuLists : [
+        {
+            id: 1,
+            name:'ドリンクセット',
+            class5s: [
+                {   id: 1,
+                    name: 'コーラ',
+                    price: 0
+                },
+                {
+                    id: 2,
+                    name: 'スプライト',
+                    price: 0
+                },
+                {
+                    id: 3,
+                    name: '黒烏龍茶',
+                    price: 100
+                },
+            ]
+        },
+        {
+            id: 2,
+            name:'ポテトセット',
+            class5s: [
+                {
+                    id:1,
+                    name: 'ポテトS',
+                    price: 0},
+                {
+                    id:2,
+                    name: 'ポテトM',
+                    price: 50},
+                {
+                    id:3,
+                    name: 'ポテトL',
+                    price: 100}
+        ]}
+    ]
 };
 
 const getters = {
@@ -96,8 +181,8 @@ const getters = {
     class3Menus: state => state.class3Menus,
     class4Menus: state => state.class4Menus,
     class5Menus: state => state.class5Menus,
-    // menuLists: state => state.menuLists,
-    // setMenuLists: state => state.setMenuLists,
+    menuLists: state => state.menuLists,
+    setMenuLists: state => state.setMenuLists,
 
 };
 
@@ -109,20 +194,49 @@ const mutations = {
         state.selectClass["class2"] = newClass2;
     },
     menuListCreate(state, newMenu){
-        const newClass1 = newMenu.['class1']
-        const newClass2 = newMenu.['class2']
-        const newClass3 = {
-            name: newMenu.['class3'],
-            price: newMenu.['price'],
-            takeout: newMenu.['takeout'],
-            class4Menus : newMenu.['class4Menus']
+        const newClass1Index = newMenu.['class1']
+        const newClass2Name = newMenu.['class2']
+        const newClass3Name = newMenu.['class3']
+        const newClass3Price = newMenu.['price']
+        const newClass3Takeout = newMenu.['takeout']
+        const newClass3Class4s = newMenu.['class4Menus']
+        const class2s = state.menuLists[newClass1Index].class2s
+        let class2Names = class2s.map(element => element.name)
+        let class2Ids = class2s.map(element => element.id)
+         //class2の存在確認を行い、無ければ登録
+         if (class2Names.includes(newClass2Name)==false) {
+            const class2Id = class2Ids.reduce((a, b) => 
+                Math.max(a, b) + 1 , 0)
+            const newClass2 = {
+                id: class2Id,
+                name: newClass2Name,
+                class3s: []
+            }
+            state.menuLists[newClass1Index].class2s.push(newClass2)
         }
-        //class2の登録
-        if (state.class2Menus[newClass1].includes(newClass2)==false) {
-            state.class2Menus[newClass1].push(newClass2)
+        class2Names = state.menuLists[newClass1Index].class2s.map(element => element.name)
+        const newclass2Index = class2Names.indexOf(newClass2Name)
+        const class3s = state.menuLists[newClass1Index].class2s[newclass2Index].class3s
+        const class3Names = class3s.map(element => element.name)
+        const class3Ids = class3s.map(element => element.id)
+        // class3の存在確認を行い、無ければ登録
+        if (class3Names.includes(newClass3Name)==false) {
+            const class3Id = class3Ids.reduce((a, b) => 
+                Math.max(a, b) + 1 , 0)
+            const newClass3 = {
+                id: class3Id,
+                name: newClass3Name,
+                price: newClass3Price,
+                takeout: newClass3Takeout,
+                class4s: newClass3Class4s,
+            }
+            state.menuLists[newClass1Index].class2s[newclass2Index].class3s.push(newClass3)
+        }else{
+            const newclass3Index = class3Names.indexOf(newClass3Name)
+            state.menuLists[newClass1Index].class2s[newclass2Index].class3s[newclass3Index].price = newClass3Price
+            state.menuLists[newClass1Index].class2s[newclass2Index].class3s[newclass3Index].takeout = newClass3Takeout
+            state.menuLists[newClass1Index].class2s[newclass2Index].class3s[newclass3Index].class4s = newClass3Class4s
         }
-        //class3の登録
-        state.class3Menus[newClass1][newClass2].push(newClass3)
     },
     setMenuCreate(state, newSetMenu){
         console.log(newSetMenu)
