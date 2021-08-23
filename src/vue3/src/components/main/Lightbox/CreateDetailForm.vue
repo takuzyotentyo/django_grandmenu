@@ -16,7 +16,7 @@
                     </select>
                     <input type="text" class="textbox--class5_price"
                         :disabled="newSetMenus['class5s'][index]['price_type'] == 'no_additional_price'? true : false "
-                        name="additional_price" placeholder="料金" v-model="newSetMenus['class5s'][index]['price']" required>
+                        name="additional_price" placeholder="料金" :value="newSetMenus.class5s[index].price" @change="newSetMenusHalfSizeNumberFormat($event, index)" required>
                 </li>
             </ListUpdate>
             <button class='submit_button'>セットメニュー登録</button>
@@ -31,38 +31,29 @@
             <label for="class4_Updatable" class="radio_button__label">並べ替え</label>
         </div>
 
-
-
-
         <ul v-for="(class4, class4_index) in setMenusListsOrder" :key="class4_index" @dragover.prevent @dragenter.prevent @drop="class4Drop($event, {height:60})">
             <li :class="ActionTyoe=='edittable_class4_' + class4_index ? 'class4Menu--transparent' : 'class4Menu'" :draggable="class4['isDraggable']? true : false" @dragstart="class4Drag($event, class4_index)">
-                <input type='textbox' v-if="ActionTyoe=='edittable_class4_' + class4_index" class="textbox--class5" :value=class4.name>
+                <input type='textbox' v-if="ActionTyoe=='edittable_class4_' + class4_index" class="textbox--class5" v-model=setMenusListsOrder[class4_index].name>
                 <span v-else class="class4Menu__content" @click="class5Show(class4_index)">{{ class4.name }}</span>
                 <span class="class4Menu__icon icon--handle" v-if="ActionTyoe=='draggable'" @mousedown="class4Draggable()" @touchstart="class4Draggable()"></span>
-                <span class="class4Menu__icon icon--check" v-else-if="ActionTyoe=='edittable_class4_' + class4_index" @click="class4_edit_finish(class4_index, )"></span>
+                <span class="class4Menu__icon icon--check" v-else-if="ActionTyoe=='edittable_class4_' + class4_index" @click="class4_update({index:class4_index, name:class4.name})"></span>
                 <span class="class4Menu__icon icon--create" v-else @click="class4_edit_start(class4_index)"></span>
-                <span class="class4Menu__icon--danger icon--delete" v-if="ActionTyoe=='edittable_class4_' + class4_index" @click="class4_edit_finish(class4_index)"></span>
+                <span class="class4Menu__icon--danger icon--delete" v-if="ActionTyoe=='edittable_class4_' + class4_index" @click="class4_delete({index:class4_index, name:class4.name})"></span>
             </li>
 
-
             <LeftFade>
-            <ul class="class5Menu__wrapper" v-if="class4['isShow'] == true" @dragover.prevent @dragenter.prevent @drop="class5Drop($event, {class4_menu: class4['name'], height:60})">
-                <li class="class5Menu" v-for="(class5, class5_index) in class4.class5s" :key="class5_index" :draggable="class5['isDraggable']? true : false" @dragstart="class5Drag($event, class5_index)">
-                    <span class="class5Menu__content">{{ class5.name }}</span>
-                    <span class="class5Menu__price">＋{{ class5.price }}円</span>
+            <ul class="class5Menu__wrapper" v-if="class4['isShow'] == true" @dragover.prevent @dragenter.prevent @drop="class5Drop($event, {height:60})">
+                <li class="class5Menu" v-for="(class5, class5_index) in class4.class5s" :key="class5_index" :draggable="class5['isDraggable']? true : false" @dragstart="class5Drag($event, {class4: class4_index, class5: class5_index})">
+                    <input type='textbox' v-if="ActionTyoe=='edittable_class4_' + class4_index + '_class5_' + class5_index" class="textbox--class5" v-model=setMenusListsOrder[class4_index].class5s[class5_index].name>
+                    <span v-else class="class5Menu__content">{{ class5.name }}</span>
+                    <input type='textbox' v-if="ActionTyoe=='edittable_class4_' + class4_index + '_class5_' + class5_index" class="textbox--class5_price" v-model=setMenusListsOrder[class4_index].class5s[class5_index].price>
+                    <span v-if="ActionTyoe=='updatable' || ActionTyoe=='draggable' && class5.price>=0" class="class5Menu__price">＋{{ class5.price }}円</span>
+                    <span v-else-if="ActionTyoe=='updatable' || ActionTyoe=='draggable' && class5.price<0" class="class5Menu__price"> {{ class5.price }}円</span>
 
-
-
-
-                    <span class="class5Menu__icon icon--handle" v-if="ActionTyoe=='draggable'" @mousedown="class5Draggable()" @touchstart="class5Draggable()"></span>
-                    <span class="class5Menu__icon icon--check" v-else-if="ActionTyoe=='edittable_class4_' + class4_index + '_class5_' + class5_index" @click="class5_edit_finish(class4_index, class5_index)"></span>
-                    <span class="class5Menu__icon icon--create" v-else @click="class5_edit_start(class4_index, class4_index, class5_index)"></span>
-                    <span class="class5Menu__icon--danger icon--delete" v-if="ActionTyoe=='edittable_class4_' + class4_index + '_class5_' + class5_index" @click="class5_edit_finish(class4_index, class5_index)"></span>
-
-
-
-                    <!-- <span class="class5Menu__icon icon--create" v-if="ActionTyoe=='updatable'"></span> -->
-                    <!-- <span class="class5Menu__icon icon--handle" v-if="ActionTyoe=='draggable'" @mousedown="class5Draggable(newClass4Menu['name'])" @touchstart="class5Draggable(newClass4Menu['name'])"></span> -->
+                    <span class="class5Menu__icon icon--handle" v-if="ActionTyoe=='draggable'" @mousedown="class5Draggable(class4_index)" @touchstart="class5Draggable(class4_index)"></span>
+                    <span class="class5Menu__icon icon--check" v-else-if="ActionTyoe=='edittable_class4_' + class4_index + '_class5_' + class5_index" @click="class5_update({class4_index: class4_index, class5_index: class5_index, name:class5.name})"></span>
+                    <span class="class5Menu__icon icon--create" v-else @click="class5_edit_start(class4_index, class5_index)"></span>
+                    <span class="class5Menu__icon--danger icon--delete" v-if="ActionTyoe=='edittable_class4_' + class4_index + '_class5_' + class5_index" @click="class5_delete({class4_index: class4_index, class5_index: class5_index, name:class5.name})"></span>
                 </li>
             </ul>
             </LeftFade>
@@ -104,38 +95,38 @@ export default {
         this.setMenuOrderCreateAction();
     },
     computed: {
-        // ...mapGetters([ 'class1Menus', 'class2Menus', 'class3Menus', 'class4Menus' ]),
-        ...mapGetters([ 'class4Menus', 'class5Menus' ]),
+        ...mapGetters([ 'setMenuLists' ]),
         
     },
-    watch: {
-      class5Menus: {
-        handler: function () {
-          this.setMenuOrderCreateAction();
-        },
-        deep: true
-      }
+    mounted() {
+        this.$store.subscribe((mutation) => {
+            if (mutation.type === 'setMenuCreate') {
+                this.setMenuOrderCreateAction()
+            }else if(mutation.type === 'setMenuOrderUpdate'){
+                this.setMenuOrderCreateAction()
+            }else if(mutation.type === 'setMenuclass4UpdateCreate'){
+                this.setMenuOrderCreateAction()
+            }else if(mutation.type === 'class4Update'){
+                this.setMenuOrderCreateAction()
+            }else if(mutation.type === 'class4Delete'){
+                this.setMenuOrderCreateAction()
+            }
+            
+        })
     },
-    // watch: {
-    //     class5Menus(){
-    //         console.log('watch')
-    //         this.setMenuOrderCreateAction();
-    //     },
-    // },
     components: {
         LeftFade,
         UpFade,
         ListUpdate,
     },
     methods: {
-        ...mapActions([ 'setMenuCreate', 'setMenuOrderUpdate' ]),
+        ...mapActions([ 'setMenuCreate', 'setMenuOrderUpdate', 'class4Update', 'class4Delete', 'class5Update', 'class5Delete' ]),
         class5Show(index){
             this.setMenusListsOrder[index]['isShow'] =! this.setMenusListsOrder[index]['isShow']
         },
         class4Draggable(){
-            console.log('class4Draggable')
             if(this.ActionTyoe == 'draggable'){
-                this.newClass4Menus.forEach( (value) => {
+                this.setMenusListsOrder.forEach( (value) => {
                     value['isShow'] = false
                     value['isEdit'] = false
                     value['isDraggable'] = true
@@ -143,40 +134,36 @@ export default {
             }
         },
         class4Drag(event, index){
-            console.log('class4Drag')
             if(this.ActionTyoe == 'draggable'){
                 event.dataTransfer.effectAllowed = 'move'
                 event.dataTransfer.dropEffect = 'move'
-                event.dataTransfer.setData('drag-list','class4')
-                event.dataTransfer.setData('drag-index',index)
-                event.dataTransfer.setData('page-y-start',event.clientY)
+                event.dataTransfer.setData('drag_list','class4')
+                event.dataTransfer.setData('class4_index',index)
+                event.dataTransfer.setData('page_y_start',event.clientY)
             }
         },
         class4Drop(event, object_data){
-            console.log('class4Drop')
-            if(event.dataTransfer.getData('drag-list') == 'class4' && this.ActionTyoe == 'draggable'){
-                console.log('class4Drop work')
-                const dragIndex = event.dataTransfer.getData('drag-index')
-                const page_y_diff = event.dataTransfer.getData('page-y-start') - event.clientY
+            if(event.dataTransfer.getData('drag_list') == 'class4' && this.ActionTyoe == 'draggable'){
+                const class4_index = event.dataTransfer.getData('class4_index')
+                const page_y_diff = event.dataTransfer.getData('page_y_start') - event.clientY
                 const object_height = Number(object_data.height)
                 const adjustment_index = Math.round(page_y_diff / object_height)
-                const insert_position = dragIndex - adjustment_index
-                const deleteList = this.newClass4Menus.splice(dragIndex, 1);
-                this.newClass4Menus.splice(insert_position, 0, deleteList[0])
-                this.newClass4Menus.forEach( (value) => {
+                const insert_position = class4_index - adjustment_index
+                const deleteList = this.setMenusListsOrder.splice(class4_index, 1);
+                this.setMenusListsOrder.splice(insert_position, 0, deleteList[0])
+                this.setMenusListsOrder.forEach( (value) => {
                     value['isShow'] = false
                     value['isEdit'] = false
                     value['isDraggable'] = false
                 });
-                event.dataTransfer.clearData('drag-list')
-                event.dataTransfer.clearData('drag-index')
-                event.dataTransfer.clearData('page-y-start')
+                event.dataTransfer.clearData('drag_list')
+                event.dataTransfer.clearData('class4_index')
+                event.dataTransfer.clearData('page_y_start')
             }
         },
-        class5Draggable(newClass4Menu){
-            console.log('class5Draggable')
+        class5Draggable(class4_index){
             if(this.ActionTyoe == 'draggable'){
-                this.newClass5Menus[newClass4Menu].forEach( (value) => {
+                this.setMenusListsOrder[class4_index].class5s.forEach( (value) => {
                     value['isEdit'] = false
                     value['isDraggable'] = true
                 })
@@ -184,48 +171,47 @@ export default {
         },
         class5Drag(event, index){
             if(this.ActionTyoe=='draggable'){
+                const class4_index = index.class4
+                const class5_index = index.class5
                 event.dataTransfer.effectAllowed = 'move'
                 event.dataTransfer.dropEffect = 'move'
-                event.dataTransfer.setData('drag-list','class5')
-                event.dataTransfer.setData('drag-index',index)
-                event.dataTransfer.setData('page-y-start',event.clientY)
+                event.dataTransfer.setData('drag_list','class5')
+                event.dataTransfer.setData('class4_index',class4_index)
+                event.dataTransfer.setData('class5_index',class5_index)
+                event.dataTransfer.setData('page_y_start',event.clientY)
             }
         },
         class5Drop(event, object_data){
-            console.log('class5Draggable' && this.ActionTyoe == 'draggable')
-            if(event.dataTransfer.getData('drag-list') == 'class5'){
-                console.log('class5Drop work')
-                const dragIndex = event.dataTransfer.getData('drag-index')
-                const page_y_diff = event.dataTransfer.getData('page-y-start') - event.clientY
-                const class4_menu = object_data.class4_menu
-                console.log(class4_menu)
+            if(event.dataTransfer.getData('drag_list') == 'class5'){
+                const class4_index = event.dataTransfer.getData('class4_index')
+                const class5_index = event.dataTransfer.getData('class5_index')
+                const page_y_diff = event.dataTransfer.getData('page_y_start') - event.clientY
                 const object_height = Number(object_data.height)
                 const adjustment_index = Math.round(page_y_diff / object_height)
-                const insert_position = dragIndex - adjustment_index
-                const deleteList = this.newClass5Menus[class4_menu].splice(dragIndex, 1);
-                console.log(deleteList)
-                this.newClass5Menus[class4_menu].splice(insert_position, 0, deleteList[0])
-                this.newClass5Menus[class4_menu].forEach( (value) => {
+                const insert_position = class5_index - adjustment_index
+                const deleteList = this.setMenusListsOrder[class4_index].class5s.splice(class5_index, 1);
+                this.setMenusListsOrder[class4_index].class5s.splice(insert_position, 0, deleteList[0])
+                this.setMenusListsOrder[class4_index].class5s.forEach( (value) => {
                     value['isShow'] = false
                     value['isEdit'] = false
                     value['isDraggable'] = false
                 });
-                event.dataTransfer.clearData('drag-list')
-                event.dataTransfer.clearData('drag-index')
-                event.dataTransfer.clearData('page-y-start')
+                event.dataTransfer.clearData('drag_list')
+                event.dataTransfer.clearData('class4_index')
+                event.dataTransfer.clearData('class5_index')
+                event.dataTransfer.clearData('page_y_start')
             }
         }, 
         noAdditionalPrice(index){
-            let val
+            let price
             if(this.newSetMenus['class5s'][index]['price_type']=='no_additional_price'){
-                val = 0
+                price = 0
             }else{
-                val = ''
+                price = ''
             }
-            this.newSetMenus['class5s'][index]['price'] = val
+            this.newSetMenus['class5s'][index]['price'] = price
         },
         createClass5(){
-            console.log('createClass5')
             const ids = this.newSetMenus['class5s'].map((element) => element['id']);
             const max_id = Math.max(...ids) + 1
             this.newSetMenus['class5s'].push({
@@ -239,25 +225,23 @@ export default {
             this.newSetMenus['class5s'].splice(index, 1)
         },
         setMenuCreateAction(){
-            console.log('setMenuCreateAction')
-            let newclass5Menus, name , price
-            const newclass4Menu = this.newSetMenus['class4']
-            newclass5Menus = new Array()
-            this.newSetMenus['class5s'].forEach( (class5Menu, class5Index) => {
-                name = class5Menu['name']
+            let newClass5Menus, name , price
+            const newClass4Menu = this.newSetMenus['class4']
+            newClass5Menus = new Array()
+            this.newSetMenus.class5s.forEach( (class5Menu, class5Index) => {
+                name = class5Menu.name
+                price = this.halfSizeNumberFormat(class5Menu.price)
                 if(class5Menu['price_type']=='disaddisitional_price'){
-                        price = class5Menu['price'] * -1
-                    }else{
-                        price = class5Menu['price'] 
-                    }
-                newclass5Menus[class5Index] = {
+                    price = Math.abs(price) * -1
+                }
+                newClass5Menus[class5Index] = {
                     name: name,
-                    price: price                    
+                    price: price
                 }
             })
             const newSetMenu = {
-                class4Menu: newclass4Menu,
-                class5Menus: newclass5Menus
+                name: newClass4Menu,
+                class5s: newClass5Menus
             }
             this.setMenuCreate(newSetMenu)
             this.newSetMenuReset()
@@ -274,34 +258,23 @@ export default {
             }
         },
         setMenuOrderUpdateAction(){
-            const newClass4Order = this.newClass4Menus.map(element => (element['name']))
-            let newClass5Order
-            newClass5Order = {}
-            console.log('newClass4Order')
-            console.log(newClass4Order)
-            console.log('this.newClass5Menus')
-            console.log(this.newClass5Menus)
-            newClass4Order.forEach( (class4) => {
+            this.setMenusListsOrder.forEach((class4, class4_index) => {
                 console.log(class4)
-                newClass5Order[class4] =[]
-                this.newClass5Menus[class4].forEach( (class5) => {
-                    newClass5Order[class4].push({
-                        name: class5['name'],
-                        price: class5['price']
-                    })
-                })
-            })
-            const newSetMenuOrder = {
-                class4Order: newClass4Order,
-                class5Order: newClass5Order
-            }
-            this.setMenuOrderUpdate(newSetMenuOrder)
-            console.log('newClass5Order')
-            console.log(newClass5Order)
+                delete class4.isShow
+                delete class4.isEdit
+                delete class4.isDraggable
+                class4.id = class4_index + 1
+                class4.class5s.forEach((class5, class5_index) => {
+                    delete class5.isEdit
+                    delete class5.isDraggable
+                    class5.id = class5_index + 1
+                });
+            });
+            this.setMenuOrderUpdate(this.setMenusListsOrder)
         },
         setMenuOrderCreateAction(){
-            this.newClass4Menus = []
-            this.newClass5Menus = {}
+            console.log('setMenuOrderCreateAction')
+            this.setMenusListsOrder = []
             this.$store.getters.setMenuLists.forEach( (class4, class4_index) => {
                 this.setMenusListsOrder[class4_index] = {
                     name: class4.name,
@@ -311,7 +284,7 @@ export default {
                     class5s:[]
                 }
                 class4.class5s.forEach((class5) => {
-                this.setMenusListsOrder[class4_index].class5s.push({
+                    this.setMenusListsOrder[class4_index].class5s.push({
                         name: class5.name,
                         price: class5.price,
                         isEdit: false,
@@ -321,26 +294,51 @@ export default {
             })
         },
         class4_edit_start(class4_index){
-            console.log('class4_edit_start')
-            console.log(class4_index)
             this.ActionTyoe = 'edittable_class4_' + class4_index
             // this.ActionTyoe = 'edittable_class4_'
         },
-        class4_edit_finish(class4_index){
-            console.log('class4_edit_finish')
-            console.log(class4_index)
+        class4_update(class4){
+            console.log(class4)
+            this.class4Update(class4)
             this.ActionTyoe = 'updatable'
         },
+        class4_delete(class4){
+            console.log('class4_delete')
+            const class4_name = class4.name
+            const class4_index = class4.index
+            const result = window.confirm('セットメニュー「'+ class4_name +'」を削除しますか？')
+            if (result){
+                this.class4Delete(class4_index)
+                this.ActionTyoe = 'updatable'
+            }
+        },
         class5_edit_start(class4_index, class5_index){
-            console.log('class5_edit_start')
-            console.log(class4_index+","+class5_index)
             this.ActionTyoe = 'edittable_class4_' + class4_index + '_class5_' + class5_index
             // this.ActionTyoe = 'edittable_class4_'
         },
-        class5_edit_finish(class4_index, class5_index){
-            console.log('class5_edit_finish')
-            console.log(class4_index+","+class5_index)
+        class5_update(class5){
+            this.class5Update(class5)
             this.ActionTyoe = 'updatable'
+        },
+        class5_delete(class5){
+            const class4_index = class5.class4_index
+            const class5_index = class5.class5_index
+            const class5_name = class5.name
+            console.log(class4_index)
+            console.log(class5_index)
+            console.log(class5_name)
+            this.class5Delete(class5)
+            this.ActionTyoe = 'updatable'
+        },
+        newSetMenusHalfSizeNumberFormat(event, index){
+            this.newSetMenus.class5s[index].price = this.halfSizeNumberFormat(event.target.value)
+        },
+        halfSizeNumberFormat(number) {
+            if(number == 0 ){
+                return number
+            }else{
+                return number.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'');
+            }
         },
     },
 }
@@ -377,6 +375,7 @@ form{
     @include list_object($background-color: $bg-focus);
     display: flex;
     align-items: center;
+    flex-flow: wrap;
     &__wrapper{
         height:auto;
         background-color: $bg-focus;
@@ -426,7 +425,6 @@ form{
     @include selectbox;
     &--class5{
         @include selectbox($width: calc(63%), $margin: 5px auto 10px 0);
-        margin: auto, 0
     }
 }
 
