@@ -7,3 +7,6 @@ def chat( request ):
 
 def index( request ):
     return render( request, 'grandmenu_spa/index.html' )
+
+def login( request ):
+    return render( request, 'grandmenu_spa/login.html' )
