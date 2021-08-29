@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="{% static 'style/HTML5 Doctor CSS Reset.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body>
+    <header>
+        <h1>
+            GroundMenu
+        </h1>
+    </header>
+    <div class="wrapper--h-center_v-center">
+        <form class="form" action="" method="post">
+            {% csrf_token %}
+            <h2>新規登録</h2>
+            <h4>メールアドレス</h4>
+            <!-- <input type="email" name="email" class="text_box" placeholder="メールアドレス"> -->
+            {{ form.email }}
+            <div class="error">{{ form.email.errors }}</div>
+            <h4>パスワード</h4>
+            <!-- <input type="password" name="password" class="text_box" placeholder="パスワード"> -->
+            {{ form.password }}
+            <h4>パスワード再入力</h4>
+            <!-- <input type="password" name="repassword" class="text_box" placeholder="パスワード再入力"> -->
+            {{ form.confirm_password }}
+            {% if form.errors %}
+            {{ form.non_field_errors }}
+            {% endif %}
+            <button type="submit" name="" value="login" class="submit_button">新規登録</button>
+        </form>
+    <a class="link--secondary" href="{% url 'accounts:login' %}">ログインへ</a>
+    </div>
+    
+</body>
+</html>

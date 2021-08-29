@@ -16,15 +16,21 @@
         </h1>
     </header>
     <div class="wrapper--h-center_v-center">
-        <form class="form" action="login.html" method="post">
+        <form class="form" action="{% url 'accounts:login' %}" method="post">
+            {% csrf_token %}
             <h2>ログイン</h2>
             <h4>メールアドレス</h4>
-            <input type="email" name="email" class="text_box" placeholder="メールアドレス">
+            <!-- <input type="email" name="email" class="text_box" placeholder="メールアドレス"> -->
+            {{ form.username }}
             <h4>パスワード</h4>
-            <input type="password" name="password" class="text_box" placeholder="パスワード">
+            <!-- ><input type="password" name="password" class="text_box" placeholder="パスワード">-->
+            {{ form.password }}
+            {% if form.errors %}
+            {{ form.non_field_errors }}
+            {% endif %}
             <button type="submit" name="" value="login.html" class="submit_button">ログイン</button>
         </form>
-    <a class="link--secondary" href="registration.html">新規登録へ</a>
+    <a class="link--secondary" href="{% url 'accounts:registration' %}">新規登録へ</a>
     </div>
     
 </body>

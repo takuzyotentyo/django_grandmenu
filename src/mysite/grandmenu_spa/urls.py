@@ -2,9 +2,9 @@ from django.urls import path
 
 from . import views
 
-urlpatterns = [
-    path( 'c', views.chat, name='chat' ),
-    path( '', views.index, name='index' ),
-    path( 'login', views.login, name='login' ),
+app_name = 'grandmenu_spa'
 
+urlpatterns = [
+    path( 'c', views.chat, name='chat'),
+    path('', views.Home.as_view(), name='index'),
 ]

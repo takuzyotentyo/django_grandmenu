@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="{% static 'style/HTML5 Doctor CSS Reset.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body>
+    <header>
+        <h1>
+            GroundMenu
+        </h1>
+    </header>
+    <div class="wrapper--h-center_v-center">
+    <p>
+        本登録が完了しました。<br>
+        登録されたメールアドレスとパスワードでログインしてください。<br>
+        <a class="link--secondary" href="{% url 'accounts:login' %}">ログインへ</a>
+    </p>
+    </div>
+    
+</body>
+</html>

@@ -61,6 +61,10 @@ class Store(AbstractBaseUser, PermissionsMixin):
 
     objects = StoreUserManager()
 
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        """仮登録ユーザーへのEメール 送信"""
+        send_mail(subject, message, from_email, [self.email], **kwargs)
+
     class Meta:
         verbose_name = '店舗情報'
         verbose_name_plural = '店舗情報'

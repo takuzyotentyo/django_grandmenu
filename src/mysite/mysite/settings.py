@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'channels',
-    'grandmenu_spa',
+    'grandmenu_spa.apps.GrandmenuSpaConfig',
     'accounts.apps.AccountsConfig', #accounts追加
     'django.contrib.admin',
     'django.contrib.auth',
@@ -145,3 +145,12 @@ CHANNEL_LAYERS = {
         'CONFIG': { 'hosts': [('127.0.0.1', 6379)], },
     },
 }
+
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'grandmenu_spa:index'
+LOGOUT_REDIRECT_URL = 'accounts:login'
+
+# accountsのStoreが認証モデル
+AUTH_USER_MODEL = 'accounts.Store'
+# メールをコンソールに表示する
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

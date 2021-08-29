@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-
+from django.contrib.auth.forms import AuthenticationForm
 
 
 Store = get_user_model()
@@ -55,3 +55,37 @@ class UserChangeForm(forms.ModelForm):
     # def clean_password(self):
     #     # すでに登録されているパスワードを返す(変更できないように)
     #     return self.initial['password']
+
+class LoginForm(AuthenticationForm):
+    """ログインフォーム"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] ='text_box'
+        self.fields['username'].widget.attrs['placeholder'] ='登録メールアドレス'
+        self.fields['password'].widget.attrs['class'] ='text_box'
+        self.fields['password'].widget.attrs['placeholder'] ='パスワード'
+
+class UserRegistrationForm(UserCreationForm):
+    """ユーザー登録用フォーム"""
+
+    class Meta:
+        model = Store
+        fields = ('email',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['class'] ='text_box'
+        self.fields['email'].widget.attrs['placeholder'] ='登録メールアドレス'
+        self.fields['password'].widget.attrs['class'] ='text_box'
+        self.fields['password'].widget.attrs['placeholder'] ='パスワード'
+        self.fields['confirm_password'].widget.attrs['class'] ='text_box'
+        self.fields['confirm_password'].widget.attrs['placeholder'] ='パスワード(確認用)'
+
+        # for field in self.fields.values():
+        #     field.widget.attrs['class'] = 'form-control'
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        Store.objects.filter(email=email, is_active=False).delete()
+        return email
