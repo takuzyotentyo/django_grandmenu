@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from './components/main/Home'
+import Home from './components/pages/Home'
 
-import MenuList from './components/main/MenuList/MenuList'
-import Cart from './components/main/MenuList/Cart'
-import OrderManagement from './components/main/OrderManagement/OrderManagement'
-import ViewControl from './components/main/ViewControl/ViewControl'
+import MenuList from './components/pages/MenuList'
+import Cart from './components/molecules/Cart'
+import OrderManagement from './components/pages/OrderManagement'
+import ViewControl from './components/pages/ViewControl'
 
-import StoreInformation from './components/main/StoreInformation/StoreInformation'
-import StaffInformation from './components/main/StaffInformation/StaffInformation'
-import StoreAnalytics from './components/main/StoreAnalytics/StoreAnalytics'
+import StoreInformation from './components/pages/StoreInformation'
+import StaffInformation from './components/pages/StaffInformation'
+import StoreAnalytics from './components/pages/StoreAnalytics'
 
 
 export const router = createRouter ({

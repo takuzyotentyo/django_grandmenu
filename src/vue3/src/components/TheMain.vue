@@ -1,5 +1,5 @@
 <template>
-  <div class="main" v-bind:class="{ active: sideNav }">
+  <div class="main" :class="{ active: sideNav }">
     <router-view v-slot="{ Component }">
       <LeftFade>
         <keep-alive>
@@ -27,14 +27,14 @@ export default {
 
 <style lang="scss" scoped>
 .main{
-  top: 50px;
-  height: calc(100vh - 50px);
+  position: fixed;
+  height: 100vh;
+  height: -webkit-fill-available;
   background-color: $bg-secondary;
   display: flex;
   flex-flow: wrap;
   align-items:center;
   justify-content: center;
-  position: absolute;
   left: 0;
   width: 100vw;
   transition: all $animation-time;

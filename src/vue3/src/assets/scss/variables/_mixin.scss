@@ -1,10 +1,14 @@
-@mixin list_object($width: 100%, $height: 50px, $background-color: $bg-primary){
+@mixin content--wrapper($width: 100%, $height: auto, $line-height:42px, $background-color: $bg-primary, $margin-bottom: 10px, $border-radius: 5px, $justify-content:space-between){
     height: $height;
-    line-height: 50px;
+    line-height: $line-height;
     width: $width;
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    justify-content: space-between;   
     background-color: $background-color;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    border-radius: $border-radius;
+    margin-bottom: $margin-bottom;
     color: $text-primary;
     font-size: 1.6rem;
     text-align: center;
@@ -20,13 +24,13 @@
     opacity: 0;
     width: 1px;
 }
-@mixin radio_button__unit($width: 100%, $height: 50px){
+@mixin radio_button__unit($width: 100%, $height: 42px){
     width: $width;
     display: flex;
     justify-content: center;
-    margin: 5px auto 10px;
+    margin: auto 0 10px;
 }
-@mixin radio_button__label($width: 50%, $height: 50px) {
+@mixin radio_button__label($width: 50%, $height: 42px) {
     width: $width;
     height: $height;
     font-size: 1.6rem;
@@ -41,7 +45,7 @@
     background-color: $bg-primary;
 }
 
-@mixin submit_button($width: 100%, $height: 50px, $margin: 20px calc((100% - #{$width}) / 2) 0){
+@mixin submit_button($width: 100%, $height: 42px, $margin: 20px calc((100% - #{$width}) / 2) 0){
     width: $width;
     height: $height;
     position: relative;
@@ -58,7 +62,7 @@
         background: $bg-focus;
     }
 }
-@mixin icon_button($width: 40px, $height: 40px, $margin: 10px auto 15px auto, $background-color: $bg-primary, $border-radius: 5px, $border: solid 10px $bg-primary){
+@mixin icon_button($width: 42px, $height: 42px, $margin: 0 auto auto, $background-color: $bg-primary, $border-radius: 5px, $border: solid 10px $bg-primary){
     box-sizing: border-box;
     width: $width;
     height: $height;
@@ -68,7 +72,7 @@
     background-color: $background-color;
 }
 
-@mixin textbox($width: 100%, $height: 50px, $margin: 5px auto 10px){
+@mixin textbox($width: 100%, $height: 42px, $margin: 0 0 10px){
     box-sizing: border-box;
     width: $width;
     height: $height;
@@ -76,7 +80,7 @@
     display: block;
     margin: $margin;
     border:solid 2px $bg-primary;
-    padding-left: 16px;
+    padding-left: 12px;
     border-radius: 5px;
     background-image: linear-gradient(to right, $bg-secondary 50%, $bg-focus 50%);
     background-position: 0 0;
@@ -93,7 +97,7 @@
     }
 }
 
-@mixin selectbox($width: 100%, $height: 50px, $margin: 5px auto 10px){
+@mixin selectbox($width: 100%, $height: 42px, $margin: auto 0 10px){
     box-sizing: border-box;
     width: $width;
     height: $height;
@@ -101,7 +105,7 @@
     display: block;
     margin: $margin;
     border:solid 2px $bg-primary;
-    padding-left: 16px;
+    padding-left: 12px;
     border-radius: 5px;
     background-image: linear-gradient(to right, $bg-secondary 50%, $bg-focus 50%);
     background-position: 0 0;
@@ -119,7 +123,7 @@
 //     display: flex;
 //     flex-direction: column;
 //     justify-content: center;
-//     margin: 5px auto 10px;
+//     margin: auto 0 10px;
 //     background-color: $bg-primary;
 //     border-radius: 5px;
 // }
@@ -128,7 +132,7 @@
 // }
 // @mixin checkbox__label {
 //     display: block;
-//     margin: 5px auto 10px;
+//     margin: auto 0 10px;
 //     border: 3px solid $text-secondry;
 //     border-radius: 25px;
 //     height: 34px;

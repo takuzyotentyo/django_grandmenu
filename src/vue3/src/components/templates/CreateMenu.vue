@@ -1,11 +1,6 @@
 <template>
     <div class='create_menu'>
-        <div class="radio_button__unit">
-            <input type="radio" id="create_menu" name="MenuOrDetail" class="radio_button" @change="MenuOrDetail = 'CreateMenuForm'" :checked="MenuOrDetail == 'CreateMenuForm' ? true : false">
-            <label for="create_menu" class="radio_button__label" >メニュー作成</label>
-            <input type="radio" id="create_setmenu" name="MenuOrDetail" class="radio_button" @change="MenuOrDetail = 'CreateDetailForm'" :checked="MenuOrDetail == 'CreateDetailForm' ? true : false">
-            <label for="create_setmenu" class="radio_button__label" >詳細設定</label>
-        </div>
+        <RadioButton v-model="MenuOrDetail" :radioButtonOptions="radioButtonOptions" :checked="MenuOrDetail"></RadioButton>
         <UpFade>
             <keep-alive>
                     <component :is="MenuOrDetail"></component>
@@ -15,20 +10,37 @@
 </template>
 
 <script>
-import UpFade from "../../transition/UpFade"
+import UpFade from "../transition/UpFade"
 import CreateMenuForm from "./CreateMenuForm"
 import CreateDetailForm from "./CreateDetailForm"
+import RadioButton from "../atoms/RadioButton"
+
 
 export default {
     data: () => {
         return {
             MenuOrDetail: 'CreateDetailForm',
+            radioButtonOptions: [
+                {
+                    id: 'create_menu',
+                    value: 'CreateMenuForm',
+                    name: 'MenuOrDetail',
+                    label: 'メニュー作成',
+                },
+                {
+                    id: 'create_setmenu',
+                    value: 'CreateDetailForm',
+                    name: 'MenuOrDetail',
+                    label: '詳細設定',
+                }
+            ],
         }
     },
     components: {
         UpFade,
         CreateMenuForm,
-        CreateDetailForm
+        CreateDetailForm,
+        RadioButton,
     },
 }
 </script>

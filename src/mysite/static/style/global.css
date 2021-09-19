@@ -47,6 +47,13 @@ li{
     list-style-type: none;
 }
 
+p{
+    padding: 5px;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    max-width: 90vw;
+}
+
 
 
 input {
@@ -57,7 +64,15 @@ select {
 }
 button {
     font-size: 16px;
-} 
+}
+
+form{
+    width: 280px;
+    margin: 20px auto 50px auto;
+}
+article{
+    margin: 20px auto 50px auto;
+}
 
 /* textbox type=numberでスピンボタンを非表示にする */
 input[type="number"]::-webkit-outer-spin-button, 

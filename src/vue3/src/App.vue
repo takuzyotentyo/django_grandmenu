@@ -35,8 +35,6 @@ export default {
     };
   },
 }
-
-
 </script>
 
 <style lang="scss">
@@ -71,7 +69,8 @@ export default {
   --bg-info-opacity: rgba(23, 162, 184, .6);
 
   --animation-time: .2s;
-  --drop-shadow: (0 0 3px $bg-focus);
+  --drop-shadow: drop-shadow(0 0 2px var(--bg-focus));
+  --main-height: calc(100vh - 50px);
 }
 .icon{
   &--cart{

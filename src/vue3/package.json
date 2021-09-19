@@ -12,6 +12,7 @@
     "sass-loader": "^10.2.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.10",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2",
     "webpack-bundle-tracker": "^1.2.0",
     "yubinbango-core": "github:nasum/yubinbango-core"

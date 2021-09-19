@@ -28,7 +28,7 @@
         <router-link class="side_nav_2__content" to='/storeanalytics' @click="mobileSideNavShow">売り上げ管理</router-link>
       </ul>
     </transition>
-    <a class="side_nav__logout">ログアウト</a>
+    <a class="side_nav__logout" href="../accounts/logout">ログアウト</a>
   </nav>
 </template>
 
@@ -65,9 +65,9 @@ export default {
 
 <style lang="scss" scoped>
 .side_nav{
-    position: absolute;
+    position: relative;
     width: 25vw;
-    height: calc(100vh - 50px);
+    height: $main-height;
     left: -100%;
     background-color: $bg-primary;
     line-height: 50px;

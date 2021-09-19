@@ -3,8 +3,6 @@ import App from './App.vue'
 import { router } from './router'
 import store from './store'
 
-
-
 const app = createApp(App)
 // websocketの設定
 let ws_scheme = window.location.protocol == "https:" ? "wss://" : "ws://";

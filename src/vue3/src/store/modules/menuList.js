@@ -3,50 +3,6 @@ const state = {
         class1: '0',
         class2: '',
     },
-    // class1Menus: ['food','drink'],
-    // class2Menus:{
-    //     food: ['ハンバーガー','サイドメニュー'],
-    //     drink: ['ソフトドリンク']
-    // },
-    // class3Menus: {
-    //     food: {
-    //         ハンバーガー: [
-    //             {name: 'ハンバーガー', price: 100, takeout: true, class4Menus: []},
-    //             {name: 'チーズバーガー', price: 120, takeout: true, class4Menus: []},
-    //             {name: 'ビッグマック', price: 200,takeout: true, class4Menus:[]},
-    //         ],
-    //         サイドメニュー:[
-    //             {name: 'ポテトS', price: 100, takeout: false, class4Menus:[]},
-    //             {name: 'ポテトM', price: 150, takeout: false, class4Menus:[]},
-    //             {name: 'ポテトL', price: 200, takeout: false, class4Menus:[]},
-    //         ],
-    //     },
-    //     drink: {
-    //         ソフトドリンク: [
-    //             {name: 'コーラ', price: 100, takeout: true, class4Menus:['ドリンクセット','ポテトセット']},
-    //             {name: 'スプライト', price: 120, takeout: true, class4Menus:[]},
-    //         ],
-    //     },
-    // },
-    // class4Menus: ['ドリンクセット','ポテトセット','サラダセット'],
-    // class5Menus: {
-    //     ドリンクセット: [
-    //         {name: 'コーラ', price: 0},
-    //         {name: 'スプライト', price: 0},
-    //         {name: '黒烏龍茶', price: 100},
-    //     ],
-    //     ポテトセット: [
-    //         {name: 'ポテトS', price: 0},
-    //         {name: 'ポテトM', price: 50},
-    //         {name: 'ポテトL', price: 100},
-    //     ],
-    //     サラダセット: [
-    //         {name: 'サラダS', price: 0},
-    //         {name: 'サラダM', price: 50},
-    //         {name: 'サラダL', price: 100},
-    //     ],
-    // },
-
     menuLists : [
         {
             id: 1,

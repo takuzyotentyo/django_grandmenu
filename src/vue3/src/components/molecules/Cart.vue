@@ -27,13 +27,13 @@ export default {
     top: 10px;
     &__quantity{
         position: absolute;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
-        right: -0.5vw;
+        right: -0.25vw;
         top: -5px;
-        line-height: 25px;
-        font-size: 1.2rem;
+        line-height: 20px;
+        font-size: 1.0rem;
         background-color: $bg-danger;
         color: $text-primary;
     }

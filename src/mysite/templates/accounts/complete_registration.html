@@ -4,6 +4,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Login Form</title>
     <link rel="stylesheet" href="{% static 'style/HTML5 Doctor CSS Reset.css' %}">
     <link rel="stylesheet" href="{% static 'base.css' %}">
@@ -18,7 +19,10 @@
     <p>
         本登録が完了しました。<br>
         登録されたメールアドレスとパスワードでログインしてください。<br>
-        <a class="link--secondary" href="{% url 'accounts:login' %}">ログインへ</a>
+        <button class="submit_button">
+            <a class="link--secondary" href="{% url 'accounts:login' %}">ログインへ</a>
+        </button>
+        
     </p>
     </div>
     
