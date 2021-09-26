@@ -1,17 +1,23 @@
 <template>
     <div>
-        <form @submit.prevent="setMenuCreateAction">
+        <form @submit.prevent="setMenuCreateAction" class="set_menu_create">
             <h3>セットメニューの追加</h3>
             <Textbox placeholder="セットメニュー名" v-model="newSetMenus['class4']" required></Textbox>
-            <ListUpdate>
-                <li class="flex_box" v-for="(class5Menu , index) in newSetMenus['class5s']" :key="class5Menu['id']">
-                    <TextboxMidium placeholder="セットメニューの内容" v-model="newSetMenus['class5s'][index]['name']" required></TextboxMidium>
-                    <IconButton v-if="index == 0" class="icon--add" @click="createClass5"/>
-                    <IconButton v-else class="icon--delete" @click="deleteClass5(index)"/>
-                    <SelectboxHalf v-model="newSetMenus['class5s'][index]['price_type']" @change="noAdditionalPrice(index)" :selectBoxOptions="selectBoxOptions"></SelectboxHalf>
-                    <TextboxHalfNumber v-model="newSetMenus['class5s'][index]['price']" :disabled="newSetMenus['class5s'][index]['price_type'] == 'no_additional_price'? true : false " placeholder="料金" required></TextboxHalfNumber>
-                </li>
+            <h3>セットメニューの詳細</h3>
+            <ListUpdate class="set_menu_class5">
+                <Class5Create
+                    v-for="(class5, index) in newSetMenus['class5s']" :key="class5['id']"
+                    :class5_index = index
+                    v-model:class5_name="class5.name"
+                    v-model:class5_price="class5.price"
+                    v-model:class5_price_type="class5.price_type"
+                    @deleteClass5="deleteClass5"
+                    @noAdditionalPrice="noAdditionalPrice"
+                    :selectBoxOptions="selectBoxOptions"
+                >
+                </Class5Create>
             </ListUpdate>
+            <IconButton class="icon--increase" @click="createClass5"></IconButton>
             <SubmitButton>セットメニュー登録</SubmitButton>
             <SubmitButtonMidium @click="newSetMenuReset">入力内容をクリア</SubmitButtonMidium>
         </form>
@@ -22,12 +28,10 @@
 import { mapActions } from "vuex"
 import ListUpdate from "../transition/ListUpdate"
 import Textbox from "../atoms/Textbox"
-import TextboxMidium from "../atoms/TextboxMidium"
-import IconButton from "../atoms/IconButton"
-import SelectboxHalf from "../atoms/SelectboxHalf"
-import TextboxHalfNumber from "../atoms/TextboxHalfNumber"
 import SubmitButton from "../atoms/SubmitButton"
 import SubmitButtonMidium from "../atoms/SubmitButtonMidium"
+import Class5Create from "../molecules/Class5Create"
+import IconButton from '../atoms/IconButton.vue'
 
 export default {
     data: () => {
@@ -63,17 +67,17 @@ export default {
     components: {
         ListUpdate,
         Textbox,
-        TextboxMidium,
-        IconButton,
-        SelectboxHalf,
-        TextboxHalfNumber,
         SubmitButton,
         SubmitButtonMidium,
+        Class5Create,
+        IconButton,
     },
     methods: {
         ...mapActions([ 'setMenuCreate' ]),
         noAdditionalPrice(index){
             let price
+            console.log('noAdditionalPrice')
+            console.log(index)
             if(this.newSetMenus['class5s'][index]['price_type']=='no_additional_price'){
                 price = 0
             }else{
@@ -82,6 +86,7 @@ export default {
             this.newSetMenus['class5s'][index]['price'] = price
         },
         createClass5(){
+            console.log('createClass5')
             const ids = this.newSetMenus['class5s'].map((element) => element['id']);
             const max_id = Math.max(...ids) + 1
             this.newSetMenus['class5s'].push({
@@ -92,7 +97,13 @@ export default {
             })
         },
         deleteClass5(index){
-            this.newSetMenus['class5s'].splice(index, 1)
+            console.log('deleteClass5')
+            console.log(index)
+            console.log(this.newSetMenus['class5s'].length)
+            if(this.newSetMenus['class5s'].length > 1){
+                console.log(true)
+                this.newSetMenus['class5s'].splice(index, 1)
+            }
         },
         setMenuCreateAction(){
             let newClass5Menus, name , price
@@ -139,26 +150,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.radio_button{
-    @include radio_button;
-    &__unit{
-        @include radio_button__unit;
+.set_menu_create {
+    display: grid;
+    grid-template-columns:  1fr 42px 1fr;
+    &>:nth-child(n){
+        grid-column: 1 / 4;
+        margin-bottom: 5px
     }
-    &__label{
-        @include radio_button__label;
+    &>button{
+        margin-top: 15px
     }
-    &:checked + label{
-        @include radio_button__checked;
+    &>.icon--increase{
+        grid-column: 2;
+    }
+}
+.set_menu_class5 {
+    position: relative;
+    &>:nth-child(n){
+        margin-bottom: 5px
     }
 }
 
-.flex_box{
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: space-between;
-    flex-flow: wrap;
-    width: 280px;
+.width{
+    width: 42px;
 }
 .ListUpdate-leave-active {
   transition: all $animation-time ease;

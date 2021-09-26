@@ -1,4 +1,4 @@
-@mixin content--wrapper($width: 100%, $height: auto, $line-height:42px, $background-color: $bg-primary, $margin-bottom: 10px, $border-radius: 5px, $justify-content:space-between){
+@mixin content--wrapper($width: 100%, $height: auto, $line-height:42px, $background-color: $bg-primary, $margin: auto, $border-radius: 5px, $justify-content:space-between){
     height: $height;
     line-height: $line-height;
     width: $width;
@@ -8,7 +8,7 @@
     justify-content: space-between;   
     background-color: $background-color;
     border-radius: $border-radius;
-    margin-bottom: $margin-bottom;
+    margin: $margin;
     color: $text-primary;
     font-size: 1.6rem;
     text-align: center;
@@ -28,7 +28,7 @@
     width: $width;
     display: flex;
     justify-content: center;
-    margin: auto 0 10px;
+    margin: auto;
 }
 @mixin radio_button__label($width: 50%, $height: 42px) {
     width: $width;
@@ -45,7 +45,7 @@
     background-color: $bg-primary;
 }
 
-@mixin submit_button($width: 100%, $height: 42px, $margin: 20px calc((100% - #{$width}) / 2) 0){
+@mixin submit_button($width: 100%, $height: 42px, $margin: auto calc((100% - #{$width}) / 2)){
     width: $width;
     height: $height;
     position: relative;
@@ -62,17 +62,23 @@
         background: $bg-focus;
     }
 }
-@mixin icon_button($width: 42px, $height: 42px, $margin: 0 auto auto, $background-color: $bg-primary, $border-radius: 5px, $border: solid 10px $bg-primary){
+@mixin icon_button($width: 100%, $margin: auto, $background-color: $bg-primary, $border-radius: 5px, $border: solid 10% $bg-primary){
     box-sizing: border-box;
     width: $width;
-    height: $height;
+    padding-bottom: calc(100%);
     margin: $margin;
     border-radius: $border-radius;
-    border: $border;
+    border: 0;
     background-color: $background-color;
 }
+@mixin after{
+    display: block;
+    width: 100%;
+    height: 125px;
+    content: '';
+}
 
-@mixin textbox($width: 100%, $height: 42px, $margin: 0 0 10px){
+@mixin textbox($width: 100%, $height: 42px, $margin: auto){
     box-sizing: border-box;
     width: $width;
     height: $height;
@@ -97,7 +103,7 @@
     }
 }
 
-@mixin selectbox($width: 100%, $height: 42px, $margin: auto 0 10px){
+@mixin selectbox($width: 100%, $height: 42px, $margin: auto){
     box-sizing: border-box;
     width: $width;
     height: $height;

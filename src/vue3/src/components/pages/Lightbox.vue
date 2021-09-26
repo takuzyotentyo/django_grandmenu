@@ -60,20 +60,15 @@ export default {
         bottom: 0;
     }
     &__back{
-        box-sizing: border-box;
+        // box-sizing: border-box;
         position: absolute;
         width: 30px;
         height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         border-radius: 50%;
         background-color: $bg-danger;
-        border: solid 7.5px $bg-danger;
         right: 2.5vw;
         top: 45px;
         filter: $drop-shadow;
-        overflow: visible;
     }
 }
 </style>

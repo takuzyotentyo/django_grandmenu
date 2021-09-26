@@ -33,6 +33,15 @@ export default {
       const store_information = JSON.parse(e.data);
       store.dispatch('storeInformation_read', store_information)
     };
+    let height = window.innerHeight;
+    document.documentElement.style.setProperty( '--main-height', height + 'px');
+    console.log()
+    window.onresize = () => { 
+      console.log('リサイズ')
+      height = window.innerHeight;
+      document.documentElement.style.setProperty( '--main-height', height + 'px');
+      console.log(height)
+     }
   },
 }
 </script>
@@ -70,7 +79,7 @@ export default {
 
   --animation-time: .2s;
   --drop-shadow: drop-shadow(0 0 2px var(--bg-focus));
-  --main-height: calc(100vh - 50px);
+  --main-height: 100vh;
 }
 .icon{
   &--cart{
@@ -101,8 +110,12 @@ export default {
       background: url('/static/img/invitation.svg');
       background-size: cover;
   }
-  &--add{
-      background: url('/static/img/add.svg');
+  &--increase{
+      background: url('/static/img/increase.svg');
+      background-size: cover;
+  }
+  &--decrease{
+      background: url('/static/img/decrease.svg');
       background-size: cover;
   }
   &--search{

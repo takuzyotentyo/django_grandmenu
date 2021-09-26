@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="create_detail">
         <SetMenuCreate></SetMenuCreate>
         <SetMenuEdit></SetMenuEdit>
     </div>
@@ -7,8 +7,7 @@
 
 <script>
 import SetMenuCreate from "../organisms/SetMenuCreate"
-import SetMenuEdit from "../organisms/SetMenuEdit copy"
-// import SetMenuEdit from "../organisms/SetMenuEdit"
+import SetMenuEdit from "../organisms/SetMenuEdit"
 
 export default {
     components: {
@@ -17,3 +16,6 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

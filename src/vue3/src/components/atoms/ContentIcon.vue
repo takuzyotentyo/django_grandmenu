@@ -4,9 +4,6 @@
 
 <style lang="scss" scoped>
     .button_icon{
-        display: inline-block;
-        width: 22px;
-        height: 22px;
-        margin: auto 10px;
+        @include icon_button;
     }
 </style>

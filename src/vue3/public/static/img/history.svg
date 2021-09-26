@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 25.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+	 viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#FFFFFF;}
 </style>
 <g>
 	<g>
-		<rect x="52.4" y="37.3" class="st0" width="26" height="8.3"/>
+		<rect x="512.9" y="430.2" class="st0" width="142.8" height="45.6"/>
 	</g>
 	<g>
-		<rect x="34.7" y="37.3" class="st0" width="8.7" height="8.3"/>
+		<rect x="415.7" y="430.2" class="st0" width="47.8" height="45.6"/>
 	</g>
 	<g>
-		<rect x="52.4" y="54" class="st0" width="26" height="8.3"/>
+		<rect x="512.9" y="522" class="st0" width="142.8" height="45.6"/>
 	</g>
 	<g>
-		<rect x="34.7" y="54" class="st0" width="8.7" height="8.3"/>
+		<rect x="415.7" y="522" class="st0" width="47.8" height="45.6"/>
 	</g>
 	<g>
-		<rect x="52.4" y="20.7" class="st0" width="26" height="8.3"/>
+		<rect x="512.9" y="338.9" class="st0" width="142.8" height="45.6"/>
 	</g>
 	<g>
-		<rect x="34.7" y="20.7" class="st0" width="8.7" height="8.3"/>
+		<rect x="415.7" y="338.9" class="st0" width="47.8" height="45.6"/>
 	</g>
-	<path class="st0" d="M95.7,0H17.3C15,0,13,2,13,4v70.7H4.3c-2.3,0-4.3,2-4.3,4c0,12,9.7,21.3,21.7,21.3h56.7
-		c12,0,21.7-9.3,21.7-20.7V4C100,2,98,0,95.7,0z M91.4,79.4c0,7-6,12.7-13,12.7s-13-5.7-13-12.7c0-2.3-2-4-4.3-4H21.7V8.7h69.7V79.4
-		z"/>
+	<path class="st0" d="M750.8,225H320c-12.6,0-23.6,11-23.6,22v388.8h-47.8c-12.6,0-23.6,11-23.6,22c0,66,53.3,117.1,119.2,117.1
+		h311.5c65.9,0,119.2-51.1,119.2-113.8V247C774.4,236,763.4,225,750.8,225z M727.2,661.7c0,38.5-33,69.9-71.4,69.9
+		s-71.4-31.4-71.4-69.9c0-12.6-11-22-23.6-22H344.2V272.9h383C727.2,272.9,727.2,661.7,727.2,661.7z"/>
 </g>
 </svg>

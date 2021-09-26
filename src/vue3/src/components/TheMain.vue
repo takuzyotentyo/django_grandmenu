@@ -28,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 .main{
   position: fixed;
-  height: 100vh;
+  height: calc(var(--main-height) - 50px);
   height: -webkit-fill-available;
   background-color: $bg-secondary;
   display: flex;

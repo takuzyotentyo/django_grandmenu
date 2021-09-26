@@ -1,6 +1,6 @@
 const state = {
-    // lightBox: ''
-    lightBox: 'CreateMenu'
+    lightBox: ''
+    // lightBox: 'CreateMenu'
 };
 
 const getters = {

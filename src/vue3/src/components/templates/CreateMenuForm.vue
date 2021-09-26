@@ -1,41 +1,44 @@
 <template>
-    <form name="create_menu" @submit.prevent="submit" key="create_menu">
+    <form name="create_menu" @submit.prevent="submit" key="create_menu" class="create_menu_form">
 
         <h3>大分類</h3>
-        <RadioButton v-model="NewMenu['class1']" :radioButtonOptions="radioButtonClass1"></RadioButton>
+        <RadioButton v-model="NewMenu.class1" :radioButtonOptions="radioButtonClass1"></RadioButton>
 
         <h3>中分類</h3>
         <RadioButton v-model="CreateOrExist" :radioButtonOptions="radioButtonClass2" @change="NewMenu.class2=''"></RadioButton>
         <LeftFade>
             <keep-alive>
-                <Selectbox v-if="CreateOrExist == 'exist' && NewMenu.class1 == 0" v-model="NewMenu['class2']" :selectBoxOptions="selectBoxFoodClass2" required/>
-                <Selectbox v-else-if="CreateOrExist == 'exist' && NewMenu.class1 == 1" v-model="NewMenu['class2']" :selectBoxOptions="selectBoxDrinkClass2" required/>
-                <Textbox v-else v-model="NewMenu['class2']" placeholder="分類名" required/>
+                <Selectbox v-if="CreateOrExist == 'exist' && NewMenu.class1 == 0" v-model="NewMenu.class2" :selectBoxOptions="selectBoxFoodClass2" required/>
+                <Selectbox v-else-if="CreateOrExist == 'exist' && NewMenu.class1 == 1" v-model="NewMenu.class2" :selectBoxOptions="selectBoxDrinkClass2" required/>
+                <Textbox v-else v-model="NewMenu.class2" placeholder="分類名" required/>
             </keep-alive>
         </LeftFade>
 
         <h3>料理名</h3>
-        <Textbox v-model="NewMenu['class3']" placeholder="料理名" required/>
+        <Textbox v-model="NewMenu.class3" placeholder="料理名" required/>
 
         <h3>金額</h3>
-        <TextboxNumber placeholder="価格" v-model="NewMenu['price']" required/>
+        <TextboxNumber placeholder="価格" v-model="NewMenu.price" required/>
 
         <h3>セットメニュー</h3>
-        <RadioButton v-model="Class4Detail['isClass4']" :radioButtonOptions="radioButtonClass4"/>
+        <RadioButton v-model="NewMenu.isClass4" :radioButtonOptions="radioButtonClass4"/>
 
         <LeftFade>
-            <div v-if="Class4Detail.isClass4 == 'true'">
-                <ListUpdate>
-                    <li v-for="(class4_index, index) in Class4Detail.class4_indexs" :key="class4_index" class="flex_box">
-                        <SelectboxMedium v-model="Class4Detail.class4Menus[index]" :selectBoxOptions="selectBoxClass4" required />
-                        <IconButton v-if="class4_index == 0" class="icon--add" @click="createClass4" />
-                        <IconButton v-else class="icon--delete" @click="deleteClass4(index)" />
-                    </li>
+            <div v-if="NewMenu.isClass4 == 'true'">
+                <ListUpdate class="class4_wrapper">
+                    <Class4Select
+                        v-for="(class4, index) in NewMenu.class4s" :key="class4.id"
+                        v-model:class4_name="class4.name"
+                        :class4_index="index"
+                        :selectBoxOptions="selectBoxClass4"
+                        @deleteClass4="deleteClass4"
+                    />
+                    <IconButton class="icon--increase" @click="createClass4"></IconButton>
                 </ListUpdate>
             </div>
         </LeftFade>
         <h3>テイクアウト対応</h3>
-        <RadioButton v-model="NewMenu['takeout']" :radioButtonOptions="radioButtonTakeout"/>
+        <RadioButton v-model="NewMenu.takeout" :radioButtonOptions="radioButtonTakeout"/>
         <SubmitButton type="submit" class="submit_button">登録</SubmitButton>
         <SubmitButtonMidium class="submit_button--clear" @click="formReset">入力内容をクリア</SubmitButtonMidium>
     </form>
@@ -48,11 +51,11 @@ import ListUpdate from "../transition/ListUpdate"
 import RadioButton from "../atoms/RadioButton"
 import Textbox from "../atoms/Textbox"
 import Selectbox from "../atoms/Selectbox"
-import SelectboxMedium from "../atoms/SelectboxMedium"
 import TextboxNumber from "../atoms/TextboxNumber"
 import IconButton from "../atoms/IconButton"
 import SubmitButton from "../atoms/SubmitButton"
 import SubmitButtonMidium from "../atoms/SubmitButtonMidium"
+import Class4Select from "../molecules/Class4Select"
 
 
 export default {
@@ -63,15 +66,19 @@ export default {
                 class1: 0,
                 class2: "",
                 class3: "",
-                class4Menus: [],
+                isClass4: "false",
+                class4s: [{
+                    id:1,
+                    name:'',
+                }],
                 price: "",
                 takeout: "false",
             },
-            Class4Detail: {
-                isClass4: "false",
-                class4_indexs: [0],
-                class4Menus: [""],
-            },
+            // NewMenu: {
+            //     isClass4: "false",
+            //     class4_indexs: [0],
+            //     class4s: [""],
+            // },
             radioButtonClass1: [
                 {id: 'food_create', value: 0, name: 'create_category', label: 'food'},
                 {id: 'drink_create', value: 1, name: 'create_category', label: 'drink'}
@@ -99,11 +106,11 @@ export default {
         RadioButton,
         Textbox,
         Selectbox,
-        SelectboxMedium,
         TextboxNumber,
         IconButton,
         SubmitButton,
         SubmitButtonMidium,
+        Class4Select,
     },
     computed: {
         ...mapGetters([ 'menuLists','setMenuLists' ]),
@@ -121,10 +128,8 @@ export default {
         ...mapActions([ 'menuListCreate' ]),
         submit(){
             let Newmenu
-            if (this.Class4Detail.isClass4 == "true") {
-                this.NewMenu['class4Menus'] = this.Class4Detail.class4Menus
-            }else{
-                this.NewMenu['class4Menus'] = []
+            if (this.NewMenu.isClass4 == "false") {
+                this.NewMenu['class4s'] = []
             }
             Newmenu = JSON.parse(JSON.stringify(this.NewMenu))
             this.menuListCreate(Newmenu);
@@ -132,25 +137,35 @@ export default {
             this.formReset();
         },
         createClass4(){
-            const next_index = Math.max(...this.Class4Detail.class4_indexs) + 1
-            this.Class4Detail.class4_indexs.push(next_index)
-            this.Class4Detail.class4Menus.push('')
+            console.log('createClass4')
+                const class4_ids = this.NewMenu.class4s.map(class4 => class4.id);
+                const next_index = Math.max(...class4_ids) + 1
+                console.log(next_index)
+                const next_class4 = {
+                    id: next_index,
+                    name: ''
+                }
+                this.NewMenu.class4s.push(next_class4)
         },
         deleteClass4(index){
-            this.Class4Detail.class4_indexs.splice(index, 1)
-            this.Class4Detail.class4Menus.splice(index, 1)
+            console.log('deleteClass4')
+            console.log(index)
+            console.log(this.NewMenu.class4s.length)
+            if (this.NewMenu.class4s.length != 1) {
+                this.NewMenu.class4s.splice(index, 1)
+            }
         },
         formReset(){
             this.['CreateOrExist'] = "exist"
             this.NewMenu['class1'] = 0
             this.NewMenu['class2'] = ""
             this.NewMenu['class3'] = ""
-            this.NewMenu['class4Menus'] = []
+            this.NewMenu['class4s'] = []
             this.NewMenu['price'] = ""
             this.NewMenu['takeout'] = "false"
-            this.Class4Detail['isClass4'] = "false"
-            this.Class4Detail['class4_indexs'] = [0]
-            this.Class4Detail['class4Menus'] = [""]
+            this.NewMenu['isClass4'] = "false"
+            this.NewMenu['class4_indexs'] = [0]
+            this.NewMenu['class4s'] = [""]
         },
         selectBoxOptionCreate(){
             let class2Nams, class4Nams
@@ -185,13 +200,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.flex_box{
-    display: flex;
+.create_menu_form{ 
+    &>:nth-child(n){
+        margin-bottom: 5px;
+    }
+    &>:nth-last-child(2){
+        margin-bottom:15px;
+    }
+    &>:nth-last-child(3){
+        margin-bottom:15px;
+    }
+}
+.class4_wrapper{
     position: relative;
-    align-items: center;
-    justify-content: space-between;
-    flex-flow: wrap;
-    width: 280px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 42px 1fr;
+    grid-gap: 5px 0;
+    & >:nth-child(n){
+        grid-column: 1 / 4;
+    }
+    & > .icon--increase{
+        grid-column: 2;
+    }
 }
 .ListUpdate-leave-active {
   transition: all $animation-time ease;

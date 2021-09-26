@@ -33,6 +33,20 @@ const state = {
                             takeout: true,
                             class4s:['1','2']
                         },
+                        {
+                            id: 4,
+                            name: 'テリヤキバーガー',
+                            price: 200,
+                            takeout: true,
+                            class4s:['1','2']
+                        },
+                        {
+                            id: 5,
+                            name: 'ダブルチーズバーガー',
+                            price: 250,
+                            takeout: true,
+                            class4s:['1','2']
+                        },
                     ]
                 },
                 {
@@ -135,11 +149,6 @@ const state = {
 
 const getters = {
     selectClass: state => state.selectClass,
-    // class1Menus: state => state.class1Menus,
-    // class2Menus: state => state.class2Menus,
-    // class3Menus: state => state.class3Menus,
-    // class4Menus: state => state.class4Menus,
-    // class5Menus: state => state.class5Menus,
     menuLists: state => state.menuLists,
     setMenuLists: state => state.setMenuLists,
 
@@ -262,10 +271,14 @@ const mutations = {
         state.setMenuLists.splice(class4Index, 1)
     },
     class5Update(state, class5Menu){
+        console.log('class5Update')
+        console.log(class5Menu)
         const class4Index = class5Menu.class4_index
         const class5Index = class5Menu.class5_index
         const class5Name = class5Menu.name
-        state.setMenuLists[class4Index].class5[class5Index].name = class5Name
+        const class5Price = class5Menu.price
+        state.setMenuLists[class4Index].class5s[class5Index].name = class5Name
+        state.setMenuLists[class4Index].class5s[class5Index].price = class5Price
     },
     class5Delete(state, class4Index){
         console.log('class4Delete')

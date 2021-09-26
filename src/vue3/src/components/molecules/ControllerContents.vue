@@ -2,19 +2,17 @@
     <!-- <li class="ControllerContents" @click="lightBoxShow(url)"> -->
     <li class="ControllerContents">
         <ContentIcon :class="img"/>
-        <ContentMidium>{{ content }}</ContentMidium>
+        <span>{{ content }}</span>
     </li>
 </template>
 
 <script>
 import ContentIcon from "../atoms/ContentIcon.vue"
-import ContentMidium from "../atoms/ContentMidium.vue"
 
 
 export default {
     components: {
         ContentIcon,
-        ContentMidium,
     },
     props: ['content','img'],
 }
@@ -23,8 +21,13 @@ export default {
 <style lang="scss" scoped>
     .ControllerContents{
         color: $text-primary;
-        height: 42px;
-        font-size: 16px;
-        display: flex;
-}
+        font-size: 1.6rem;
+        display: grid;
+        grid-template-rows: 42px;
+        padding-left: 5px;
+        grid-template-columns: 42px 1fr;
+        grid-gap: 0 5px;
+        justify-content: center;
+        align-items: center;
+}  
 </style>

@@ -15,7 +15,6 @@ const mutations = {
 
 const actions ={
     sideNavShow({ commit }){
-        console.log('OK')
         commit("sideNavShow")
     }
 };

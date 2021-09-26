@@ -55,7 +55,6 @@ export default {
         mobileSideNavShow(){
             const windowsize = window.innerWidth;
             if(windowsize < 767){
-            
                 this.sideNavShow();
             }
         }
@@ -65,9 +64,9 @@ export default {
 
 <style lang="scss" scoped>
 .side_nav{
-    position: relative;
+    position: fixed;
     width: 25vw;
-    height: $main-height;
+    height: calc(var(--main-height) - 50px);
     left: -100%;
     background-color: $bg-primary;
     line-height: 50px;

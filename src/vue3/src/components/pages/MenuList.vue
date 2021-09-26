@@ -3,15 +3,15 @@
     <RadioButton :modelValue="selectClass.class1" @change="selectClass1Update($event.target.value)" :radioButtonOptions="radioButtonClass1" :class="{'blur': lightBox !=''}"/>
     <UpFade>
       <template v-for="(class1, class1_index) in menuLists" :key="class1_index">
-        <div v-if="selectClass.class1==0" class="class2__wrapper">
-            <ContentWrapper v-for="(class2, class2_index) in menuLists[0].class2s" :key="class2_index" @click="selectClass2(class2_index)" :class="{'blur': lightBox !=''}">
-                <Content>{{ class2.name }}</Content>
-            </ContentWrapper>
+        <div v-if="selectClass.class1==0" class="class2__wrapper" :class="{'blur': lightBox !=''}">
+            <template v-for="(class2, class2_index) in menuLists[0].class2s" :key="class2_index">
+                <Content class="class2" @click="selectClass2(class2_index)">{{ class2.name }}</Content>
+            </template>
         </div>
-        <div v-else-if="selectClass.class1==1" class="class2__wrapper">
-            <ContentWrapper v-for="(class2, class2_index) in menuLists[1].class2s" :key="class2_index" @click="selectClass2(class2_index)" :class="{'blur': lightBox !=''}">
-                <Content>{{ class2.name }}</Content>
-            </ContentWrapper>
+        <div v-else-if="selectClass.class1==1" class="class2__wrapper" :class="{'blur': lightBox !=''}">
+            <template v-for="(class2, class2_index) in menuLists[1].class2s" :key="class2_index">
+                <Content class="class2" @click="selectClass2(class2_index)">{{ class2.name }}</Content>
+            </template>
         </div>
       </template>
     </UpFade>
@@ -27,7 +27,6 @@ import MenuController from '../organisms/MenuController.vue'
 import UpFade from '../transition/UpFade.vue'
 import RadioButton from "../atoms/RadioButton"
 import Content from "../atoms/Content"
-import ContentWrapper from "../atoms/ContentWrapper"
 
 export default {
     components: {
@@ -36,7 +35,6 @@ export default {
       UpFade,
       RadioButton,
       Content,
-      ContentWrapper
     },
     data: () => {
     return {
@@ -65,15 +63,32 @@ export default {
     width: 98%;
     height: 100%;
     display: flex;
+    margin-top:10px;
     flex-direction: column;
+    &>:nth-child(n){
+        margin-bottom: 10px;
+    }
+    &::after{
+        @include after;
+    }
 }
-.class2__wrapper{
-    width: 100%;
-    height: calc(100% - 65px);
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-between;
-    align-content: flex-start;
+.class2{
+    background-color: $bg-primary;
+    color: $text-primary;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    &__wrapper{
+        width: 100%;
+        height: calc(100% - 65px);
+        display: grid;
+        grid-template-columns: 49.5% 49.5%;
+        grid-auto-rows: 42px;
+        padding-bottom: 125px;
+        grid-gap:10px 1%;
+        @include mq('tb'){
+            grid-template-columns: 100%;
+        }
+    }
 }
 .blur{
     filter: blur(2px);

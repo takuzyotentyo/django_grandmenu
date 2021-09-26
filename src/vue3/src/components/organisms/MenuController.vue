@@ -24,7 +24,7 @@ import ControllerContents from '../molecules/ControllerContents.vue'
 export default {
     data: () => {
         return {
-            isShow: true,
+            isShow: false,
             contents:[
                 {content: 'メニュー作成', img: 'icon--create', url: "CreateMenu", isShow: false},
                 {content: 'メニュー削除', img: 'icon--delete', url: "", isShow: true},

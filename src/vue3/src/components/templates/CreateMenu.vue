@@ -19,7 +19,7 @@ import RadioButton from "../atoms/RadioButton"
 export default {
     data: () => {
         return {
-            MenuOrDetail: 'CreateDetailForm',
+            MenuOrDetail: 'CreateMenuForm',
             radioButtonOptions: [
                 {
                     id: 'create_menu',
@@ -49,23 +49,13 @@ export default {
 .create_menu{
     width: 280px;
     &::after{
-        display: block;
-        width: 100%;
-        height: 75px;
-        content: '';
+        @include after;
     }
-}
-.radio_button{
-    @include radio_button;
-    &__unit{
-        @include radio_button__unit;
+    &>:nth-child(n){
+        margin-bottom: 10px;
     }
-    &__label{
-        @include radio_button__label;
-            font-size: 14px;
-        }
-    &:checked + label{
-        @include radio_button__checked;
+    &>:nth-child(1){
+        margin-bottom:20px;
     }
 }
 </style>
