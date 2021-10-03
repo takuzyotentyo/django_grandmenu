@@ -74,11 +74,6 @@ export default {
                 price: "",
                 takeout: "false",
             },
-            // NewMenu: {
-            //     isClass4: "false",
-            //     class4_indexs: [0],
-            //     class4s: [""],
-            // },
             radioButtonClass1: [
                 {id: 'food_create', value: 0, name: 'create_category', label: 'food'},
                 {id: 'drink_create', value: 1, name: 'create_category', label: 'drink'}
@@ -140,7 +135,6 @@ export default {
             console.log('createClass4')
                 const class4_ids = this.NewMenu.class4s.map(class4 => class4.id);
                 const next_index = Math.max(...class4_ids) + 1
-                console.log(next_index)
                 const next_class4 = {
                     id: next_index,
                     name: ''
@@ -148,24 +142,24 @@ export default {
                 this.NewMenu.class4s.push(next_class4)
         },
         deleteClass4(index){
-            console.log('deleteClass4')
-            console.log(index)
-            console.log(this.NewMenu.class4s.length)
             if (this.NewMenu.class4s.length != 1) {
                 this.NewMenu.class4s.splice(index, 1)
             }
         },
         formReset(){
-            this.['CreateOrExist'] = "exist"
-            this.NewMenu['class1'] = 0
-            this.NewMenu['class2'] = ""
-            this.NewMenu['class3'] = ""
-            this.NewMenu['class4s'] = []
-            this.NewMenu['price'] = ""
-            this.NewMenu['takeout'] = "false"
-            this.NewMenu['isClass4'] = "false"
-            this.NewMenu['class4_indexs'] = [0]
-            this.NewMenu['class4s'] = [""]
+            const reset_new_menu = {
+                class1: 0,
+                class2: "",
+                class3: "",
+                isClass4: "false",
+                class4s: [{
+                    id:1,
+                    name:'',
+                }],
+                price: "",
+                takeout: "false",
+            }
+            this.NewMenu = reset_new_menu
         },
         selectBoxOptionCreate(){
             let class2Nams, class4Nams

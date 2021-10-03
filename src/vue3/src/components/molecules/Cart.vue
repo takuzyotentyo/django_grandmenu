@@ -1,7 +1,7 @@
 <template>
         <div class="cart icon--cart" @click='lightBoxShow("Cart")'>
             <span class="cart__ball" :class="{'active': cart_ball.isActive}" :style="cart_ball_style"></span>
-            <div class="cart__quantity">10</div>
+            <div class="cart__quantity">{{ total_quantity }}</div>
         </div>
 </template>
 
@@ -11,11 +11,11 @@ import { mapGetters, mapActions } from "vuex"
 export default {
     data: () =>{
         return{
-            cartBallIsActive: '',
+            total_quantity:"",
         }
     },
     computed: {
-        ...mapGetters([ 'lightBox', 'cart_ball' ]),
+        ...mapGetters([ 'lightBox', 'cart_ball', 'cart_orders' ]),
         cart_ball_style() {
             if (this.cart_ball.x=="" && this.cart_ball.y==""){
                 return {
@@ -30,8 +30,23 @@ export default {
             }
         },
     },
+    watch: {
+            cart_orders:{
+                handler(){
+                    this.total_quantity_count()
+                },
+                deep: true,
+                immediate: true,
+            }
+        },
     methods: {
         ...mapActions([ 'lightBoxShow' ]),
+        total_quantity_count(){
+            console.log(this.cart_orders)
+            const total_quantity = this.cart_orders.reduce((total ,element) => total + element.quantity, 0)
+            console.log(total_quantity)
+            this.total_quantity = total_quantity
+        }
     }
 }
 </script>
@@ -49,14 +64,14 @@ export default {
         border-radius: 50%;
         right: 0px;
         top: 5px;
-        line-height: 20px;
-        font-size: 1.0rem;
+        line-height: 21px;
+        font-size: 1.2rem;
         background-color: $bg-danger;
         color: $text-primary;
     }
     &__ball{
         position: fixed;
-        // display: none;
+        border-radius:5px;
         background-color: $bg-focus;
         width: 30px;
         height: 30px;
@@ -64,14 +79,13 @@ export default {
         top: var(--cart_ball_positionY);
         transition: all 0s;
         &.active{
-            // display: inline;
             background-color: $bg-danger;
             left: calc(97vw - 20px);
             top: 5px;
             border-radius: 50%;
             width: 20px;
             height: 20px;
-            transition: all .5s ease-out;
+            transition: all .6s ease-in-out;
         }
     }
 }

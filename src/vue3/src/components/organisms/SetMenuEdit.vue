@@ -1,7 +1,7 @@
 <template>
     <article class="set_menu_edit">
         <h3>登録済みのセットメニュー</h3>
-        <RadioButton v-model="actionType" :radioButtonOptions="radioButtonOptions"/>
+        <RadioButton v-model="actionType" :radioButtonOptions="radioButtonOptions" @click="setMenuOrderCreateAction"/>
 
         <draggable v-model="setMenusListsOrder" :key="id" tag="ul" handle=".icon--handle" :group="{ name: 'class4' }" class="class4_draggable">
             <template #item="class4">

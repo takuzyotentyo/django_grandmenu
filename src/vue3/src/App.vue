@@ -41,7 +41,7 @@ export default {
       height = window.innerHeight;
       document.documentElement.style.setProperty( '--main-height', height + 'px');
       console.log(height)
-     }
+     };
   },
 }
 </script>
@@ -57,6 +57,7 @@ export default {
 :root {
   --text-primary: rgb(248, 249, 250);
   --text-secondary: rgb(0,0,0);
+  --text-disabled: rgb(117, 117, 117);;
 
   --bg-primary: rgb(240, 165, 0);
   --bg-secondary: rgb(248, 249, 250);
@@ -65,7 +66,7 @@ export default {
   --bg-danger: rgb(220, 53, 69);
   --bg-warning: rgb(255, 193, 7);
   --bg-info: rgb(23, 162, 184);
-  --bg-disabled: rgb(200, 200, 200);
+  --bg-disabled: rgb(225, 225, 225);
   --bg-transparent: transparent;
 
   --bg-primary-opacity: rgba(240, 165, 0, .6);

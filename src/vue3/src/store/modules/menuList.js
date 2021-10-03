@@ -1,6 +1,6 @@
 const state = {
     selectClass: {
-        class1: '0',
+        class1: 'food',
         class2: '',
     },
     menuLists : [

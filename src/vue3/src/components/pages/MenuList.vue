@@ -3,14 +3,14 @@
     <RadioButton :modelValue="selectClass.class1" @change="selectClass1Update($event.target.value)" :radioButtonOptions="radioButtonClass1" :class="{'blur': lightBox !=''}"/>
     <UpFade>
       <template v-for="(class1, class1_index) in menuLists" :key="class1_index">
-        <div v-if="selectClass.class1==0" class="class2__wrapper" :class="{'blur': lightBox !=''}">
+        <div v-if="selectClass.class1=='food'" class="class2__wrapper" :class="{'blur': lightBox !=''}">
             <template v-for="(class2, class2_index) in menuLists[0].class2s" :key="class2_index">
-                <Content class="class2" @click="selectClass2(class2_index)">{{ class2.name }}</Content>
+                <Content class="class2" @click="selectClass2(class2.name)">{{ class2.name }}</Content>
             </template>
         </div>
-        <div v-else-if="selectClass.class1==1" class="class2__wrapper" :class="{'blur': lightBox !=''}">
+        <div v-else-if="selectClass.class1=='drink'" class="class2__wrapper" :class="{'blur': lightBox !=''}">
             <template v-for="(class2, class2_index) in menuLists[1].class2s" :key="class2_index">
-                <Content class="class2" @click="selectClass2(class2_index)">{{ class2.name }}</Content>
+                <Content class="class2" @click="selectClass2(class2.name)">{{ class2.name }}</Content>
             </template>
         </div>
       </template>
@@ -39,8 +39,8 @@ export default {
     data: () => {
     return {
             radioButtonClass1: [
-                {id: 'foodMenu', value: 0, name: 'food_or_drink', label: 'food'},
-                {id: 'drinkMenu', value: 1, name: 'food_or_drink', label: 'drink'}
+                {id: 'foodMenu', value: 'food', name: 'food_or_drink', label: 'food'},
+                {id: 'drinkMenu', value: 'drink', name: 'food_or_drink', label: 'drink'}
             ],
         }
     },

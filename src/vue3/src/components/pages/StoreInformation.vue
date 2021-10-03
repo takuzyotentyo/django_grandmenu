@@ -109,6 +109,9 @@ export default {
   &>:nth-child(n){
     margin-bottom: 5px;
   }
+  &::after{
+    @include after;
+  }
   &>button{
     margin-top:15px;
   }

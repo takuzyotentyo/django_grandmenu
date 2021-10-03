@@ -83,6 +83,7 @@
     width: $width;
     height: $height;
     position: relative;
+    color: $text-secondary;
     display: block;
     margin: $margin;
     border:solid 2px $bg-primary;
@@ -99,6 +100,9 @@
         color: $text-primary;
     }
     &[disabled]{
+        color: $text-disabled;
+        -webkit-text-fill-color: $text-disabled;
+        opacity: 1;
         background-image: linear-gradient(to right, $bg-disabled 50%, $bg-disabled 50%);
     }
 }

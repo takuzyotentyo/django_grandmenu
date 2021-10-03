@@ -73,6 +73,17 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] { 
   -moz-appearance:textfield; 
 } 
+::placeholder {
+    color: var(--text-disabled);
+  }
+  /* 旧Edge対応 */
+  ::-ms-input-placeholder {
+    color: var(--text-disabled);
+  }
+  /* IE対応 */
+  :-ms-input-placeholder {
+    color: var(--text-disabled);
+  }
 
 /* 
 h2{

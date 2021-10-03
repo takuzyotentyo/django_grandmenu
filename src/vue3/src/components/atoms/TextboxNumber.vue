@@ -33,7 +33,7 @@ export default {
             if( number == 0 ){
                 return number
             }else{
-                return Number(String(number.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'')))
+                return Number(String(number).replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,''));
             }
         },
         halfSizeFormatNumber_String(number) {
@@ -41,7 +41,7 @@ export default {
             if( number == 0 ){
                 return number
             }else{
-                return String(number.replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,''))
+                return String(number).replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'')
             }
         },
     },

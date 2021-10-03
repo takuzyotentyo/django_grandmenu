@@ -3,21 +3,27 @@
         <Content>{{ class3_name }}</Content>
         <Content>¥ {{ class3_price }}</Content>
         <Content>数量</Content>
-        <QuantitySelect></QuantitySelect>
-        <IconButtonFocus class="icon--cart" @click="addCart($event)"></IconButtonFocus>
+        <QuantitySelect v-model="quantity"></QuantitySelect>
+        <IconButtonFocus class="icon--cart" @click="add_cart($event, {class3: class3_name, price: class3_price, quantity: quantity})"></IconButtonFocus>
+        <!-- <Content>{{ class3_class4s }}</Content> -->
     </div>
 
 </template>
 <script>
-import { mapActions } from "vuex"
 import Content from "../atoms/Content"
 import IconButtonFocus from "../atoms/IconButtonFocus"
 import QuantitySelect from "../molecules/QuantitySelect"
 
 export default {
+    data: () =>{
+        return{
+            quantity: 0,
+        }
+    },
     props: [
         'class3_name',
         'class3_price',
+        // 'class3_class4s',
     ],
     emits: [
         'addCart',
@@ -28,15 +34,13 @@ export default {
         QuantitySelect,
     },
     methods: {
-        ...mapActions([ 'cartBallPositionUpdate' ]),
-        addCart(event){
-        console.log(event.pageX)
-        console.log(event.pageY)
-        console.log(event.offsetX)
-        console.log(event.offsetY)
-        this.cartBallPositionUpdate({x: event.pageX - event.offsetX, y: event.pageY - event.offsetY})
+        add_cart(event, menu){
+        console.log('class3Show')
+        console.log(event)
+        this.$emit('add_cart', event , menu)
+        this.quantity = 0
         }
-    }
+    },
 }
 </script>
 
@@ -44,7 +48,7 @@ export default {
 .class3--show{
     width: 100%;
     display: grid;
-    grid-template-rows: 42px 42px;
+    grid-auto-rows: 42px;
     grid-template-columns: 3px 1fr 40px 102px 30px 3px;
     grid-column-gap: 5px;
     justify-content: center;
@@ -67,6 +71,9 @@ export default {
     }
     &>:nth-child(5){
         grid-column: 5;
+    }
+    &>:nth-child(6){
+        grid-column: 2 / 6;
     }
 }
 </style>

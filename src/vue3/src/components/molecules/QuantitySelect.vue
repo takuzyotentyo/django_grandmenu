@@ -1,7 +1,7 @@
 <template>
     <div class="quantity_select">
         <IconButtonFocus class="icon--increase" @click="increment()"></IconButtonFocus>
-        <Textbox v-model="quantity" class='text_align' disabled></Textbox>
+        <Textbox :value="modelValue" class='text_align' disabled></Textbox>
         <IconButtonFocus class="icon--decrease" @click="decrement()"></IconButtonFocus>
     </div>
 
@@ -12,30 +12,28 @@ import Textbox from "../atoms/Textbox"
 
 export default {
     props: [
-    ],
-    emits: [
-    ],
+        'modelValue'
+        ],
+    emits:[
+        'update:modelValue'
+        ],
     components: {
         IconButtonFocus,
         Textbox,
     },
-    data: () => {
-        return {
-            quantity: 0,
-        }
-    },
     methods:{
         increment(){
             console.log('increment')
-            this.quantity++
+            this.$emit('update:modelValue', this.modelValue +1)
         },
         decrement(){
             console.log('decrement')
-            if(this.quantity < 1){
-                this.quantity=0
+            if(this.modelValue < 1){
+                this.$emit('update:modelValue', 0)
             }else{
-                this.quantity--
+                this.$emit('update:modelValue', this.modelValue -1)
             }
+            
         },
     }
 }
