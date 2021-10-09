@@ -11,4 +11,3 @@ def chat( request ):
 
 class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'grandmenu_spa/index.html'
-
