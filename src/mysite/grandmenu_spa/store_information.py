@@ -20,7 +20,9 @@ class store_information( AsyncWebsocketConsumer ):
         return
 
     async def receive( self, text_data ):
+        print(text_data)
         json_data = json.loads( text_data )
+        print(json_data)
         action = json_data.get( 'action' )
         if( 'create' == action ):
             print('create')

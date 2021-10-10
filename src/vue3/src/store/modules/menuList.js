@@ -17,6 +17,7 @@ const state = {
                             name: 'ハンバーガー',
                             price: 100,
                             takeout: true,
+                            // class4s: []
                             class4s: ['1','2']
                         },
                         {
@@ -24,14 +25,16 @@ const state = {
                             name: 'チーズバーガー',
                             price: 120,
                             takeout: true,
-                            class4s: ['1','2']
+                            class4s: []
+                            // class4s: ['1','2']
                         },
                         {
                             id: 3,
                             name: 'ビッグマック',
                             price: 200,
                             takeout: true,
-                            class4s:['1','2']
+                            class4s:[]
+                            // class4s:['1','2']
                         },
                         {
                             id: 4,

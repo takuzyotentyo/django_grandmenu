@@ -4,8 +4,7 @@
         <template v-for="(class2, class2_index) in class1.class2s" :key="class2_index">
             <template v-for="(class3, class3_index) in class2.class3s" :key="class3_index">
                 <template v-if="selectClass.class1==class1.name && selectClass.class2==class2.name">
-                    <!-- <Class3Show :class3_name="class3.name" :class3_price="class3.price" :class3_class4s="class3.class4s" @add_cart="add_cart"/> -->
-                    <Class3Show :class3_name="class3.name" :class3_price="class3.price" @add_cart="add_cart"/>
+                    <Class3Show class="class3__item" :class3_name="class3.name" :class3_price="class3.price" :class3_class4s="class3.class4s" @add_cart="add_cart"/>
                 </template>
             </template>
         </template>
@@ -25,8 +24,31 @@ export default {
     return {
         }
     },
+    watch: {
+        selectClass:{
+            handler(){
+                setTimeout(() => 
+                    this.imgMountCheck(),
+                200)
+            },
+            deep: true,
+            immediate: true,
+        },
+        sideNav:{
+            handler(){
+                setTimeout(() => 
+                    this.imgMountCheck(),
+                200)
+            },
+            deep: true,
+            immediate: true,
+        },
+    },
+    mounted: function () {
+        window.addEventListener('resize', this.imgMountCheck)
+    },
     computed: {
-        ...mapGetters([ 'menuLists' ,'selectClass']),
+        ...mapGetters([ 'menuLists' ,'selectClass', 'sideNav']),
     },
     methods: {
         ...mapActions([ 'addCart', 'cartBallPositionUpdate' ]),
@@ -40,27 +62,90 @@ export default {
                 quantity: menu.quantity,
                 price: menu.price,
             }
-            console.log('add_cart_menu')
-            console.log(add_cart_menu)
             const position_and_menu = {position: {x: event.pageX - event.offsetX, y: event.pageY - event.offsetY}, menu: add_cart_menu}
             this.cartBallPositionUpdate(position_and_menu)
         },
+        imgMountCheck(){
+            console.log('imgMountCheck')
+            const images = document.querySelectorAll('img');
+
+            let loadCnt = 0;
+            console.log(images.length)
+
+            if (images.length > 0) {
+                for (const img of images) {
+                    let image = new Image();
+                    image.src = img.src;
+                    image.addEventListener('load', () => {
+                        loadCnt++;
+                        if (loadCnt == images.length) {  // 画像が全部読み込まれたか判定しています
+                            this.makePageCardGridLayout();  // この後、このメソッドの中身を書きます
+                        }
+                    })
+                }
+            }else{
+                this.makePageCardGridLayout()
+            }
+        },
+        makePageCardGridLayout() {
+            console.log('makePageCardGridLayout')
+            let evenPosX = 0;
+            let evenPosY = 0;
+            let oddPosY = 0;
+            const PosX = 0;
+            let PosY = 0;
+            let sh
+            const class3__items = document.getElementsByClassName('class3__item');
+            if(class3__items.length > 0) {
+                let gridWindow;
+                for (let i = 0; i < class3__items.length; i++) {
+                    i == 0 ? gridWindow = class3__items[0].closest('.class3__wrapper') : i; // Gridの親要素を取得します
+                    if (window.matchMedia('(max-width: 959px)').matches) {
+                        console.log('under 959px')
+                        class3__items[i].setAttribute("style", "transform: translateX(" + PosX + "px) translateY(" + PosY + "px)");  // スタイルに配置したい位置を記述します
+                        PosY = PosY + class3__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                        console.log(PosY)
+                        sh = PosY + 150
+                        gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
+                    } else {
+
+                        const oddPosX = class3__items[0].clientWidth * 495 / 485;
+                        if (i % 2 == 0) { // Gridに配置される偶数番目の要素に対する処理
+                            class3__items[i].setAttribute("style", "transform: translateX("+ evenPosX +"px) translateY(" + evenPosY + "px)");  // スタイルに配置したい位置を記述します
+                            evenPosY = evenPosY + class3__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                        } else if (i % 2 != 0) {  // Gridに配置される奇数番目の要素に対する処理
+                            class3__items[i].setAttribute("style", "transform: translateX(" + oddPosX + "px) translateY(" + oddPosY + "px)");  // スタイルに配置したい位置を記述します
+                            oddPosY = oddPosY + class3__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                        }
+                        evenPosY > oddPosY ? sh = evenPosY + 150 : sh = oddPosY + 150; // 全部の要素が配置し終わったら、親要素の高さを設定するために計算します
+                        gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
+                    }
+                }
+            }
+        }
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.class3__wrapper{
-    width: 100%;
-    height: calc(100% - 65px);
-    display: grid;
-    grid-template-columns: 49.5% 49.5%;
-    grid-gap:5px 1%;
-    @include mq('tb'){
-        grid-template-columns: 100%;
+.class3{
+    &__wrapper{
+        width: 100%;
+        height: calc(100% - 65px);
+        padding-top: 30px;
+        @include mq('tb'){
+        }
+        &::after{
+            @include after;
+        }
     }
-    &::after{
-        @include after;
+    &__item{
+        width: 48.5%;
+        position: absolute;
+        margin-bottom: 10px;
+        @include mq('tb'){
+            width: 98%;
+        }
     }
 }
 </style>

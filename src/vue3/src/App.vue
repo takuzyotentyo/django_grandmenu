@@ -131,6 +131,10 @@ export default {
     background: url('/static/img/check.svg');
     background-size: cover;
   }
+  &--sumple{
+    background: url('/static/img/sumple.svg');
+    background-size: cover;
+  }
 }
 
 </style>

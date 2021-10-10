@@ -1,11 +1,12 @@
 <template>
     <div class="class3--show">
-        <Content>{{ class3_name }}</Content>
-        <Content>¥ {{ class3_price }}</Content>
-        <Content>数量</Content>
-        <QuantitySelect v-model="quantity"></QuantitySelect>
-        <IconButtonFocus class="icon--cart" @click="add_cart($event, {class3: class3_name, price: class3_price, quantity: quantity})"></IconButtonFocus>
-        <!-- <Content>{{ class3_class4s }}</Content> -->
+        <img v-if="class3_class4s.length!=0" class="class3--img" src="static/img/sample.svg">
+        <Content class="class3--name">{{ class3_name }}</Content>
+        <Content class="class3--price">¥ {{ class3_price }}</Content>
+        <Content class="class3--quantity_label">数量</Content>
+        <QuantitySelect v-model="quantity" class="class3--quantity"></QuantitySelect>
+        <IconButtonFocus class="icon--cart class3--cart" @click="add_cart($event, {class3: class3_name, price: class3_price, quantity: quantity})"></IconButtonFocus>
+        <Content v-if="class3_class4s.length!=0" class="class3--class4">{{ class3_class4s }}</Content>
     </div>
 
 </template>
@@ -23,7 +24,7 @@ export default {
     props: [
         'class3_name',
         'class3_price',
-        // 'class3_class4s',
+        'class3_class4s',
     ],
     emits: [
         'addCart',
@@ -41,14 +42,17 @@ export default {
         this.quantity = 0
         }
     },
+    // mounted: function(){
+    // }
 }
 </script>
 
 <style lang="scss" scoped>
-.class3--show{
+.class3{
+    &--show{
     width: 100%;
     display: grid;
-    grid-auto-rows: 42px;
+    grid-auto-rows: auto;
     grid-template-columns: 3px 1fr 40px 102px 30px 3px;
     grid-column-gap: 5px;
     justify-content: center;
@@ -57,22 +61,29 @@ export default {
     color: $text-primary;
     background-color: $bg-primary;
     border-radius: 5px;
-    &>:nth-child(1){
+    transition: all $animation-time;
+    }
+    &--img{
+        grid-column: 2 / 6;
+        padding-top: 10px;
+        width: calc(100%);
+    }
+    &--name{
         grid-column: 2 / 6;
     }
-    &>:nth-child(2){
+    &--price{
         grid-column: 2;
     }
-    &>:nth-child(3){
+    &--quantity_label{
         grid-column: 3;
     }
-    &>:nth-child(4){
+    &--quantity{
         grid-column: 4;
     }
-    &>:nth-child(5){
+    &--cart{
         grid-column: 5;
     }
-    &>:nth-child(6){
+    &--class4{
         grid-column: 2 / 6;
     }
 }
