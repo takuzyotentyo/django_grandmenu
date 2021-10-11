@@ -3,8 +3,8 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 #from asgiref.sync import async_to_sync  # async_to_sync() : 非同期関数を同期的に実行する際に使用する。
 from channels.db import database_sync_to_async
-from .models import Store
 from django.core.serializers import serialize
+from accounts.models import Store
 
 USERNAME_SYSTEM = '*system*'
 
@@ -12,25 +12,29 @@ USERNAME_SYSTEM = '*system*'
 class store_information( AsyncWebsocketConsumer ):
 
     # WebSocket接続時の処理
-    async def connect( self ):
+    async def connect(self):
+        # ユーザー情報の取得 (Emailが取得できる) * どこでこの情報をセットしているのか不思議。Djangoのどの部分？時間があるときに調べたい
+        self.UserEmail = self.scope["user"]
+        print("【DEBUG LOG】　WecSocket Connct")
         await self.accept()
 
     # WebSocket切断時の処理
     async def disconnect( self, close_code ):
+        print("【DEBUG LOG】　WecSocket DisConnct!!")
         return
 
     async def receive( self, text_data ):
-        print(text_data)
         json_data = json.loads( text_data )
-        print(json_data)
-        action = json_data.get( 'action' )
-        if( 'create' == action ):
+        #? json_dataのjsonvalueにstore_idは要らない??
+        print("【DEBUG LOG】json_data　{}".format(json_data))
+        #TODO ここは文字列比較ではなくdefine値比較にしたいところ
+        if(json_data["action"] == 'create'):
             print('create')
-        elif( 'read' == action ):
+        elif(json_data["action"] == 'read'):
             store_information = await self.store_read(json_data)
-        elif( 'update' == action ):
+        elif(json_data["action"] == 'update'):
             store_information = await self.store_update(json_data)
-        elif( 'delete' == action ):
+        elif(json_data["action"] == 'delete'):
             print('delete')
         else:
             return
@@ -52,26 +56,13 @@ class store_information( AsyncWebsocketConsumer ):
 
     @database_sync_to_async
     def store_read(self, json_data):
-        store_id = json_data.get('store_id')
-        raw_store_data = Store.objects.filter(store_id = store_id)
-        raw_store_data = serialize('json', (raw_store_data))
-        raw_store_data = json.loads(raw_store_data)
-        store_information = self.store_information_query_to_json(raw_store_data)
-        return store_information
-
-    def store_information_query_to_json(self, raw_store_data):
-        str_store_data = raw_store_data[0]['fields']
-        store_id = raw_store_data[0]['pk']
-        store_name = str_store_data['store_name']
-        seating_capacity = str_store_data['seating_capacity']
-        takeout_support = str_store_data['takeout_support']
-        json_data = {
-            'store_id': store_id,
-            'store_name': store_name,
-            'seating_capacity': seating_capacity,
-            'takeout_support': takeout_support,
+        store_data = Store.objects.filter(email=self.UserEmail).first()
+        #! とりあえず店舗名DB保存処理を入れるまでは店名をEmailで表示する
+        store_data_json = {
+            'store_id': store_data.id,
+            'store_name': store_data.email,
+            'seating_capacity': 888,
+            'takeout_support': True,
         }
-
-        return json_data
-         
-        
+        print("【DEBUG LOG】　store_data_json = {}".format(store_data_json))
+        return store_data_json
