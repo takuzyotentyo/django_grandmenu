@@ -8,9 +8,9 @@ const app = createApp(App)
 // websocketの設定
 let ws_scheme = window.location.protocol == "https:" ? "wss://" : "ws://";
 // django用・本番用
-let locationhost = window.location.host
+// let locationhost = window.location.host
 // vueでの開発用
-// let locationhost = '127.0.0.1:8000'
+let locationhost = '127.0.0.1:8000'
 const store_information = new WebSocket( ws_scheme + locationhost + "/ws/store_information/" );
 const menu_list = new WebSocket( ws_scheme + locationhost + "/ws/menu_list/" );
 app.config.globalProperties.$store_information = store_information

@@ -3,6 +3,12 @@ const state = {
     storeName: '',
     seatingCapacity: '',
     takeoutSupport: '',
+    storePostalCode: null,
+    storeAddress1: null,
+    storeAddress2: null,
+    storeAddress3: null,
+    storeAddress4: null,
+    storeAddress5: null,
 };
 
 const getters = {
@@ -10,6 +16,12 @@ const getters = {
     storeName: state => state.storeName,
     seatingCapacity: state => state.seatingCapacity,
     takeoutSupport: state => state.takeoutSupport,
+    storePostalCode: state => state.storePostalCode,
+    storeAddress1: state => state.storeAddress1,
+    storeAddress2: state => state.storeAddress2,
+    storeAddress3: state => state.storeAddress3,
+    storeAddress4: state => state.storeAddress4,
+    storeAddress5: state => state.storeAddress5,
 };
 
 const mutations = {

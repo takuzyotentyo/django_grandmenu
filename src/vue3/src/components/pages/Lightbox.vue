@@ -19,17 +19,19 @@
 <script>
 import { mapGetters, mapActions } from "vuex"
 import Class3s from '../organisms/Class3s.vue'
+import CartMenus from '../organisms/CartMenus.vue'
 import CreateMenu from '../templates/CreateMenu.vue'
 import UpFade from '../transition/UpFade.vue'
 
 export default {
     components: {
         Class3s,
+        CartMenus,
         CreateMenu,
         UpFade,
     },
     computed: {
-        ...mapGetters([ 'lightBox', 'subCategory', 'sideNav'])
+        ...mapGetters([ 'lightBox', 'sideNav'])
     },
     methods: {
         ...mapActions([ 'lightBoxShow' ]),

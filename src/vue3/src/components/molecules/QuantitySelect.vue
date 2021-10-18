@@ -1,8 +1,8 @@
 <template>
     <div class="quantity_select">
-        <IconButtonFocus class="icon--increase" @click="increment()"></IconButtonFocus>
+        <IconButtonFocus class="icon--increase" @click="quantityChange(1)"></IconButtonFocus>
         <Textbox :value="modelValue" class='text_align' disabled></Textbox>
-        <IconButtonFocus class="icon--decrease" @click="decrement()"></IconButtonFocus>
+        <IconButtonFocus class="icon--decrease" @click="quantityChange(-1)"></IconButtonFocus>
     </div>
 
 </template>
@@ -22,18 +22,8 @@ export default {
         Textbox,
     },
     methods:{
-        increment(){
-            console.log('increment')
-            this.$emit('update:modelValue', this.modelValue +1)
-        },
-        decrement(){
-            console.log('decrement')
-            if(this.modelValue < 1){
-                this.$emit('update:modelValue', 0)
-            }else{
-                this.$emit('update:modelValue', this.modelValue -1)
-            }
-            
+        quantityChange(quantity){
+            this.$emit('update:modelValue', quantity)
         },
     }
 }

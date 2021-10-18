@@ -1,10 +1,10 @@
 
 <template>
-    <span class='button_icon--danger'></span>
+    <button class='button_icon--focus'></button>
 </template>
 
 <style lang="scss" scoped>
-    .button_icon--danger{
+    .button_icon--focus{
         @include icon_button($background-color: $bg-focus, $border: solid 10px $bg-focus);
     }
 </style>

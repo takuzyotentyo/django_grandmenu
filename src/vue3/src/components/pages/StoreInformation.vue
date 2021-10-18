@@ -64,11 +64,57 @@ export default {
         SubmitButton,
         PostalCode,
   },
+  mounted: function() {
+    this.readStoreInformation
+    console.log(this.storeID)
+    console.log(this.storeName)
+    console.log(this.seatingCapacity)
+    console.log(this.takeoutSupport)
+    console.log(this.storePostalCode)
+    console.log(this.storeAddress1)
+    console.log(this.storeAddress2)
+    console.log(this.storeAddress3)
+    console.log(this.storeAddress4)
+    console.log(this.storeAddress5)
+  },
+  // watch: {
+  //   storeName:{
+  //     handler(){
+  //         setTimeout(() => 
+  //             this.imgMountCheck(),
+  //         200)
+  //     },
+  //     deep: true,
+  //     immediate: true,
+  //   },
+  // },
   computed: {
-    ...mapGetters([ 'storeName', 'storeID', 'seatingCapacity', 'takeoutSupport'])
+    ...mapGetters([
+      'storeID',
+      'storeName',
+      'seatingCapacity',
+      'takeoutSupport',
+      'storePostalCode',
+      'storeAddress1',
+      'storeAddress2',
+      'storeAddress3',
+      'storeAddress4',
+      'storeAddress5',
+    ])
   },
   methods: {
     ...mapActions([ 'storeInformation_update' ]),
+    readStoreInformation(){
+      this.store_name = this.storeName
+      this.seating_capacity = this.seatingCapacity
+      this.takeout_support = this.takeoutSupport
+      this.store_postal_code = this.storePostalCode
+      this.store_address1 = this.storeAddress1
+      this.store_address2 = this.storeAddress2
+      this.store_address3 = this.storeAddress3
+      this.store_address4 = this.storeAddress4
+      this.store_address5 = this.storeAddress5
+    },
     submit(submitEvent){
       const store_id = this.storeID
       const store_name = submitEvent.target.elements.store_name.value;

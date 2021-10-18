@@ -15,6 +15,7 @@ export default {
     TheHeader, TheSideNav, TheMain
   },
   mounted: function() {
+    console.log('app.vue mounted')
     const store_information = this.$store_information
     const store = this.$store
 
@@ -26,6 +27,7 @@ export default {
         'store_id': store_id
       })
       await store_information.send(message)
+
     };
 
     store_information.onmessage = function(e) {
@@ -33,15 +35,16 @@ export default {
       const store_information = JSON.parse(e.data);
       store.dispatch('storeInformation_read', store_information)
     };
+
+    // 画面サイズが変更された際の補正
     let height = window.innerHeight;
     document.documentElement.style.setProperty( '--main-height', height + 'px');
-    console.log()
     window.onresize = () => { 
-      console.log('リサイズ')
       height = window.innerHeight;
       document.documentElement.style.setProperty( '--main-height', height + 'px');
-      console.log(height)
      };
+    // スマホのダブルタップで画面が大きくなるのを制限
+    document.addEventListener("dblclick", function(e){ e.preventDefault();}, { passive: false });
   },
 }
 </script>

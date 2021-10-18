@@ -154,7 +154,6 @@ const getters = {
     selectClass: state => state.selectClass,
     menuLists: state => state.menuLists,
     setMenuLists: state => state.setMenuLists,
-
 };
 
 const mutations = {
@@ -165,12 +164,15 @@ const mutations = {
         state.selectClass["class2"] = newClass2;
     },
     menuListCreate(state, newMenu){
+        console.log(newMenu)
         const newClass1Index = newMenu.['class1']
         const newClass2Name = newMenu.['class2']
         const newClass3Name = newMenu.['class3']
         const newClass3Price = newMenu.['price']
         const newClass3Takeout = newMenu.['takeout']
-        const newClass3Class4s = newMenu.['class4Menus']
+        const newClass3Class4s = newMenu.['class4s']
+        console.log('newClass3Class4s')
+        console.log(newClass3Class4s)
         const class2s = state.menuLists[newClass1Index].class2s
         let class2Names = class2s.map(element => element.name)
         let class2Ids = class2s.map(element => element.id)
@@ -201,6 +203,8 @@ const mutations = {
                 takeout: newClass3Takeout,
                 class4s: newClass3Class4s,
             }
+            console.log('newClass3')
+            console.log(newClass3)
             state.menuLists[newClass1Index].class2s[newClass2Index].class3s.push(newClass3)
         }else{
             const newClass3Index = class3Names.indexOf(newClass3Name)

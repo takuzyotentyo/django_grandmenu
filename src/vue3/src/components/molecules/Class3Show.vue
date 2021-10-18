@@ -1,12 +1,12 @@
 <template>
-    <div class="class3--show">
-        <img v-if="class3_class4s.length!=0" class="class3--img" src="static/img/sample.svg">
-        <Content class="class3--name">{{ class3_name }}</Content>
-        <Content class="class3--price">¥ {{ class3_price }}</Content>
-        <Content class="class3--quantity_label">数量</Content>
-        <QuantitySelect v-model="quantity" class="class3--quantity"></QuantitySelect>
-        <IconButtonFocus class="icon--cart class3--cart" @click="add_cart($event, {class3: class3_name, price: class3_price, quantity: quantity})"></IconButtonFocus>
-        <Content v-if="class3_class4s.length!=0" class="class3--class4">{{ class3_class4s }}</Content>
+    <div class="class3__show">
+        <img v-if="class4s.length!=0" class="class3__img" src="static/img/sample.svg">
+        <Content class="class3__name">{{ class3 }}</Content>
+        <Content class="class3__price">¥ {{ price }}</Content>
+        <Content class="class3__quantity_label">数量</Content>
+        <QuantitySelect :model-value="quantity" @update:modelValue="quantityChange" class="class3__quantity"></QuantitySelect>
+        <IconButtonFocus class="icon--cart class3__cart" @click="add_cart($event, {class3: class3, price: price, quantity: quantity})"></IconButtonFocus>
+        <Content v-if="class4s.length!=0" class="class3__class4">{{ class4s }}</Content>
     </div>
 
 </template>
@@ -22,9 +22,9 @@ export default {
         }
     },
     props: [
-        'class3_name',
-        'class3_price',
-        'class3_class4s',
+        'class3',
+        'price',
+        'class4s',
     ],
     emits: [
         'addCart',
@@ -36,10 +36,12 @@ export default {
     },
     methods: {
         add_cart(event, menu){
-        console.log('class3Show')
-        console.log(event)
         this.$emit('add_cart', event , menu)
         this.quantity = 0
+        },
+        quantityChange(event){
+        if(this.quantity + event >= 0)
+            this.quantity = this.quantity + event
         }
     },
     // mounted: function(){
@@ -49,11 +51,10 @@ export default {
 
 <style lang="scss" scoped>
 .class3{
-    &--show{
-    width: 100%;
+    &__show{
     display: grid;
     grid-auto-rows: auto;
-    grid-template-columns: 3px 1fr 40px 102px 30px 3px;
+    grid-template-columns: 1fr 40px 102px 30px;
     grid-column-gap: 5px;
     justify-content: center;
     align-items: center;
@@ -63,28 +64,24 @@ export default {
     border-radius: 5px;
     transition: all $animation-time;
     }
-    &--img{
-        grid-column: 2 / 6;
-        padding-top: 10px;
+    &__img{
+        grid-column: 1 / 5;
+        padding-top: 5px;
         width: calc(100%);
     }
-    &--name{
-        grid-column: 2 / 6;
+    &__name{
+        grid-column: 1 / 5;
     }
-    &--price{
-        grid-column: 2;
+    &__price{
     }
-    &--quantity_label{
-        grid-column: 3;
+    &__quantity_label{
     }
-    &--quantity{
-        grid-column: 4;
+    &__quantity{
     }
-    &--cart{
-        grid-column: 5;
+    &__cart{
     }
-    &--class4{
-        grid-column: 2 / 6;
+    &__class4{
+        grid-column: 1 / 5;
     }
 }
 </style>

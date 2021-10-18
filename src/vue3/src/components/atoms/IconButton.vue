@@ -1,6 +1,6 @@
 
 <template>
-    <div class='button_icon'></div>
+    <button class='button_icon'></button>
 </template>
 
 <style lang="scss" scoped>

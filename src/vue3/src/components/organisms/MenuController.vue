@@ -41,6 +41,29 @@ export default {
     },
     methods: {
         ...mapActions([ 'lightBoxShow' ]),
+        keyAction(e) {
+            if (e.keyCode == 77 && e.altKey == true) {
+                this.isShow = !this.isShow
+            }else if(e.keyCode==49 && e.altKey == true){
+                this.lightBoxShow('CreateMenu')
+            }else if(e.keyCode==50 && e.altKey == true){
+                this.lightBoxShow('')
+            }else if(e.keyCode==51 && e.altKey == true){
+                this.lightBoxShow('')
+            }else if(e.keyCode==52 && e.altKey == true){
+                this.lightBoxShow('OrderHistory')
+            }else if(e.keyCode==53 && e.altKey == true){
+                this.lightBoxShow('TableInvitation')
+            }
+        },
+    },
+    created() {
+        //キーコードによる動作の登録
+        window.addEventListener("keydown", this.keyAction);
+    },
+    beforeUnmount() {
+        //キーコードによる動作の削除
+        window.removeEventListener("keydown", this.keyAction);
     },
 }
 </script>

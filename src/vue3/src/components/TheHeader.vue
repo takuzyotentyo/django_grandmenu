@@ -26,8 +26,21 @@ export default {
         ...mapGetters([ 'storeName', 'storeName', 'sideNav' ])
     },
     methods: {
-        ...mapActions([ 'storeNameChange', 'sideNavShow' ])
+      ...mapActions([ 'storeNameChange', 'sideNavShow' ]),
+      keyAction(e) {
+        if (e.keyCode == 77 && e.shiftKey == true) {
+          this.sideNavShow();
+        }
+      },
     },
+    created() {
+      //キーコードによる動作の登録
+      window.addEventListener("keydown", this.keyAction);
+    },
+    beforeUnmount() {
+      //キーコードによる動作の削除
+      window.removeEventListener("keydown", this.keyAction);
+  },
 }
 </script>
 

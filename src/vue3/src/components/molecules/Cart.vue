@@ -1,6 +1,6 @@
 <template>
-        <div class="cart icon--cart" @click='lightBoxShow("Cart")'>
-            <span class="cart__ball" :class="{'active': cart_ball.isActive}" :style="cart_ball_style"></span>
+        <div class="cart icon--cart" @click='lightBoxShow("CartMenus")'>
+            <span class="cart__ball" :class="{'active': cartBall.isActive}" :style="cart_ball_style"></span>
             <div class="cart__quantity">{{ total_quantity }}</div>
         </div>
 </template>
@@ -15,23 +15,16 @@ export default {
         }
     },
     computed: {
-        ...mapGetters([ 'lightBox', 'cart_ball', 'cart_orders' ]),
+        ...mapGetters([ 'lightBox', 'cartBall', 'cartOrders' ]),
         cart_ball_style() {
-            if (this.cart_ball.x=="" && this.cart_ball.y==""){
-                return {
-                    '--cart_ball_positionX' : "calc(97vw - 20px)",
-                    '--cart_ball_positionY' : "5px",
-                }
-            }else{
-                return {
-                    '--cart_ball_positionX' : this.cart_ball.x + "px",
-                    '--cart_ball_positionY' : this.cart_ball.y + "px",
-                }
+            return {
+                '--cart_ball_positionX' : this.cartBall.x + "px",
+                '--cart_ball_positionY' : this.cartBall.y + "px",
             }
         },
     },
     watch: {
-            cart_orders:{
+            cartOrders:{
                 handler(){
                     this.total_quantity_count()
                 },
@@ -42,12 +35,23 @@ export default {
     methods: {
         ...mapActions([ 'lightBoxShow' ]),
         total_quantity_count(){
-            console.log(this.cart_orders)
-            const total_quantity = this.cart_orders.reduce((total ,element) => total + element.quantity, 0)
-            console.log(total_quantity)
+            const total_quantity = this.cartOrders.reduce((total ,element) => total + element.quantity, 0)
             this.total_quantity = total_quantity
-        }
-    }
+        },
+        keyAction(e) {
+            if (e.keyCode == 67 && e.altKey == true) {
+                this.lightBoxShow('CartMenus')
+            }
+        },
+    },
+    created() {
+        //キーコードによる動作の登録
+        window.addEventListener("keydown", this.keyAction);
+    },
+    beforeUnmount() {
+        //キーコードによる動作の削除
+        window.removeEventListener("keydown", this.keyAction);
+    },
 }
 </script>
 
@@ -57,6 +61,7 @@ export default {
     width: 50px;
     height: 50px;
     right: 3vw;
+    top: 0px;
     &__quantity{
         position: absolute;
         width: 20px;
@@ -71,21 +76,24 @@ export default {
     }
     &__ball{
         position: fixed;
-        border-radius:5px;
-        background-color: $bg-focus;
-        width: 30px;
-        height: 30px;
-        left: var(--cart_ball_positionX);
-        top: var(--cart_ball_positionY);
-        transition: all 0s;
+        left: calc(97vw - 20px);
+        top: 5px;
+        background-color: $bg-danger;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        transition: all .6s ease-in-out;
         &.active{
-            background-color: $bg-danger;
-            left: calc(97vw - 20px);
-            top: 5px;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            transition: all .6s ease-in-out;
+            position: fixed;
+            background-color: $bg-focus;
+            width: 30px;
+            height: 30px;
+            border-radius:5px;
+            left: var(--cart_ball_positionX);
+            top: var(--cart_ball_positionY);
+            // left: calc(97vw - 20px);
+            // top: 5px;
+            transition: all 0s;
         }
     }
 }

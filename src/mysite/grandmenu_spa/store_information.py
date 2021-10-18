@@ -16,6 +16,8 @@ class store_information( AsyncWebsocketConsumer ):
         # ユーザー情報の取得 (Emailが取得できる) * どこでこの情報をセットしているのか不思議。Djangoのどの部分？時間があるときに調べたい
         self.UserEmail = self.scope["user"]
         print("【DEBUG LOG】　WecSocket Connct")
+        print(self.UserEmail)
+        print(self)
         await self.accept()
 
     # WebSocket切断時の処理
@@ -56,7 +58,13 @@ class store_information( AsyncWebsocketConsumer ):
 
     @database_sync_to_async
     def store_read(self, json_data):
+        print('store_read')
+        print(self)
+        print('store_data json')
+        print(json_data)
         store_data = Store.objects.filter(email=self.UserEmail).first()
+        print('store_data')
+        print(store_data)
         #! とりあえず店舗名DB保存処理を入れるまでは店名をEmailで表示する
         store_data_json = {
             'store_id': store_data.id,
