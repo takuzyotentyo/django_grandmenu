@@ -21,6 +21,7 @@ import { mapGetters, mapActions } from "vuex"
 import Class3s from '../organisms/Class3s.vue'
 import CartMenus from '../organisms/CartMenus.vue'
 import CreateMenu from '../templates/CreateMenu.vue'
+import TableInvitation from '../templates/TableInvitation.vue'
 import UpFade from '../transition/UpFade.vue'
 
 export default {
@@ -29,6 +30,7 @@ export default {
         CartMenus,
         CreateMenu,
         UpFade,
+        TableInvitation,
     },
     computed: {
         ...mapGetters([ 'lightBox', 'sideNav'])
@@ -49,7 +51,7 @@ export default {
     right: 0;
     bottom: 0;
     box-sizing: border-box;
-    padding: 50px 1% 0px 1%;
+    padding: 42px 1% 0px 1%;
     border-radius: 10px 10px 0 0;
     background-color: $bg-focus-opacity;
     overflow-y:scroll;

@@ -1,6 +1,7 @@
 <template>
     <div class="cart__show">
-        <Content class="cart__name">{{ class3 }}</Content>
+        <div class="cart__class2">{{ class2 }}</div>
+        <Content class="cart__class3">{{ class3 }}</Content>
         <Content class="cart__price">¥ {{ price }}</Content>
         <Content class="cart__quantity_label">数量</Content>
         <QuantitySelect
@@ -43,15 +44,7 @@ export default {
         QuantitySelect,
     },
     methods: {
-        // quantityChange(event, menu){
-        // console.log('class3Show')
-        // console.log(event)
-        // console.log(menu)
-        // this.$emit('quantityChange', event , menu)
-        // }
     },
-    // mounted: function(){
-    // }
 }
 </script>
 
@@ -71,7 +64,15 @@ export default {
     transition: all $animation-time;
     padding: 0 3px;
     }
-    &__name{
+    &__class2{
+        position: absolute;
+        padding: 3px;
+        top: calc((-1.6rem - 6px) / 1.2);
+        // width: auto;
+        // height: auto;
+        background-color: $bg-focus;
+    }
+    &__class3{
         grid-column: 1 / 5;
         padding: auto 0;
     }

@@ -28,6 +28,7 @@ export default {
     },
     data: () => {
     return {
+        animationTime: getComputedStyle(document.documentElement).getPropertyValue('--animation-time')
         }
     },
     watch: {
@@ -36,7 +37,7 @@ export default {
                 if (this.lightBox == 'Class3s'){
                     setTimeout(() => 
                         this.imgMountCheck(),
-                    200)
+                    this.animationTime)
                 }
             }
         },
@@ -44,7 +45,7 @@ export default {
             handler(){
                 setTimeout(() => 
                     this.imgMountCheck(),
-                200)
+                this.animationTime)
             },
             deep: true,
             immediate: true,
@@ -53,7 +54,7 @@ export default {
             handler(){
                 setTimeout(() => 
                     this.imgMountCheck(),
-                200)
+                this.animationTime)
             },
             deep: true,
             immediate: true,
@@ -62,7 +63,7 @@ export default {
             handler(){
                 setTimeout(() => 
                     this.imgMountCheck(),
-                200)
+                this.animationTime)
             },
             deep: true,
             immediate: true,
@@ -71,11 +72,10 @@ export default {
     mounted: function () {
         window.addEventListener("resize", ()=>{
             let timeoutID = 0;
-            let delay = 100;
+            let delay = 500;
             clearTimeout(timeoutID);
             timeoutID = setTimeout(()=>{
                 this.makePageCardGridLayout()
-                console.log("resizeリサイズ");
     
             }, delay);
         }, false);
@@ -90,8 +90,7 @@ export default {
                 class1: this.selectClass.class1,
                 class2: this.selectClass.class2,
                 class3: menu.class3,
-                setmenu_values: [
-                ],
+                setmenu_values: [],
                 quantity: menu.quantity,
                 price: menu.price,
             }
@@ -99,12 +98,8 @@ export default {
             this.cartBallPositionUpdate(position_and_menu)
         },
         imgMountCheck(){
-            console.log('imgMountCheck')
             const images = document.querySelectorAll('img');
-
             let loadCnt = 0;
-            console.log(images.length)
-
             if (images.length > 0) {
                 for (const img of images) {
                     let image = new Image();
@@ -128,6 +123,7 @@ export default {
             const PosX = 0;
             let PosY = 0;
             let sh
+            const marginBottom = 10
             const class3__items = document.getElementsByClassName('class3__item');
             if(class3__items.length > 0) {
                 let gridWindow;
@@ -136,7 +132,7 @@ export default {
                     if (window.matchMedia('(max-width: 959px)').matches) {
                         console.log('under 959px')
                         class3__items[i].setAttribute("style", "transform: translateX(" + PosX + "px) translateY(" + PosY + "px)");  // スタイルに配置したい位置を記述します
-                        PosY = PosY + class3__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                        PosY = PosY + class3__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
                         console.log(PosY)
                         sh = PosY + 150
                         gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
@@ -144,10 +140,10 @@ export default {
                         const oddPosX = class3__items[0].clientWidth * 495 / 485;
                         if (i % 2 == 0) { // Gridに配置される偶数番目の要素に対する処理
                             class3__items[i].setAttribute("style", "transform: translateX("+ evenPosX +"px) translateY(" + evenPosY + "px)");  // スタイルに配置したい位置を記述します
-                            evenPosY = evenPosY + class3__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                            evenPosY = evenPosY + class3__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
                         } else if (i % 2 != 0) {  // Gridに配置される奇数番目の要素に対する処理
                             class3__items[i].setAttribute("style", "transform: translateX(" + oddPosX + "px) translateY(" + oddPosY + "px)");  // スタイルに配置したい位置を記述します
-                            oddPosY = oddPosY + class3__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                            oddPosY = oddPosY + class3__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
                         }
                         evenPosY > oddPosY ? sh = evenPosY + 150 : sh = oddPosY + 150; // 全部の要素が配置し終わったら、親要素の高さを設定するために計算します
                         gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します

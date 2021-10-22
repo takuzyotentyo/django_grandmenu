@@ -1,5 +1,5 @@
 <template>
-    <p v-if="cartOrders == ''" class="msg">カートに何も入っていません</p>
+    <p v-if="cartOrders == ''" class="cart__msg">カートに何も入っていません</p>
     <ListUpdate v-else class="cart__wrapper">
         <template v-for="(cartOrder, cartOrder_index) in cartOrders" :key="cartOrder_index">
             <CartShow
@@ -26,8 +26,9 @@ export default {
         CartShow,
         ListUpdate,
     },
-    data: () => {
-    return {
+    data(){
+        return {
+            animationTime: getComputedStyle(document.documentElement).getPropertyValue('--animation-time')
         }
     },
     watch: {
@@ -36,7 +37,7 @@ export default {
                 if(this.lightBox == 'CartMenus'){
                     setTimeout(() => 
                         this.makePageCardGridLayout(),
-                    200)
+                    this.animationTime)
                 }
             },
         },
@@ -53,11 +54,11 @@ export default {
     mounted: function () {
         window.addEventListener("resize", ()=>{
             let timeoutID = 0;
-            let delay = 100;
+            let delay = 500;
             clearTimeout(timeoutID);
             timeoutID = setTimeout(()=>{
                 this.makePageCardGridLayout()
-                console.log("resizeリサイズ");
+                console.log("delay");
     
             }, delay);
         }, false);
@@ -79,6 +80,7 @@ export default {
             const PosX = 0;
             let PosY = 0;
             let sh
+            const marginBottom = 25
             const cart__items = document.getElementsByClassName('cart__item');
             if(cart__items.length > 0) {
                 let gridWindow;
@@ -87,7 +89,7 @@ export default {
                     if (window.matchMedia('(max-width: 959px)').matches) {
                         console.log('under 959px')
                         cart__items[i].setAttribute("style", "transform: translateX(" + PosX + "px) translateY(" + PosY + "px)");  // スタイルに配置したい位置を記述します
-                        PosY = PosY + cart__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                        PosY = PosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
                         console.log(PosY)
                         sh = PosY + 150
                         gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
@@ -95,10 +97,10 @@ export default {
                         const oddPosX = cart__items[0].clientWidth * 495 / 485;
                         if (i % 2 == 0) { // Gridに配置される偶数番目の要素に対する処理
                             cart__items[i].setAttribute("style", "transform: translateX("+ evenPosX +"px) translateY(" + evenPosY + "px)");  // スタイルに配置したい位置を記述します
-                            evenPosY = evenPosY + cart__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                            evenPosY = evenPosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
                         } else if (i % 2 != 0) {  // Gridに配置される奇数番目の要素に対する処理
                             cart__items[i].setAttribute("style", "transform: translateX(" + oddPosX + "px) translateY(" + oddPosY + "px)");  // スタイルに配置したい位置を記述します
-                            oddPosY = oddPosY + cart__items[i].clientHeight + 10;  // 今のY軸の位置に要素の高さを加算
+                            oddPosY = oddPosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
                         }
                         evenPosY > oddPosY ? sh = evenPosY + 150 : sh = oddPosY + 150; // 全部の要素が配置し終わったら、親要素の高さを設定するために計算します
                         gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
@@ -125,17 +127,17 @@ export default {
         width: calc(48.5% - 10px);
         padding: 0 5px;
         position: absolute;
-        margin-bottom: 10px;
         @include mq('tb'){
             width: calc(98% - 10px);
         }
     }
+    &__msg{
+        font-size: 1.4rem;
+        color: $text-primary;
+        font-weight: bold;
+    }
 }
-.msg{
-    font-size: 1.6rem;
-    color: $text-primary;
-    font-weight: bold;
-}
+
 .ListUpdate-leave-active {
   transition: all $animation-time ease;
   position:absolute;

@@ -165,12 +165,12 @@ const mutations = {
     },
     menuListCreate(state, newMenu){
         console.log(newMenu)
-        const newClass1Index = newMenu.['class1']
-        const newClass2Name = newMenu.['class2']
-        const newClass3Name = newMenu.['class3']
-        const newClass3Price = newMenu.['price']
-        const newClass3Takeout = newMenu.['takeout']
-        const newClass3Class4s = newMenu.['class4s']
+        const newClass1Index = newMenu['class1']
+        const newClass2Name = newMenu['class2']
+        const newClass3Name = newMenu['class3']
+        const newClass3Price = newMenu['price']
+        const newClass3Takeout = newMenu['takeout']
+        const newClass3Class4s = newMenu['class4s']
         console.log('newClass3Class4s')
         console.log(newClass3Class4s)
         const class2s = state.menuLists[newClass1Index].class2s

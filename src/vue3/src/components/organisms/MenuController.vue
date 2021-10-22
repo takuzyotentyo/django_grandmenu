@@ -30,7 +30,7 @@ export default {
                 {content: 'メニュー削除', img: 'icon--delete', url: "", isShow: true},
                 {content: 'メニュー並べ替え', img: 'icon--sort', url: "", isShow: true},
                 {content: '注文履歴', img: 'icon--history', url: "OrderHistory", isShow: false},
-                {content: '招待', img: 'icon--invitation', url: "TableInvitation", isShow: false},
+                {content: 'テーブルに招待', img: 'icon--invitation', url: "TableInvitation", isShow: false},
             ]
         }
     },
