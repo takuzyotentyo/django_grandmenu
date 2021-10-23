@@ -35,6 +35,7 @@ class store_information( AsyncWebsocketConsumer ):
         elif(json_data["action"] == 'read'):
             store_information = await self.store_read(json_data)
         elif(json_data["action"] == 'update'):
+            print("【DEBUG LOG】store_information update")
             store_information = await self.store_update(json_data)
         elif(json_data["action"] == 'delete'):
             print('delete')

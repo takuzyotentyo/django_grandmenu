@@ -38,12 +38,11 @@ const actions ={
         commit('storeInformation_update', storeInformation)
     },
     storeInformation_update({ commit }, storeInformation){
+        console.log('storeInformation')
+        console.log(storeInformation)
         const new_store_information = JSON.stringify({
             'action':'update',
-            'store_id': storeInformation.store_id,
-            'store_name': storeInformation.store_name,
-            'seating_capacity': storeInformation.seating_capacity,
-            'takeout_support': storeInformation.takeout_support,
+            'store_information': storeInformation
         });
         this.$store_information.send( new_store_information );
         commit("storeInformation_update", storeInformation)

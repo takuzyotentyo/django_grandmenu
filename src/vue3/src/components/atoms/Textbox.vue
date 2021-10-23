@@ -1,5 +1,5 @@
 <template>
-    <input type="text" class="textbox" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" required>
+    <input type="text" class="textbox" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
 </template>
 
 <script>

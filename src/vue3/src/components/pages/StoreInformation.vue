@@ -115,16 +115,21 @@ export default {
       this.store_address4 = this.storeAddress4
       this.store_address5 = this.storeAddress5
     },
-    submit(submitEvent){
-      const store_id = this.storeID
-      const store_name = submitEvent.target.elements.store_name.value;
-      const seating_capacity= submitEvent.target.elements.seating_capacity.value;
-      const takeout_support = submitEvent.target.elements.takeout_support.value;
+    submit(){
+      // const store_id = this.storeID
+      // const store_name = submitEvent.target.elements.store_name.value;
+      // const seating_capacity= submitEvent.target.elements.seating_capacity.value;
+      // const takeout_support = submitEvent.target.elements.takeout_support.value;
       const storeInformation = {
-        'store_id' :store_id,
-        'store_name' :store_name,
-        'seating_capacity' :seating_capacity,
-        'takeout_support' :takeout_support,
+        'store_name': this.store_name,
+        'seating_capacity': this.seating_capacity,
+        'takeout_support': this.takeout_support,
+        'store_postalCode': this.store_postalCode,
+        'store_address1': this.store_address1,
+        'store_address2': this.store_address2,
+        'store_address3': this.store_address3,
+        'store_address4': this.store_address4,
+        'store_address5': this.store_address5,
       }
       this.storeInformation_update(storeInformation)
     },
