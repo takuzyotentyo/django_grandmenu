@@ -8,7 +8,7 @@
         <IconButtonFocus class="icon--cart class3__cart" @click="add_cart($event, {class3: class3, price: price, quantity: quantity})"></IconButtonFocus>
         <template v-if="class4s.length!=0">
             <Content v-for="(class4, index) in class4s" :key="index" class="class3__class4">
-                {{ setMenuLists[class4 - 1].name }}
+                {{ '+ ' + setMenuLists[class4 - 1].name }}
             </Content>
 
         </template>

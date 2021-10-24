@@ -18,7 +18,7 @@ const state = {
                             price: 100,
                             takeout: true,
                             // class4s: []
-                            class4s: [1,2]
+                            class4s: [1]
                         },
                         {
                             id: 2,

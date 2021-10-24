@@ -120,7 +120,7 @@ export default {
         'store_name': this.store_name,
         'seating_capacity': this.seating_capacity,
         'takeout_support': this.takeout_support,
-        'store_postalCode': this.store_postalCode,
+        'store_postalCode': this.store_postal_code,
         'store_address1': this.store_address1,
         'store_address2': this.store_address2,
         'store_address3': this.store_address3,
