@@ -18,7 +18,7 @@ const state = {
                             price: 100,
                             takeout: true,
                             // class4s: []
-                            class4s: ['1','2']
+                            class4s: [1,2]
                         },
                         {
                             id: 2,
@@ -26,7 +26,7 @@ const state = {
                             price: 120,
                             takeout: true,
                             class4s: []
-                            // class4s: ['1','2']
+                            // class4s: [1,2]
                         },
                         {
                             id: 3,
@@ -34,21 +34,21 @@ const state = {
                             price: 200,
                             takeout: true,
                             class4s:[]
-                            // class4s:['1','2']
+                            // class4s:[1,2]
                         },
                         {
                             id: 4,
                             name: 'テリヤキバーガー',
                             price: 200,
                             takeout: true,
-                            class4s:['1','2']
+                            class4s:[1,2]
                         },
                         {
                             id: 5,
                             name: 'ダブルチーズバーガー',
                             price: 250,
                             takeout: true,
-                            class4s:['1','2']
+                            class4s:[1,2]
                         },
                     ]
                 },

@@ -38,8 +38,6 @@ const actions ={
         commit('storeInformation_update', storeInformation)
     },
     storeInformation_update({ commit }, storeInformation){
-        console.log('storeInformation')
-        console.log(storeInformation)
         const new_store_information = JSON.stringify({
             'action':'update',
             'store_information': storeInformation
@@ -47,12 +45,6 @@ const actions ={
         this.$store_information.send( new_store_information );
         commit("storeInformation_update", storeInformation)
     },
-    // seatingCapacityChange({ commit }, newSeatingCapacity){
-    //     commit("seatingCapacityChange", newSeatingCapacity)
-    // },
-    // takeoutSupportChange({ commit }, newTakeoutSupport){
-    //     commit("takeoutSupportChange", newTakeoutSupport)
-    // }
 };
 
 

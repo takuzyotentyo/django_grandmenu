@@ -6,7 +6,12 @@
         <Content class="class3__quantity_label">数量</Content>
         <QuantitySelect :model-value="quantity" @update:modelValue="quantityChange" class="class3__quantity"></QuantitySelect>
         <IconButtonFocus class="icon--cart class3__cart" @click="add_cart($event, {class3: class3, price: price, quantity: quantity})"></IconButtonFocus>
-        <Content v-if="class4s.length!=0" class="class3__class4">{{ class4s }}</Content>
+        <template v-if="class4s.length!=0">
+            <Content v-for="(class4, index) in class4s" :key="index" class="class3__class4">
+                {{ setMenuLists[class4 - 1].name }}
+            </Content>
+
+        </template>
     </div>
 
 </template>
@@ -14,6 +19,7 @@
 import Content from "../atoms/Content"
 import IconButtonFocus from "../atoms/IconButtonFocus"
 import QuantitySelect from "../molecules/QuantitySelect"
+import { mapGetters } from "vuex"
 
 export default {
     data: () =>{
@@ -43,6 +49,11 @@ export default {
         if(this.quantity + event >= 0)
             this.quantity = this.quantity + event
         }
+    },
+    computed: {
+    ...mapGetters([
+      'setMenuLists',
+    ])
     },
     // mounted: function(){
     // }

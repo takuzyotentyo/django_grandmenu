@@ -116,10 +116,6 @@ export default {
       this.store_address5 = this.storeAddress5
     },
     submit(){
-      // const store_id = this.storeID
-      // const store_name = submitEvent.target.elements.store_name.value;
-      // const seating_capacity= submitEvent.target.elements.seating_capacity.value;
-      // const takeout_support = submitEvent.target.elements.takeout_support.value;
       const storeInformation = {
         'store_name': this.store_name,
         'seating_capacity': this.seating_capacity,
@@ -134,10 +130,9 @@ export default {
       this.storeInformation_update(storeInformation)
     },
     yubinbango() {
-      console.log('yubinbango')
+      console.log('郵便番号')
       console.log(this.store_postal_code)
       this.store_postal_code = this.halfSizeNumberFormat(this.store_postal_code)
-      console.log('yubinbango')
       new YubinBangoCore(this.store_postal_code, (addr)=> {
         this.store_address1 = addr.region // 都道府県
         this.store_address2 = addr.locality// 市区町村
@@ -153,10 +148,8 @@ export default {
 
 <style lang="scss" scoped>
 .storeInformation{
-  display: flex;
   width: 280px;
-  flex-flow: wrap;
-  margin: 50px auto 50px;
+  margin-top: 50px;
   &>:nth-child(n){
     margin-bottom: 5px;
   }
