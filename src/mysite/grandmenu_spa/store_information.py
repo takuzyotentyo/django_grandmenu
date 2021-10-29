@@ -7,6 +7,7 @@ from django.core.serializers import serialize
 from accounts.models import Store
 
 USERNAME_SYSTEM = '*system*'
+DEBUG_USER = 'TEST@USER.jp'
 
 # ChatConsumerクラス: WebSocketからの受け取ったものを処理するクラス
 class store_information( AsyncWebsocketConsumer ):
@@ -15,12 +16,12 @@ class store_information( AsyncWebsocketConsumer ):
     async def connect(self):
         # ユーザー情報の取得 (Emailが取得できる) * どこでこの情報をセットしているのか不思議。Djangoのどの部分？時間があるときに調べたい
         self.UserEmail = self.scope["user"]
-        print('self.scope["user"]')
-        print(self.scope)
-        print(self.scope["user"])
-        print("【DEBUG LOG】　WecSocket Connct")
-        print(self.UserEmail)
-        print(self)
+        print("【DEBUG LOG】　WebSocket Connct")
+        header = ScopeHeaderParse(self.scope)
+        if header.as_dict['origin'] == 'http://127.0.0.1:8080':
+            # vueの開発環境時はTestUserを設定
+            print("【DEBUG LOG】　(Vue Env) UserEmail is {}".format(DEBUG_USER))
+            self.UserEmail = DEBUG_USER
         await self.accept()
 
     # WebSocket切断時の処理
@@ -62,21 +63,41 @@ class store_information( AsyncWebsocketConsumer ):
 
     @database_sync_to_async
     def store_read(self, json_data):
-        print('store_read')
-        print(self)
-        print('store_data json')
-        print(json_data)
-        print('self.UserEmail')
-        print(self.UserEmail)
-        store_data = Store.objects.filter(email=self.UserEmail).first()
-        print('store_data')
-        print(store_data)
-        #! とりあえず店舗名DB保存処理を入れるまでは店名をEmailで表示する
-        store_data_json = {
-            'store_id': store_data.id,
-            'store_name': store_data.email,
-            'seating_capacity': 888,
-            'takeout_support': True,
-        }
-        print("【DEBUG LOG】　store_data_json = {}".format(store_data_json))
+        if self.UserEmail == DEBUG_USER:
+            # vueの開発環境時はダミーデータのセット
+            #! とりあえず店舗名DB保存処理を入れるまでは店名をEmailで表示する
+            store_data_json = {
+                'store_id': 1234,
+                'store_name': DEBUG_USER,
+                'seating_capacity': 1,
+                'takeout_support': False,
+            }
+        else:
+            store_data = Store.objects.filter(email=self.UserEmail).first()
+
+            #! とりあえず店舗名DB保存処理を入れるまでは店名をEmailで表示する
+            store_data_json = {
+                'store_id': store_data.id,
+                'store_name': store_data.email,
+                'seating_capacity': 1,
+                'takeout_support': False,
+            }
+        print("【DEBUG LOG】store_data_json = {}".format(store_data_json))
         return store_data_json
+
+
+# Scopeパースクラス: httpのHeader情報解析用
+class ScopeHeaderParse:
+    def __init__(self, scope):
+        self._scope = scope
+
+    # キーのみを取得 あまり使用しないと思うが一応
+    @property
+    def only_keys(self):
+        return [header[0].decode() for header in self._scope["headers"]]
+
+    # 辞書として取得
+    @property
+    def as_dict(self):
+        return {header[0].decode(): header[1].decode() for header in self._scope["headers"]}
+
