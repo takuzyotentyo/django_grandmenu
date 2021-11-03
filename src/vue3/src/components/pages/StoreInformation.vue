@@ -64,45 +64,83 @@ export default {
         SubmitButton,
         PostalCode,
   },
-  // mounted: function() {
-  //   this.readStoreInformation
-  //   this.store_name = this.storeName
-  //   this.seating_capacity = this.seatingCapacity
-  //   this.takeout_support = this.takeoutSupport
-  //   this.store_postal_code = this.storePostalCode
-  //   this.store_address1 = this.storeAddress1
-  //   this.store_address2 = this.storeAddress2
-  //   this.store_address3 = this.storeAddress3
-  //   this.store_address4 = this.storeAddress4
-  //   this.store_address5 = this.storeAddress5
-  // },
+  mounted: function() {
+    this.store_name = this.storeName
+    this.seating_capacity = this.seatingCapacity
+    this.takeout_support = String(this.takeoutSupport)
+    this.store_postal_code = this.storePostalCode
+    this.store_address1 = this.storeAddress1
+    this.store_address2 = this.storeAddress2
+    this.store_address3 = this.storeAddress3
+    this.store_address4 = this.storeAddress4
+    this.store_address5 = this.storeAddress5
+  },
+  // watch: {
+  //           menuLists:{
+  //               handler(){
+  //                   this.selectBoxOptionCreate()
+  //               },
+  //               deep: true,
+  //               immediate: true,
+  //           }
+  //       },
   watch: {
-    storeName: function() {
-      this.store_name = this.storeName
+    storeName:{
+      handler(){
+        this.store_name = this.storeName
+        console.log(this.store_name)
+      },
+      immediate: true,
     },
-    seatingCapacity: function() {
-      this.seating_capacity = this.seatingCapacity
+    seatingCapacity:{
+      handler(){
+        this.seating_capacity = this.seatingCapacity
+        console.log(this.seating_capacity)
+      },
+      immediate: true,
     },
-    takeoutSupport: function() {
-      this.takeout_support = String(this.takeoutSupport)
+    takeoutSupport:{
+      handler(){
+        this.takeout_support = String(this.takeoutSupport)
+        console.log(this.takeout_support)
+      },
+      immediate: true,
     },
-    storePostalCode: function() {
-      this.store_postal_code = this.storePostalCode
+    storePostalCode:{
+      handler(){
+        this.store_postal_code = this.storePostalCode
+      },
+      immediate: true,
     },
-    storeAddress1: function() {
-      this.store_address1 = this.storeAddress1
+    storeAddress1:{
+      handler(){
+        this.store_address1 = this.storeAddress1
+      },
+      immediate: true,
     },
-    storeAddress2: function() {
-      this.store_address2 = this.storeAddress2
+    storeAddress2:{
+      handler(){
+        this.store_address2 = this.storeAddress2
+      },
+      immediate: true,
     },
-    storeAddress3: function() {
-      this.store_address3 = this.storeAddress3
+    storeAddress3:{
+      handler(){
+        this.store_address3 = this.storeAddress3
+      },
+      immediate: true,
     },
-    storeAddress4: function() {
-      this.store_address4 = this.storeAddress4
+    storeAddress4:{
+      handler(){
+        this.store_address4 = this.storeAddress4
+      },
+      immediate: true,
     },
-    storeAddress5: function() {
-      this.store_address5 = this.storeAddress5
+    storeAddress5:{
+      handler(){
+        this.store_address5 = this.storeAddress5
+      },
+      immediate: true,
     },
   },
   computed: {

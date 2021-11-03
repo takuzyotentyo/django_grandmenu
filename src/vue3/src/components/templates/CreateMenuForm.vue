@@ -111,14 +111,14 @@ export default {
         ...mapGetters([ 'menuLists','setMenuLists' ]),
     },
     watch: {
-            menuLists:{
-                handler(){
-                    this.selectBoxOptionCreate()
-                },
-                deep: true,
-                immediate: true,
-            }
-        },
+        menuLists:{
+            handler(){
+                this.selectBoxOptionCreate()
+            },
+            deep: true,
+            immediate: true,
+        }
+    },
     methods: {
         ...mapActions([ 'menuListCreate' ]),
         submit(){
