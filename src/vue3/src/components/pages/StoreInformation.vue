@@ -64,30 +64,47 @@ export default {
         SubmitButton,
         PostalCode,
   },
-  mounted: function() {
-    this.readStoreInformation
-    console.log(this.storeID)
-    console.log(this.storeName)
-    console.log(this.seatingCapacity)
-    console.log(this.takeoutSupport)
-    console.log(this.storePostalCode)
-    console.log(this.storeAddress1)
-    console.log(this.storeAddress2)
-    console.log(this.storeAddress3)
-    console.log(this.storeAddress4)
-    console.log(this.storeAddress5)
-  },
-  // watch: {
-  //   storeName:{
-  //     handler(){
-  //         setTimeout(() => 
-  //             this.imgMountCheck(),
-  //         200)
-  //     },
-  //     deep: true,
-  //     immediate: true,
-  //   },
+  // mounted: function() {
+  //   this.readStoreInformation
+  //   this.store_name = this.storeName
+  //   this.seating_capacity = this.seatingCapacity
+  //   this.takeout_support = this.takeoutSupport
+  //   this.store_postal_code = this.storePostalCode
+  //   this.store_address1 = this.storeAddress1
+  //   this.store_address2 = this.storeAddress2
+  //   this.store_address3 = this.storeAddress3
+  //   this.store_address4 = this.storeAddress4
+  //   this.store_address5 = this.storeAddress5
   // },
+  watch: {
+    storeName: function() {
+      this.store_name = this.storeName
+    },
+    seatingCapacity: function() {
+      this.seating_capacity = this.seatingCapacity
+    },
+    takeoutSupport: function() {
+      this.takeout_support = String(this.takeoutSupport)
+    },
+    storePostalCode: function() {
+      this.store_postal_code = this.storePostalCode
+    },
+    storeAddress1: function() {
+      this.store_address1 = this.storeAddress1
+    },
+    storeAddress2: function() {
+      this.store_address2 = this.storeAddress2
+    },
+    storeAddress3: function() {
+      this.store_address3 = this.storeAddress3
+    },
+    storeAddress4: function() {
+      this.store_address4 = this.storeAddress4
+    },
+    storeAddress5: function() {
+      this.store_address5 = this.storeAddress5
+    },
+  },
   computed: {
     ...mapGetters([
       'storeID',
@@ -104,17 +121,18 @@ export default {
   },
   methods: {
     ...mapActions([ 'storeInformation_update' ]),
-    readStoreInformation(){
-      this.store_name = this.storeName
-      this.seating_capacity = this.seatingCapacity
-      this.takeout_support = this.takeoutSupport
-      this.store_postal_code = this.storePostalCode
-      this.store_address1 = this.storeAddress1
-      this.store_address2 = this.storeAddress2
-      this.store_address3 = this.storeAddress3
-      this.store_address4 = this.storeAddress4
-      this.store_address5 = this.storeAddress5
-    },
+    // readStoreInformation(){
+    //   console.log('readStoreInformation')
+    //   this.store_name = this.storeName
+    //   this.seating_capacity = this.seatingCapacity
+    //   this.takeout_support = this.takeoutSupport
+    //   this.store_postal_code = this.storePostalCode
+    //   this.store_address1 = this.storeAddress1
+    //   this.store_address2 = this.storeAddress2
+    //   this.store_address3 = this.storeAddress3
+    //   this.store_address4 = this.storeAddress4
+    //   this.store_address5 = this.storeAddress5
+    // },
     submit(){
       const storeInformation = {
         'store_name': this.store_name,
@@ -122,7 +140,7 @@ export default {
         'takeout_support': this.takeout_support,
         'store_postalCode': this.store_postal_code,
         'store_address1': this.store_address1,
-        'store_address2': this.store_address2,
+        'store_address2': this.storeｆ_address2,
         'store_address3': this.store_address3,
         'store_address4': this.store_address4,
         'store_address5': this.store_address5,

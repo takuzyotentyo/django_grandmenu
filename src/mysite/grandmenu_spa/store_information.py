@@ -18,7 +18,7 @@ class store_information( AsyncWebsocketConsumer ):
         self.UserEmail = self.scope["user"]
         print("【DEBUG LOG】　WebSocket Connct")
         header = ScopeHeaderParse(self.scope)
-        if header.as_dict['origin'] == 'http://127.0.0.1:8080':
+        if header.as_dict['origin'] == 'http://localhost:8080':
             # vueの開発環境時はTestUserを設定
             print("【DEBUG LOG】　(Vue Env) UserEmail is {}".format(DEBUG_USER))
             self.UserEmail = DEBUG_USER
