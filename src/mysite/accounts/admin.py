@@ -12,11 +12,11 @@ class CustomizeStoreAdmin(UserAdmin):
     ordering = ('email',)   # 本来はusernameが必須だがemail優先にするため
 
     # 一覧画面で表示する要素
-    list_display = ('email', 'store_name', 'takeout_support', 'seating_capacity', 'store_telnum', 'store_postal_code', 'store_address1', 'store_address2', 'store_address3', 'store_address4', 'store_kind', 'store_url', 'date_joined', 'last_login')
+    list_display = ('email', 'store_name', 'takeout_support', 'seating_capacity', 'store_telnum', 'store_postal_code', 'store_address1', 'store_address2', 'store_address3', 'store_address4', 'store_address5', 'store_kind', 'store_url', 'date_joined', 'last_login')
 
     # ユーザー編集画面で表示する要素
     fieldsets = (
-        ('ユーザー情報', {'fields': ('email', 'store_name', 'takeout_support', 'seating_capacity', 'store_telnum', 'store_postal_code', 'store_address1', 'store_address2', 'store_address3', 'store_address4', 'store_kind', 'store_url')}),
+        ('ユーザー情報', {'fields': ('email', 'store_name', 'takeout_support', 'seating_capacity', 'store_telnum', 'store_postal_code', 'store_address1', 'store_address2', 'store_address3', 'store_address4', 'store_address5', 'store_kind', 'store_url')}),
         ('パーミッション', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )
     # ユーザー作成画面で入力する要素

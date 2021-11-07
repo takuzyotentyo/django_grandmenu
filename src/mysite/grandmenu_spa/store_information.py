@@ -50,16 +50,33 @@ class store_information( AsyncWebsocketConsumer ):
 
     @database_sync_to_async
     def store_update(self, json_data):
-        store_id = json_data.get('store_id')
-        store_name = json_data.get('store_name')
-        seating_capacity = json_data.get('seating_capacity')
-        takeout_support = json_data.get('takeout_support')
-        raw_store_data = Store.objects.filter(store_id = store_id)
-        raw_store_data.update(store_name = store_name, seating_capacity = seating_capacity, takeout_support = takeout_support)
-        raw_store_data = serialize('json', (raw_store_data))
+
+        store_name = json_data['store_information']['store_name']
+        seating_capacity = json_data['store_information']['seating_capacity']
+        takeout_support = self.ConvertTrueFalse(json_data['store_information']['takeout_support'])     #* 要望　True or Falseの値で欲しい。であれば変換処理不要
+        # store_url = json_data['store_information']['store_url']         # フロントからのjsonキー追加必要
+        # store_telnum = json_data['store_information']['store_telnum']         # フロントからのjsonキー追加必要
+        store_postal_code = json_data['store_information']['store_postalCode']
+        store_address1 = json_data['store_information']['store_address1']
+        # store_address2 = json_data['store_information']['store_address2']         # フロントからのjsonキー追加必要
+        store_address3 = json_data['store_information']['store_address3']
+        store_address4 = json_data['store_information']['store_address4']
+        store_address5 = json_data['store_information']['store_address5']
+        # store_kind = json_data['store_information']['store_kind']         # フロントからのjsonキー追加必要
+
+        store_data = Store.objects.filter(email=self.UserEmail)
+
+        store_data.update(store_name=store_name, seating_capacity=seating_capacity, takeout_support=takeout_support
+                        ,store_postal_code=store_postal_code, store_address1=store_address1, store_address3=store_address3
+                        ,store_address4=store_address4, store_address5=store_address5)
+
+        raw_store_data = serialize('json', (store_data))
         raw_store_data = json.loads(raw_store_data)
-        store_information = self.store_information_query_to_json(raw_store_data)
-        return store_information
+        print("【DEBUG LOG】raw_store_data = {}".format(json.dumps(raw_store_data, sort_keys=True, indent=2)))
+        print("【DEBUG LOG】↑↑フロントへreturnするデータは要検討")
+
+
+        return raw_store_data
 
     @database_sync_to_async
     def store_read(self, json_data):
@@ -79,11 +96,36 @@ class store_information( AsyncWebsocketConsumer ):
             store_data_json = {
                 'store_id': store_data.id,
                 'store_name': store_data.email,
-                'seating_capacity': 1,
-                'takeout_support': False,
+                'seating_capacity': store_data.seating_capacity,
+                'takeout_support': store_data.takeout_support,
+                'store_url': store_data.store_url,
+                'store_telnum': store_data.store_telnum,
+                'store_postal_code': store_data.store_postal_code,
+                'store_address1':store_data.store_address1,
+                'store_address2':store_data.store_address2,
+                'store_address3':store_data.store_address3,
+                'store_address4':store_data.store_address4,
+                'store_address5':store_data.store_address5,
+                'store_kind': store_data.store_kind,
             }
         print("【DEBUG LOG】store_data_json = {}".format(store_data_json))
         return store_data_json
+
+    '''
+    true/false文字列をpythonのTrue/Falseへ変換する
+    '''
+    def ConvertTrueFalse(self, trueorfalse_str):
+        ret = trueorfalse_str
+        if trueorfalse_str == 'true':
+            ret = True
+        elif trueorfalse_str == 'false':
+            ret = False
+        else:
+            # 何もしない
+            pass
+
+        return ret
+
 
 
 # Scopeパースクラス: httpのHeader情報解析用

@@ -40,6 +40,7 @@ class UserChangeForm(forms.ModelForm):
     store_address2 = forms.CharField(required=False, label='住所２')
     store_address3 = forms.CharField(required=False, label='住所３')
     store_address4 = forms.CharField(required=False, label='住所４')
+    store_address5 = forms.CharField(required=False, label='住所5')
     store_name = forms.CharField(required=False, label='店名')
     store_kind = forms.CharField(required=False, label='店種別')
     seating_capacity = forms.IntegerField(required=False, label='席数')
