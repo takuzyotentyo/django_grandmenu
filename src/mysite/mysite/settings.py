@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'channels',
+    'rest_framework',   # restAPIを使用する場合
     'grandmenu_spa.apps.GrandmenuSpaConfig',
     'accounts.apps.AccountsConfig', #accounts追加
     'django.contrib.admin',
