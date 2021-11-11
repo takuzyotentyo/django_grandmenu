@@ -13,7 +13,8 @@ from django.views import generic
 from .forms import (
     LoginForm, UserRegistrationForm
 )
-
+from .models import Store
+import random, string
 
 User = get_user_model()
 
@@ -93,7 +94,18 @@ class RegistrationComplete(generic.TemplateView):
                     # 問題なければ本登録とする
                     user.is_active = True
                     user.save()
+                    store = Store.objects.get(pk=user_pk)
+                    store.store_url = MakeStrRandomCode(24) # とりあえず適当に24文字作成
+                    store.save()
                     return super().get(request, **kwargs)
 
         return HttpResponseBadRequest()
 
+
+
+'''
+    store_url用にランダムの文字列を作成する関数
+'''
+def MakeStrRandomCode(length):
+   randomlist = [random.choice(string.ascii_letters + string.digits) for i in range(length)]
+   return ''.join(randomlist)

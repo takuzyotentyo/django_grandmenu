@@ -50,7 +50,7 @@ class store_information( AsyncWebsocketConsumer ):
 
     @database_sync_to_async
     def store_update(self, json_data):
-
+        # vueに対してdjangoのform機能を盛り込む際に参考　https://qiita.com/j54854/items/266ab0a3fc76742e6295
         store_name = json_data['store_information']['store_name']
         seating_capacity = json_data['store_information']['seating_capacity']
         takeout_support = self.ConvertTrueFalse(json_data['store_information']['takeout_support'])     #* 要望　True or Falseの値で欲しい。であれば変換処理不要
@@ -88,6 +88,13 @@ class store_information( AsyncWebsocketConsumer ):
                 'store_name': DEBUG_USER,
                 'seating_capacity': 1,
                 'takeout_support': False,
+                'store_postal_code': 1234567,
+                'store_address1':"Hoge県",
+                'store_address2':"Huga市",
+                'store_address3':"hogehoge町",
+                'store_address4':"2丁目",
+                'store_address5':"Hello123",
+                'store_kind': "ファーストフード",
             }
         else:
             store_data = Store.objects.filter(email=self.UserEmail).first()
