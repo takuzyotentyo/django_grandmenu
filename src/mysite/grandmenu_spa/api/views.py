@@ -26,3 +26,17 @@ class StoreInformation(generics.ListAPIView):
         user = self.request.user
 
         return Store.objects.filter(email=user)
+
+class UpdateStoreInformation(generics.RetrieveUpdateAPIView):
+    serializer_class = StoreSerealizer
+    # queryset = Store.objects.all()
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        # E-mailが格納される
+        user = self.request.user
+
+        return Store.objects.filter(email=user)
