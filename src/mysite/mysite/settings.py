@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'channels',
     'rest_framework',   # restAPIを使用する場合
+    'drf_yasg',    # Swagger対応
     'grandmenu_spa.apps.GrandmenuSpaConfig',
     'accounts.apps.AccountsConfig', #accounts追加
     'django.contrib.admin',
