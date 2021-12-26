@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  django:
+    build: .
+    container_name: 'django-cont'
+    # サービス起動後に入力されるコマンドを設定
+    command: python3 /code/src/mysite/manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8001:8000
+    volumes:
+      - .:/code
