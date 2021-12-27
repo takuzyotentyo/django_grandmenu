@@ -5,7 +5,7 @@ FROM python:3.7.10
 WORKDIR /code
 
 # 必要ファイルの配置
-ADD requirements.txt /code
+ADD ./src/requirements.txt /code
 
 # 環境アップデート
 RUN apt-get update && \
