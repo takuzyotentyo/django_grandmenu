@@ -12,3 +12,5 @@ RUN apt-get update && \
     apt-get -y install locales vim less && \
     pip3 install -r requirements.txt
 
+ENV PYTHONUNBUFFERED    1
+

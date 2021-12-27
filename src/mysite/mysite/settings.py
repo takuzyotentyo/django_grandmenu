@@ -28,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+'''Docker コンテナを立ち上げた場合, root に /.dockerenv が生成されるようです。そこでこのファイルの存在判定で対応します。'''
+#docker上で動かしているかどうか
+if os.path.exists("/.dockerenv"):
+    REDIS_HOST = 'redis'
+else:
+    REDIS_HOST = '127.0.0.1'
 
 # Application definition
 
@@ -144,7 +150,7 @@ ASGI_APPLICATION = 'mysite.asgi.application'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': { 'hosts': [('127.0.0.1', 6379)], },
+        'CONFIG': { 'hosts': [(REDIS_HOST, 6379)], },
     },
 }
 
