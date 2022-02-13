@@ -52,7 +52,7 @@ class Store(AbstractBaseUser, PermissionsMixin):
     store_address2 = models.CharField(max_length=100)
     store_address3 = models.CharField(max_length=100)
     store_address4 = models.CharField(max_length=100)
-    store_address5 = models.CharField(max_length=100)
+    store_address5 = models.CharField(null=True, max_length=100)
     store_kind = models.CharField(max_length=50)
     seating_capacity = models.IntegerField(default=1)
     takeout_support = models.BooleanField(default=False)
