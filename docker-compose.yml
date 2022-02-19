@@ -6,7 +6,7 @@ services:
     # サービス起動後に入力されるコマンドを設定
     command: python3 -u /code/mysite/manage.py runserver 0.0.0.0:8000
     ports:
-      - 8000:8000   # 本当はdocker環境とlocal環境の区別を行いたいので 8001:8000 としたいがmain.jsのlocationhostを書き換える必要があるので一旦断念
+      - 9000:8000   # 本当はdocker環境とlocal環境の区別を行いたいので 8001:8000 としたいがmain.jsのlocationhostを書き換える必要があるので一旦断念
     volumes:
       - ./src:/code
     depends_on:
