@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@chenfengyuan/vue-qrcode": "^2.0.0-rc.1",
+    "axios": "^0.26.1",
     "core-js": "^3.6.5",
     "qrcode": "^1.4.4",
     "sass-loader": "^10.2.0",

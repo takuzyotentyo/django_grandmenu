@@ -52,16 +52,22 @@ export default {
         },
     },
     mounted: function () {
-        window.addEventListener("resize", ()=>{
-            let timeoutID = 0;
-            let delay = 500;
-            clearTimeout(timeoutID);
-            timeoutID = setTimeout(()=>{
-                this.makePageCardGridLayout()
-                console.log("delay");
-    
-            }, delay);
-        }, false);
+        // window.addEventListener("resize", ()=>{
+        //     this.makePageCardGridLayout()
+        // })
+        const resizeObserver = new ResizeObserver(entry => {
+            console.log('resizeObserver')
+            console.log(entry)
+            this.makePageCardGridLayout()
+        });
+
+        const target = document.querySelector('.lightbox');
+
+        // target の監視を開始する
+        resizeObserver.observe(target);
+
+        // target の監視を終了する
+        // resizeObserver.unobserve(target);
     },
     computed: {
         ...mapGetters([ 'cartOrders' ,'selectClass', 'lightBox']),
@@ -73,40 +79,45 @@ export default {
             this.addCart(event)
         },
         makePageCardGridLayout() {
-            console.log('makePageCardGridLayout')
-            let evenPosX = 0;
-            let evenPosY = 0;
-            let oddPosY = 0;
-            const PosX = 0;
-            let PosY = 0;
-            let sh
-            const marginBottom = 25
-            const cart__items = document.getElementsByClassName('cart__item');
-            if(cart__items.length > 0) {
-                let gridWindow;
-                for (let i = 0; i < cart__items.length; i++) {
-                    i == 0 ? gridWindow = cart__items[0].closest('.cart__wrapper') : i; // Gridの親要素を取得します
-                    if (window.matchMedia('(max-width: 959px)').matches) {
-                        console.log('under 959px')
-                        cart__items[i].setAttribute("style", "transform: translateX(" + PosX + "px) translateY(" + PosY + "px)");  // スタイルに配置したい位置を記述します
-                        PosY = PosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
-                        console.log(PosY)
-                        sh = PosY + 150
-                        gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
-                    } else {
-                        const oddPosX = cart__items[0].clientWidth * 495 / 485;
-                        if (i % 2 == 0) { // Gridに配置される偶数番目の要素に対する処理
-                            cart__items[i].setAttribute("style", "transform: translateX("+ evenPosX +"px) translateY(" + evenPosY + "px)");  // スタイルに配置したい位置を記述します
-                            evenPosY = evenPosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
-                        } else if (i % 2 != 0) {  // Gridに配置される奇数番目の要素に対する処理
-                            cart__items[i].setAttribute("style", "transform: translateX(" + oddPosX + "px) translateY(" + oddPosY + "px)");  // スタイルに配置したい位置を記述します
-                            oddPosY = oddPosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
+            let timeoutID = 0;
+            let delay = 250;
+            clearTimeout(timeoutID);
+            timeoutID = setTimeout(()=>{
+                console.log('makePageCardGridLayout')
+                let evenPosX = 0;
+                let evenPosY = 0;
+                let oddPosY = 0;
+                const PosX = 0;
+                let PosY = 0;
+                let sh
+                const marginBottom = 25
+                const cart__items = document.getElementsByClassName('cart__item');
+                if(cart__items.length > 0) {
+                    let gridWindow;
+                    for (let i = 0; i < cart__items.length; i++) {
+                        i == 0 ? gridWindow = cart__items[0].closest('.cart__wrapper') : i; // Gridの親要素を取得します
+                        if (window.matchMedia('(max-width: 959px)').matches) {
+                            console.log('under 959px')
+                            cart__items[i].setAttribute("style", "transform: translateX(" + PosX + "px) translateY(" + PosY + "px)");  // スタイルに配置したい位置を記述します
+                            PosY = PosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
+                            console.log(PosY)
+                            sh = PosY + 150
+                            gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
+                        } else {
+                            const oddPosX = cart__items[0].clientWidth * 495 / 485;
+                            if (i % 2 == 0) { // Gridに配置される偶数番目の要素に対する処理
+                                cart__items[i].setAttribute("style", "transform: translateX("+ evenPosX +"px) translateY(" + evenPosY + "px)");  // スタイルに配置したい位置を記述します
+                                evenPosY = evenPosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
+                            } else if (i % 2 != 0) {  // Gridに配置される奇数番目の要素に対する処理
+                                cart__items[i].setAttribute("style", "transform: translateX(" + oddPosX + "px) translateY(" + oddPosY + "px)");  // スタイルに配置したい位置を記述します
+                                oddPosY = oddPosY + cart__items[i].clientHeight + marginBottom;  // 今のY軸の位置に要素の高さを加算
+                            }
+                            evenPosY > oddPosY ? sh = evenPosY + 150 : sh = oddPosY + 150; // 全部の要素が配置し終わったら、親要素の高さを設定するために計算します
+                            gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
                         }
-                        evenPosY > oddPosY ? sh = evenPosY + 150 : sh = oddPosY + 150; // 全部の要素が配置し終わったら、親要素の高さを設定するために計算します
-                        gridWindow.style.height = sh+'px'; // 計算した高さを親要素に指定します
                     }
                 }
-            }
+            }, delay);
         }
     },
 }
