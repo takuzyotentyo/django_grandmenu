@@ -65,15 +65,7 @@ export default {
         PostalCode,
   },
   mounted: function() {
-    this.store_name = this.storeName
-    this.seating_capacity = this.seatingCapacity
-    this.takeout_support = String(this.takeoutSupport)
-    this.store_postal_code = this.storePostalCode
-    this.store_address1 = this.storeAddress1
-    this.store_address2 = this.storeAddress2
-    this.store_address3 = this.storeAddress3
-    this.store_address4 = this.storeAddress4
-    this.store_address5 = this.storeAddress5
+    this.getStoreInfoAPI()
   },
   // watch: {
   //           menuLists:{
@@ -198,6 +190,23 @@ export default {
     halfSizeNumberFormat(number) {
       return String(number).replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'')
     },
+    getStoreInfoAPI () {
+      this.axios.get('http://localhost:8000/api/store_information/')
+      .then(response => {
+        // let header = response.header
+        let result = response.data[0]
+
+        this.store_name = result.store_name
+        this.seating_capacity = result.seating_capacity
+        this.takeout_support = String(result.takeout_support)
+        this.store_postal_code = result.store_postal_code
+        this.store_address1 = result.store_address1
+        this.store_address2 = result.store_address2
+        this.store_address3 = result.store_address3
+        this.store_address4 = result.store_address4
+        this.store_address5 = result.store_address5
+      })
+    }
   }
 }
 </script>
