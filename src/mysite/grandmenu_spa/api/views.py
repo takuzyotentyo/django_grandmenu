@@ -50,7 +50,15 @@ class UpdateStoreInformation(generics.RetrieveUpdateAPIView):
         This view should return a list of all the purchases
         for the currently authenticated user.
         """
-        # E-mailが格納される
-        user = self.request.user
+
+        header = self.request.headers
+        if 'Origin' in header and ( header['Origin'] == 'http://127.0.0.1:8080' or header['Origin'] == 'http://localhost:8080' ):
+            # vueでデバッグ時はこっちを通る
+            # データの取り出しを有効にするにはDBにこのユーザーのデータを作成しておく必要がある。
+            user = "test@test.jp"
+        else:
+            # 通常はこちらを通る
+            # E-mailが格納される
+            user = self.request.user
 
         return Store.objects.filter(email=user)

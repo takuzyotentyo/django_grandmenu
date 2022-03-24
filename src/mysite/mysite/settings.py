@@ -166,8 +166,9 @@ AUTH_USER_MODEL = 'accounts.Store'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CORS_ORIGIN_ALLOW_ALL = True    # すべて受け入れる場合
+
 # 本当は個別で指定したほうがいいのだが、なぜか上手く反映されない。
 # CORS_ORIGIN_WHITELIST = [
-#     'http://localhost:8000',
 #     'http://localhost:8080',
+#     'http://127.0.0.1:8080',
 # ]

@@ -26,7 +26,7 @@
     <h4>建物・部屋番号</h4>
     <Textbox type="text" v-model="store_address5" placeholder="◯◯ビル◯◯階◯◯◯号室"/>
 
-    <SubmitButton type="submit">登録</SubmitButton>
+    <SubmitButton type="submit" v-on:click="postStoreInfoAPI">登録</SubmitButton>
   </form>
 </template>
 
@@ -42,6 +42,7 @@ import PostalCode from "../molecules/PostalCode"
 export default {
   data: () => {
     return {
+      pk: 0,
       store_name: "",
       seating_capacity: "",
       takeout_support: "false",
@@ -195,7 +196,7 @@ export default {
       .then(response => {
         // let header = response.header
         let result = response.data[0]
-
+        this.pk = result.pk
         this.store_name = result.store_name
         this.seating_capacity = result.seating_capacity
         this.takeout_support = String(result.takeout_support)
@@ -205,6 +206,28 @@ export default {
         this.store_address3 = result.store_address3
         this.store_address4 = result.store_address4
         this.store_address5 = result.store_address5
+        console.log(response)
+      })
+    },
+    postStoreInfoAPI () {
+      this.axios.defaults.xsrfCookieName = 'csrftoken'
+      this.axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+      this.axios.patch("http://localhost:8000/api/store_information/" + this.pk + '/', {
+        store_name : this.store_name,
+        seating_capacity : this.seating_capacity,
+        takeout_support : this.takeout_support,
+        store_postal_code : this.store_postal_code,
+        // 電話番号は ？？
+        store_address1 : this.store_address1,
+        store_address2 : this.store_address2,
+        store_address3 : this.store_address3,
+        store_address4 : this.store_address4,
+        store_address5 : this.store_address5,
+      })
+      .then(response => {
+        console.log("API post OK!")
+        console.log(response)
+        // ここで登録(編集)が完了しました的な表示出力が欲しい
       })
     }
   }
