@@ -3,7 +3,7 @@ import App from './App.vue'
 import { router } from './router'
 import store from './store'
 import axios from 'axios'
-import VueAxios from "vue-axios";
+import VueAxios from "vue-axios"
 
 const app = createApp(App)
 
@@ -17,6 +17,11 @@ const store_information = new WebSocket( ws_scheme + locationhost + "/ws/store_i
 const menu_list = new WebSocket( ws_scheme + locationhost + "/ws/menu_list/" );
 app.config.globalProperties.$store_information = store_information
 app.config.globalProperties.$menu_list = menu_list
+
+// axios設定
+axios.defaults.baseURL = 'http://' + location.hostname + ':8000';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 app.config.compilerOptions.delimiters = ['${', '}']
 app.use(store)

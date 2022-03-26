@@ -192,8 +192,9 @@ export default {
       return String(number).replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'')
     },
     getStoreInfoAPI () {
-      this.axios.get('http://localhost:8000/api/store_information/')
+      this.axios.get('/api/store_information/')
       .then(response => {
+        console.log(response)
         // let header = response.header
         let result = response.data[0]
         this.pk = result.pk
@@ -206,13 +207,12 @@ export default {
         this.store_address3 = result.store_address3
         this.store_address4 = result.store_address4
         this.store_address5 = result.store_address5
-        console.log(response)
       })
     },
     postStoreInfoAPI () {
       this.axios.defaults.xsrfCookieName = 'csrftoken'
       this.axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-      this.axios.patch("http://localhost:8000/api/store_information/" + this.pk + '/', {
+      this.axios.patch("/api/store_information/" + this.pk + '/', {
         store_name : this.store_name,
         seating_capacity : this.seating_capacity,
         takeout_support : this.takeout_support,
