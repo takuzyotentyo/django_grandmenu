@@ -6,7 +6,7 @@ class StoreSerealizer(serializers.ModelSerializer):
     class Meta:
         model = Store
         # fields = '__all__'
-        fields = ['store_name', 'seating_capacity', 'takeout_support', 'store_url',
+        fields = ['pk', 'store_name', 'seating_capacity', 'takeout_support', 'store_url',
                   'store_telnum', 'store_postal_code', 'store_address1', 'store_address2',
                   'store_address3', 'store_address4', 'store_address5']
         # exclude = ['email']       # こんな感じでemail以外を返すことが出来る

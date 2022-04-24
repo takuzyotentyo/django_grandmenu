@@ -14,6 +14,9 @@ class store_information( AsyncWebsocketConsumer ):
 
     # WebSocket接続時の処理
     async def connect(self):
+        # 現状、store_informationはRestAPIで対応するためWebSocketは無効にしておく
+        # close()にしているがそもそもrouting.pyから削除して良い
+        self.close()
         # ユーザー情報の取得 (Emailが取得できる) * どこでこの情報をセットしているのか不思議。Djangoのどの部分？時間があるときに調べたい
         self.UserEmail = self.scope["user"]
         print("【DEBUG LOG】　WebSocket Connct")
