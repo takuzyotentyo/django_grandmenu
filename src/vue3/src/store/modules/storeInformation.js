@@ -39,11 +39,11 @@ const actions ={
     },
     storeInformation_update({ commit }, storeInformation){
         console.log(storeInformation)
-        const new_store_information = JSON.stringify({
-            'action':'update',
-            'store_information': storeInformation
-        });
-        this.$store_information.send( new_store_information );
+        // const new_store_information = JSON.stringify({
+        //     'action':'update',
+        //     'store_information': storeInformation
+        // });
+        // this.$store_information.send( new_store_information );
         commit("storeInformation_update", storeInformation)
     },
 };

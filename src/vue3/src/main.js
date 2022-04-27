@@ -19,7 +19,7 @@ const menu_list = new WebSocket( ws_scheme + locationhost + "/ws/menu_list/" );
 app.config.globalProperties.$menu_list = menu_list
 
 // axios設定
-axios.defaults.baseURL = 'http://' + location.hostname + ':8000';
+axios.defaults.baseURL = 'http://' + location.hostname + ':9000';
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
