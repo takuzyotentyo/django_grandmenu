@@ -16,25 +16,25 @@ export default {
   },
   mounted: function() {
     console.log('app.vue mounted')
-    const store_information = this.$store_information
-    const store = this.$store
+    // const store_information = this.$store_information
+    // const store = this.$store
 
-    store_information.onopen = async function(){
-      console.log('onopen')
-      const store_id = 1
-      const message = JSON.stringify({
-        'action': 'read',
-        'store_id': store_id
-      })
-      await store_information.send(message)
+    // store_information.onopen = async function(){
+    //   console.log('onopen')
+    //   const store_id = 1
+    //   const message = JSON.stringify({
+    //     'action': 'read',
+    //     'store_id': store_id
+    //   })
+    //   await store_information.send(message)
 
-    };
+    // };
 
-    store_information.onmessage = function(e) {
-      console.log('onmessage')
-      const store_information = JSON.parse(e.data);
-      store.dispatch('storeInformation_read', store_information)
-    };
+    // store_information.onmessage = function(e) {
+    //   console.log('onmessage')
+    //   const store_information = JSON.parse(e.data);
+    //   store.dispatch('storeInformation_read', store_information)
+    // };
 
     // 画面サイズが変更された際の補正
     let height = window.innerHeight;
