@@ -14,6 +14,13 @@ DBの再構築等を行う場合は以下を実行
 ## Dockerコンテナ起動
 ```docker-compose up -d```
 
+コンテナ起動後は、
+
+vue環境は http://localhost:9080 (http://127.0.0.1:9080)
+
+django環境は http://localhost:9000 (http://127.0.0.1:9000)
+
+
 ## Dockerコンテナへbashでログイン
 django環境へログイン
 ```docker exec -it django-container /bin/bash```
