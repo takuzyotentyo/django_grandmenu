@@ -1,0 +1,29 @@
+[
+    {
+        "model": "accounts.store",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$nMFWcvA67k2WXmLz6dmcjS$+3cN7cKoRECiq5NPG7Sn2OStM6Rg5f23tA6O4cO4ojQ=",
+            "last_login": "2022-05-01T13:58:00.866Z",
+            "is_superuser": true,
+            "email": "test@test.jp",
+            "is_active": true,
+            "is_staff": true,
+            "date_joined": "2022-05-01T13:56:38.457Z",
+            "store_name": "あああ",
+            "store_url": "0YtcWD7rcHuL7l50o8UL591d",
+            "store_telnum": null,
+            "store_postal_code": 8700867,
+            "store_address1": "大分県",
+            "store_address2": "大分市",
+            "store_address3": "てすと",
+            "store_address4": "2",
+            "store_address5": "22",
+            "store_kind": "",
+            "seating_capacity": 8,
+            "takeout_support": true,
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]

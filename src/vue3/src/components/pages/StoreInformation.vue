@@ -171,7 +171,7 @@ export default {
         'takeout_support': this.takeout_support,
         'store_postalCode': this.store_postal_code,
         'store_address1': this.store_address1,
-        'store_address2': this.storeｆ_address2,
+        'store_address2': this.store_address2,
         'store_address3': this.store_address3,
         'store_address4': this.store_address4,
         'store_address5': this.store_address5,
