@@ -1,19 +1,39 @@
 version: '3.7'
 services:
   django:
-    build: .
-    container_name: 'django-cont'
+    build:
+      context: ./
+      dockerfile: ./src/mysite/Dockerfile
+
+    container_name: 'django-container'
     # サービス起動後に入力されるコマンドを設定
     command: python3 -u /code/mysite/manage.py runserver 0.0.0.0:8000
     ports:
-      - 9000:8000   # 本当はdocker環境とlocal環境の区別を行いたいので 8001:8000 としたいがmain.jsのlocationhostを書き換える必要があるので一旦断念
+      - 9000:8000
+    environment:
+      TZ: Asia/Tokyo
     volumes:
-      - ./src:/code
+      - ./src/mysite:/code/mysite
     depends_on:
       - redis
+  
+  vue:
+    build:
+      context: ./
+      dockerfile: ./src/vue3/Dockerfile
+
+    container_name: 'vue-container'
+    # サービス起動後に入力されるコマンドを設定
+    command: npm run serve
+    ports:
+      - 9080:8080
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./src/vue3:/code/vue3
 
   redis:
     image: redis:latest
-    container_name: 'redis-cont'
+    container_name: 'redis-container'
     ports:
       - 6379:6379
