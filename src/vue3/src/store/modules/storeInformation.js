@@ -1,5 +1,7 @@
+import axios from 'axios'
+
 const state = {
-    storeID: '',
+    PK: '',
     storeName: '',
     seatingCapacity: '',
     takeoutSupport: '',
@@ -12,7 +14,7 @@ const state = {
 };
 
 const getters = {
-    storeID: state => state.storeID,
+    PK: state => state.PK,
     storeName: state => state.storeName,
     seatingCapacity: state => state.seatingCapacity,
     takeoutSupport: state => state.takeoutSupport,
@@ -26,26 +28,39 @@ const getters = {
 
 const mutations = {
     storeInformation_update(state, newStoreInformation){
-        state.storeID = newStoreInformation.store_id
+        state.PK = newStoreInformation.pk
         state.storeName = newStoreInformation.store_name
         state.seatingCapacity = newStoreInformation.seating_capacity
         state.takeoutSupport = newStoreInformation.takeout_support
+        state.storePostalCode = newStoreInformation.store_postal_code
+        state.storeAddress1 = newStoreInformation.store_address1
+        state.storeAddress2 = newStoreInformation.store_address2
+        state.storeAddress3 = newStoreInformation.store_address3
+        state.storeAddress4 = newStoreInformation.store_address4
+        state.storeAddress5 = newStoreInformation.store_address5
     },
 };
 
 const actions ={
-    storeInformation_read({commit}, storeInformation){
-        commit('storeInformation_update', storeInformation)
+    storeInformation_read({commit}){
+        axios.get('/api/store_information/')
+        .then(response => {
+            console.log("API get OK!")
+            console.log(response)
+            const storeInformation = response.data[0]
+            commit('storeInformation_update', storeInformation)
+        })
     },
     storeInformation_update({ commit }, storeInformation){
-        console.log(storeInformation)
-        // const new_store_information = JSON.stringify({
-        //     'action':'update',
-        //     'store_information': storeInformation
-        // });
-        // this.$store_information.send( new_store_information );
-        commit("storeInformation_update", storeInformation)
-    },
+        axios.defaults.xsrfCookieName = 'csrftoken'
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+        axios.patch("/api/store_information/" + storeInformation.pk + '/', storeInformation)
+        .then(response => {
+            console.log("API post OK!")
+            console.log(response)
+            commit("storeInformation_update", storeInformation)
+        })
+    }
 };
 
 

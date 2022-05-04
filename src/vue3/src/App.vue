@@ -8,6 +8,7 @@
 import TheHeader from './components/TheHeader.vue'
 import TheSideNav from './components/TheSideNav.vue'
 import TheMain from './components/TheMain.vue'
+import { mapActions } from "vuex"
 
 export default {
   name: 'App',
@@ -16,6 +17,10 @@ export default {
   },
   mounted: function() {
     console.log('app.vue mounted')
+    this.storeInformation_read()
+    console.log('storeInformation_read')
+
+    // websocketの残骸
     // const store_information = this.$store_information
     // const store = this.$store
 
@@ -26,14 +31,14 @@ export default {
     //     'action': 'read',
     //     'store_id': store_id
     //   })
-    //   await store_information.send(message)
+      // await store_information.send(message)
 
     // };
 
     // store_information.onmessage = function(e) {
     //   console.log('onmessage')
     //   const store_information = JSON.parse(e.data);
-    //   store.dispatch('storeInformation_read', store_information)
+      // store.dispatch('storeInformation_read', store_information)
     // };
 
     // 画面サイズが変更された際の補正
@@ -46,6 +51,9 @@ export default {
     // スマホのダブルタップで画面が大きくなるのを制限
     document.addEventListener("dblclick", function(e){ e.preventDefault();}, { passive: false });
   },
+  methods: {
+    ...mapActions([ 'storeInformation_read' ]),
+  }
 }
 </script>
 
