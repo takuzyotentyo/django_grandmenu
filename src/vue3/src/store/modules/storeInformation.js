@@ -28,6 +28,7 @@ const getters = {
 
 const mutations = {
     storeInformation_update(state, newStoreInformation){
+        console.log("storeInformation_update")
         state.PK = newStoreInformation.pk
         state.storeName = newStoreInformation.store_name
         state.seatingCapacity = newStoreInformation.seating_capacity

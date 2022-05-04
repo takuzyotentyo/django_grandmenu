@@ -44,6 +44,9 @@ export default {
             ],
         }
     },
+    mounted: function() {
+        console.log("menu_list_mounted")
+    },
     computed: {
         ...mapGetters([ 'menuLists' ,'setMenuLists','selectClass', 'lightBox']),
     },

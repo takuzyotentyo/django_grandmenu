@@ -1,7 +1,7 @@
 
 <template>
-<!-- "h-adr"は"yubinbango-core"を使うために必要なクラス -->
   <form @submit.prevent="submit" class='storeInformation h-adr'>
+    <!-- vueの制約上、テンプレートタグの直下にコメントを核とエラーになるため、個々に記載。formタグの"h-adr"クラスは"yubinbango-core"を使うために必要なクラス -->
     <h4>お店の名前</h4>
     <Textbox v-model="store_name" placeholder="店舗名" required/>
     
@@ -66,9 +66,6 @@ export default {
         SubmitButton,
         PostalCode,
   },
-  // mounted: function() {
-    // this.getStoreInfoAPI()
-  // },
   watch: {
     PK:{
       handler(){
