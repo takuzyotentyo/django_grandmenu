@@ -53,7 +53,8 @@ class UpdateStoreInformation(generics.RetrieveUpdateAPIView):
         """
 
         header = self.request.headers
-        if 'Origin' in header and ( header['Origin'] == 'http://127.0.0.1:8080' or header['Origin'] == 'http://localhost:8080' ):
+        if 'Origin' in header and ( header['Origin'] == 'http://127.0.0.1:8080' or header['Origin'] == 'http://localhost:8080'
+                                    or header['Origin'] == 'http://127.0.0.1:9080' or header['Origin'] == 'http://localhost:9080' ):
             # vueでデバッグ時はこっちを通る
             # データの取り出しを有効にするにはDBにこのユーザーのデータを作成しておく必要がある。
             user = "test@test.jp"

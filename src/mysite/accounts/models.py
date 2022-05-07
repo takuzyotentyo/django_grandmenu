@@ -47,7 +47,7 @@ class Store(AbstractBaseUser, PermissionsMixin):
     store_name = models.CharField(max_length=100)
     store_url = models.CharField(max_length=255)
     store_telnum = models.IntegerField(null=True, verbose_name='電話番号')
-    store_postal_code = models.IntegerField(null=True)
+    store_postal_code = models.CharField(max_length=8, null=True)
     store_address1 = models.CharField(max_length=100)
     store_address2 = models.CharField(max_length=100)
     store_address3 = models.CharField(max_length=100)
