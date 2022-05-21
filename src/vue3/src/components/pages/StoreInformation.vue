@@ -11,6 +11,9 @@
     <h4>テイクアウト対応</h4>
     <RadioButton v-model="takeout_support" :radioButtonOptions="radioButtonTakeoutSupport"/>
 
+    <h4>電話番号</h4>
+    <TextboxNumber v-model="store_telnum" placeholder="電話番号" required/>
+
     <h4>郵便番号</h4>
     <PostalCode 
       v-model:postal_code="store_postal_code"
@@ -47,6 +50,7 @@ export default {
       store_name: null,
       seating_capacity: 1,
       takeout_support: "false",
+      store_telnum: null,
       store_postal_code: null,
       store_address1: null,
       store_address2: null,
@@ -88,6 +92,12 @@ export default {
     takeoutSupport:{
       handler(){
         this.takeout_support = String(this.takeoutSupport)
+      },
+      immediate: true,
+    },
+    storeTelNum:{
+      handler(){
+        this.store_telnum = this.storeTelNum
       },
       immediate: true,
     },
@@ -134,6 +144,7 @@ export default {
       'storeName',
       'seatingCapacity',
       'takeoutSupport',
+      'storeTelNum',
       'storePostalCode',
       'storeAddress1',
       'storeAddress2',
@@ -150,7 +161,8 @@ export default {
         'store_name': this.store_name,
         'seating_capacity': this.seating_capacity,
         'takeout_support': this.takeout_support,
-        'store_postalCode': this.store_postal_code,
+        'store_telnum': this.store_telnum,
+        'store_postal_code': this.store_postal_code,
         'store_address1': this.store_address1,
         'store_address2': this.store_address2,
         'store_address3': this.store_address3,

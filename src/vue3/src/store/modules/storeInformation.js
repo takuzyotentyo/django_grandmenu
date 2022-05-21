@@ -5,6 +5,7 @@ const state = {
     storeName: '',
     seatingCapacity: '',
     takeoutSupport: '',
+    storeTelNum: null,
     storePostalCode: null,
     storeAddress1: null,
     storeAddress2: null,
@@ -18,6 +19,7 @@ const getters = {
     storeName: state => state.storeName,
     seatingCapacity: state => state.seatingCapacity,
     takeoutSupport: state => state.takeoutSupport,
+    storeTelNum: state => state.storeTelNum,
     storePostalCode: state => state.storePostalCode,
     storeAddress1: state => state.storeAddress1,
     storeAddress2: state => state.storeAddress2,
@@ -33,6 +35,7 @@ const mutations = {
         state.storeName = newStoreInformation.store_name
         state.seatingCapacity = newStoreInformation.seating_capacity
         state.takeoutSupport = newStoreInformation.takeout_support
+        state.storeTelNum = newStoreInformation.store_telnum
         state.storePostalCode = newStoreInformation.store_postal_code
         state.storeAddress1 = newStoreInformation.store_address1
         state.storeAddress2 = newStoreInformation.store_address2
@@ -55,6 +58,8 @@ const actions ={
     storeInformation_update({ commit }, storeInformation){
         axios.defaults.xsrfCookieName = 'csrftoken'
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+        console.log("post前")
+        console.log(storeInformation)
         axios.patch("/api/store_information/" + storeInformation.pk + '/', storeInformation)
         .then(response => {
             console.log("API post OK!")
