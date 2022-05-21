@@ -12,11 +12,11 @@
     <RadioButton v-model="takeout_support" :radioButtonOptions="radioButtonTakeoutSupport"/>
 
     <h4>電話番号</h4>
-    <TextboxNumber v-model="store_telnum" placeholder="電話番号" required/>
+    <TextboxTel v-model="store_telnum" placeholder="電話番号" required/>
 
     <h4>郵便番号</h4>
     <PostalCode 
-      v-model:postal_code="store_postal_code"
+      v-model="store_postal_code"
       @yubinbango='yubinbango'
     />
     <h4>都道府県</h4>
@@ -41,6 +41,7 @@ import Textbox from "../atoms/Textbox"
 import TextboxNumber from "../atoms/TextboxNumber"
 import RadioButton from "../atoms/RadioButton"
 import SubmitButton from "../atoms/SubmitButton"
+import TextboxTel from "../atoms/TextboxTel"
 import PostalCode from "../molecules/PostalCode"
 
 export default {
@@ -68,6 +69,7 @@ export default {
         TextboxNumber,
         RadioButton,
         SubmitButton,
+        TextboxTel,
         PostalCode,
   },
   watch: {
@@ -151,11 +153,12 @@ export default {
       'storeAddress3',
       'storeAddress4',
       'storeAddress5',
-    ])
+    ]),
   },
   methods: {
     ...mapActions([ 'storeInformation_update' ]),
     submit(){
+      console.log("サブミット")
       const storeInformation = {
         'pk':this.pk,
         'store_name': this.store_name,

@@ -1,10 +1,14 @@
 <template>
-        <input 
-        type="text"
+    <input 
+        type="tel"
         class="textbox"
         :value="modelValue"
-        @input="$emit('update:modelValue', halfSizeFormatNumber($event.target.value))"
+        @input="$emit('update:modelValue', halfSizeFormatNumber_tel($event.target.value))"
         inputmode="numeric"
+        minlength="9"
+        maxlength="18"
+        pattern="\d{2,4}-?\d{2,4}-?\d{3,4}"
+        autocomplete="tel"
         >
 </template>
 
@@ -17,12 +21,11 @@ export default {
         'update:modelValue',
     ],
     methods: {
-        halfSizeFormatNumber(number) {
-            console.log('halfSizeFormatNumber')
+        halfSizeFormatNumber_tel(number) {
             if( number == 0 ){
                 return number
             }else{
-                return Number(String(number).replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,''));
+                return String(number).replace(/[０-９]/g,s => String.fromCharCode(s.charCodeAt(0) - 65248)).replace(/\D/g,'')
             }
         },
     },
@@ -30,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-        .textbox{
+    .textbox{
         @include textbox;
     }
 </style>

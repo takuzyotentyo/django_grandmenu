@@ -65,6 +65,7 @@ const actions ={
             console.log("API post OK!")
             console.log(response)
             commit("storeInformation_update", storeInformation)
+            window.alert("店舗情報の更新が完了しました");
         })
     }
 };

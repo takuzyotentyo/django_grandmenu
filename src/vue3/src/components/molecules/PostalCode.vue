@@ -1,7 +1,7 @@
 <template>
     <div class="postal_code">
-    <TextboxNumber
-        :model-value="postal_code"
+    <TextboxPostalCode
+        :value="modelValue"
         @update:model-value="$emit('update:postal_code', $event)"
         :string="true"
         placeholder="郵便番号"
@@ -16,19 +16,17 @@
 </template>
 
 <script>
-import TextboxNumber from "../atoms/TextboxNumber"
+import TextboxPostalCode from "../atoms/TextboxPostalCode"
 import IconButton from "../atoms/IconButton"
 
 export default {
-    props: [
-        'postal_code',
-    ],
-    emits: [
-        'update:postal_code',
+    props: ['modelValue'],
+    emits:[
+        'update:modelValue',
         'yubinbango',
     ],
     components: {
-        TextboxNumber,
+        TextboxPostalCode,
         IconButton,
   },
 }
@@ -40,7 +38,6 @@ export default {
     display: grid;
     grid-template-rows: 42px;
     grid-template-columns: 83% 42px;
-    // grid-row-gap: 5px;
     grid-column-gap: calc(100% - 83% - 42px);
 }
 </style>
