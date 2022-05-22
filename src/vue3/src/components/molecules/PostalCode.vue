@@ -2,11 +2,7 @@
     <div class="postal_code">
     <TextboxPostalCode
         :value="modelValue"
-        @update:model-value="$emit('update:postal_code', $event)"
-        :string="true"
-        placeholder="郵便番号"
-        pattern="\d{3}-?\d{4}"
-        required
+        @update:model-value="$emit('update:modelValue', $event)"
     />
     <IconButton
         class="icon--search"

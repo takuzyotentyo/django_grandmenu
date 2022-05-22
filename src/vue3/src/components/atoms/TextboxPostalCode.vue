@@ -9,6 +9,8 @@
         maxlength="8"
         pattern="\d{3}-?\d{4}"
         autocomplete="shipping postal-code"
+        placeholder="郵便番号"
+        required
         >
 </template>
 
@@ -22,7 +24,6 @@ export default {
     ],
     methods: {
         halfSizeFormatNumber_tel(number) {
-            console.log('halfSizeFormatNumber_tel')
             if( number == 0 ){
                 return number
             }else{
@@ -36,8 +37,5 @@ export default {
 <style lang="scss" scoped>
     .textbox--number{
         @include textbox;
-        &[disabled]{
-            background-image: linear-gradient(to right, $bg-disabled 50%, $bg-disabled 50%);
-        }
     }
 </style>
